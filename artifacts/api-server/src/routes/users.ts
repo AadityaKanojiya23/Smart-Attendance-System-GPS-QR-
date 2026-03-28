@@ -53,6 +53,27 @@ router.post("/", requireAuth, requireRole("admin"), async (req, res) => {
   res.json(safeUser);
 });
 
+router.put("/:id", requireAuth, requireRole("admin"), async (req, res) => {
+  const store = getStore();
+  const idx = store.users.findIndex((u) => u.id === req.params.id);
+  if (idx === -1) {
+    res.status(404).json({ error: "User not found" });
+    return;
+  }
+  const user = store.users[idx];
+  const { name, className, department, password } = req.body as {
+    name?: string; className?: string; department?: string; password?: string;
+  };
+  if (name) user.name = name.trim();
+  if (className !== undefined) user.className = className.trim();
+  if (department !== undefined) user.department = department.trim();
+  if (password && password.length >= 6) {
+    user.passwordHash = await bcrypt.hash(password, 10);
+  }
+  const { passwordHash: _, ...safeUser } = user;
+  res.json(safeUser);
+});
+
 router.delete("/:id", requireAuth, requireRole("admin"), (req, res) => {
   const store = getStore();
   const idx = store.users.findIndex((u) => u.id === req.params.id);
