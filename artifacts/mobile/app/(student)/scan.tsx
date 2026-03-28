@@ -1,7 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Haptics from "expo-haptics";
-import * as Location from "expo-location";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useRef, useState } from "react";
 import {
@@ -69,22 +68,7 @@ export default function ScanScreen() {
     setScanState("processing");
 
     try {
-      let lat = 19.1897;
-      let lng = 72.9862;
-      try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        if (status === "granted") {
-          const loc = await Location.getCurrentPositionAsync({});
-          lat = loc.coords.latitude;
-          lng = loc.coords.longitude;
-        }
-      } catch {}
-
-      await apiRequest("POST", "/attendance", {
-        qrToken: data,
-        latitude: lat,
-        longitude: lng,
-      });
+      await apiRequest("POST", "/attendance", { qrToken: data });
 
       scannedTokens.current.add(data);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -165,10 +149,10 @@ export default function ScanScreen() {
               <View style={styles.reqCard}>
                 <Text style={styles.reqTitle}>Requirements</Text>
                 {[
-                  { icon: "location-outline" as const, text: "Be within 100m of the teacher" },
+                  { icon: "qr-code-outline" as const, text: "Point your camera at the teacher's QR code" },
                   { icon: "timer-outline" as const, text: "Scan within the 60-second window" },
-                  { icon: "school-outline" as const, text: "Class must match the session" },
-                  { icon: "checkmark-shield-outline" as const, text: "Each QR can only be used once" },
+                  { icon: "school-outline" as const, text: "Your class must match the session" },
+                  { icon: "shield-checkmark-outline" as const, text: "Each QR code can only be used once" },
                 ].map((r, i) => (
                   <View key={i} style={styles.reqRow}>
                     <View style={styles.reqIconWrap}>

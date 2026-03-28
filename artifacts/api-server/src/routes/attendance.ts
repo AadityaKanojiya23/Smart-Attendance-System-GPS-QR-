@@ -1,18 +1,11 @@
 import { Router, type IRouter } from "express";
 import { getStore } from "../store.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
-import { haversineDistance } from "../lib/haversine.js";
 
 const router: IRouter = Router();
 
-const TEACHER_PROXIMITY_M = 100;
-
 router.post("/", requireAuth, requireRole("student"), (req, res) => {
-  const { qrToken, latitude, longitude } = req.body as {
-    qrToken: string;
-    latitude: number;
-    longitude: number;
-  };
+  const { qrToken } = req.body as { qrToken: string };
 
   const userId = (req.session as any).userId;
   const store = getStore();
@@ -45,14 +38,6 @@ router.post("/", requireAuth, requireRole("student"), (req, res) => {
   if (alreadyMarked) {
     res.status(400).json({ error: "Attendance already marked for this session." });
     return;
-  }
-
-  if (session.latitude && session.longitude && latitude && longitude) {
-    const dist = haversineDistance(latitude, longitude, session.latitude, session.longitude);
-    if (dist > TEACHER_PROXIMITY_M) {
-      res.status(400).json({ error: `You are ${Math.round(dist)}m away from the teacher. Please be within ${TEACHER_PROXIMITY_M}m.` });
-      return;
-    }
   }
 
   const record = {
