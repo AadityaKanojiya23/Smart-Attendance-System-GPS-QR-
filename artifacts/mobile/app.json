@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Campus Attendance System",
-    "slug": "mobile",
+    "name": "Smart Attendance System",
+    "slug": "smartattendancesystem",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mobile",
+    "scheme": "smartattendancesystem",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -14,11 +14,14 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.smartattendancesystem.app"
     },
-    "android": {},
+    "android": {
+      "package": "com.smartattendancesystem.app"
+    },
     "web": {
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       [
