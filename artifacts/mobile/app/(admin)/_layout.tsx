@@ -14,6 +14,10 @@ function NativeAdminTabs() {
         <Icon sf={{ default: "square.grid.2x2", selected: "square.grid.2x2.fill" }} />
         <Label>Dashboard</Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="departments">
+        <Icon sf={{ default: "building.2", selected: "building.2.fill" }} />
+        <Label>Departments</Label>
+      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="students">
         <Icon sf={{ default: "person.2", selected: "person.2.fill" }} />
         <Label>Students</Label>
@@ -52,11 +56,7 @@ function ClassicAdminTabs() {
         },
         tabBarBackground: () =>
           isIOS ? (
-            <BlurView
-              intensity={100}
-              tint={isDark ? "dark" : "light"}
-              style={StyleSheet.absoluteFill}
-            />
+            <BlurView intensity={100} tint={isDark ? "dark" : "light"} style={StyleSheet.absoluteFill} />
           ) : isWeb ? (
             <View style={[StyleSheet.absoluteFill, { backgroundColor: isDark ? "#000" : "#fff" }]} />
           ) : null,
@@ -67,6 +67,13 @@ function ClassicAdminTabs() {
         options={{
           title: "Dashboard",
           tabBarIcon: ({ color }) => <Ionicons name="grid-outline" size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="departments"
+        options={{
+          title: "Departments",
+          tabBarIcon: ({ color }) => <Ionicons name="business-outline" size={22} color={color} />,
         }}
       />
       <Tabs.Screen

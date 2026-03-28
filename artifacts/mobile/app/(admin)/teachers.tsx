@@ -14,7 +14,7 @@ import { GradientHeader } from "@/components/GradientHeader";
 import { Colors } from "@/constants/colors";
 import { getApiUrl } from "@/lib/query-client";
 
-interface User { id: string; name: string; email: string; role: string; className?: string; }
+interface User { id: string; name: string; email: string; role: string; department?: string; className?: string; }
 
 export default function TeachersScreen() {
   const insets = useSafeAreaInsets();
@@ -57,11 +57,18 @@ export default function TeachersScreen() {
               <View style={{ flex: 1 }}>
                 <Text style={styles.name}>{item.name}</Text>
                 <Text style={styles.email}>{item.email}</Text>
-                {item.className && (
-                  <View style={[styles.classBadge, { backgroundColor: "#FFF7ED" }]}>
-                    <Text style={[styles.classBadgeText, { color: Colors.warning }]}>{item.className}</Text>
-                  </View>
-                )}
+                <View style={{ flexDirection: "row", gap: 6, flexWrap: "wrap", marginTop: 4 }}>
+                  {item.department && (
+                    <View style={[styles.classBadge, { backgroundColor: "#F0FDF4" }]}>
+                      <Text style={[styles.classBadgeText, { color: Colors.success }]}>{item.department}</Text>
+                    </View>
+                  )}
+                  {item.className && (
+                    <View style={[styles.classBadge, { backgroundColor: "#FFF7ED" }]}>
+                      <Text style={[styles.classBadgeText, { color: Colors.warning }]}>{item.className}</Text>
+                    </View>
+                  )}
+                </View>
               </View>
               <View style={[styles.roleBadge, { backgroundColor: "#FFF7ED" }]}>
                 <Text style={[styles.roleBadgeText, { color: Colors.warning }]}>Teacher</Text>

@@ -18,7 +18,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Colors } from "@/constants/colors";
 import { getApiUrl } from "@/lib/query-client";
 
-interface User { id: string; name: string; email: string; role: string; className?: string; }
+interface User { id: string; name: string; email: string; role: string; department?: string; className?: string; }
+interface Department { id: string; name: string; code: string; }
 interface Session { id: string; teacherId: string; className: string; expiresAt: string; }
 interface AttendanceRecord { id: string; studentId: string; studentName: string; sessionId: string; className: string; markedAt: string; }
 
@@ -26,6 +27,14 @@ export default function AdminDashboard() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
   const bottomPad = Platform.OS === "web" ? 34 + 84 : insets.bottom + 80;
+
+  const { data: departments } = useQuery({
+    queryKey: ["departments"],
+    queryFn: async () => {
+      const res = await fetch(getApiUrl("/departments"), { credentials: "include" });
+      return res.json() as Promise<Department[]>;
+    },
+  });
 
   const { data: users, isLoading: loadUsers } = useQuery({
     queryKey: ["admin-users"],
@@ -58,6 +67,7 @@ export default function AdminDashboard() {
     students.length > 0 && totalAttendance > 0
       ? Math.round((totalAttendance / (students.length * Math.max((sessions?.length ?? 1), 1))) * 100)
       : 0;
+  const deptCount = departments?.length ?? 0;
 
   const loading = loadUsers || loadSessions;
 
@@ -83,14 +93,14 @@ export default function AdminDashboard() {
         <ScrollView contentContainerStyle={[styles.scroll, { paddingBottom: bottomPad }]}>
           <Text style={styles.sectionTitle}>Overview</Text>
           <View style={styles.statsRow}>
-            <StatCard label="Students" value={students.length} icon="people-outline" color={Colors.accent} />
+            <StatCard label="Departments" value={deptCount} icon="business-outline" color="#8B5CF6" />
             <View style={{ width: 12 }} />
-            <StatCard label="Teachers" value={teachers.length} icon="school-outline" color={Colors.success} />
+            <StatCard label="Teachers" value={teachers.length} icon="school-outline" color={Colors.warning} />
           </View>
           <View style={styles.statsRow}>
-            <StatCard label="Sessions" value={sessions?.length ?? 0} icon="qr-code-outline" color={Colors.warning} />
+            <StatCard label="Students" value={students.length} icon="people-outline" color={Colors.accent} />
             <View style={{ width: 12 }} />
-            <StatCard label="Attend. Rate" value={`${attendanceRate}%`} icon="bar-chart-outline" color="#8B5CF6" />
+            <StatCard label="Attend. Rate" value={`${attendanceRate}%`} icon="bar-chart-outline" color={Colors.success} />
           </View>
 
           <Text style={styles.sectionTitle}>Active Sessions</Text>
