@@ -48,6 +48,21 @@ router.get("/my", requireAuth, requireRole("teacher"), (req, res) => {
   res.json(sessions.slice().reverse());
 });
 
+router.get("/class", requireAuth, requireRole("student"), (req, res) => {
+  const userId = (req.session as any).userId;
+  const store = getStore();
+  const student = store.users.find((u) => u.id === userId);
+  if (!student || !student.className) {
+    res.json([]);
+    return;
+  }
+  const sessions = store.sessions
+    .filter((s) => s.className === student.className)
+    .slice()
+    .reverse();
+  res.json(sessions);
+});
+
 router.get("/:id/attendance", requireAuth, (req, res) => {
   const userId = (req.session as any).userId;
   const store = getStore();
