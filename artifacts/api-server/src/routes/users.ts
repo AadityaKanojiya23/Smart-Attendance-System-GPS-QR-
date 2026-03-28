@@ -86,6 +86,19 @@ router.delete("/:id", requireAuth, requireRole("admin"), (req, res) => {
     res.status(400).json({ error: "Cannot delete admin account" });
     return;
   }
+
+  if (user.role === "student") {
+    store.attendance = store.attendance.filter((a) => a.studentId !== user.id);
+  }
+
+  if (user.role === "teacher") {
+    const teacherSessionIds = store.sessions
+      .filter((s) => s.teacherId === user.id)
+      .map((s) => s.id);
+    store.sessions = store.sessions.filter((s) => s.teacherId !== user.id);
+    store.attendance = store.attendance.filter((a) => !teacherSessionIds.includes(a.sessionId));
+  }
+
   store.users.splice(idx, 1);
   res.json({ ok: true });
 });

@@ -178,7 +178,12 @@ export default function DepartmentsScreen() {
     setDeleting(true);
     try {
       await apiRequest("DELETE", `/users/${selectedUser.id}`, undefined);
-      qc.invalidateQueries({ queryKey: ["admin-users"] });
+      await Promise.all([
+        qc.invalidateQueries({ queryKey: ["admin-users"] }),
+        qc.invalidateQueries({ queryKey: ["admin-sessions"] }),
+        qc.invalidateQueries({ queryKey: ["admin-attendance"] }),
+        qc.invalidateQueries({ queryKey: ["departments"] }),
+      ]);
       closeModal();
     } catch (e: any) {
       setFormError(e?.message || "Failed to remove user");
