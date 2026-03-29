@@ -10,6 +10,7 @@ export interface StoredUser {
   year?: number;
   division?: string;
   className?: string;
+  subjects?: string[];
   passwordHash: string;
 }
 

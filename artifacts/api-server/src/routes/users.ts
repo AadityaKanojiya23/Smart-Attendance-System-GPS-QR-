@@ -12,7 +12,7 @@ router.get("/", requireAuth, requireRole("admin"), (req, res) => {
 });
 
 router.post("/", requireAuth, requireRole("admin"), async (req, res) => {
-  const { name, email, password, role, department, departmentId, year, division, className } = req.body as {
+  const { name, email, password, role, department, departmentId, year, division, className, subjects } = req.body as {
     name: string;
     email: string;
     password: string;
@@ -22,6 +22,7 @@ router.post("/", requireAuth, requireRole("admin"), async (req, res) => {
     year?: number;
     division?: string;
     className?: string;
+    subjects?: string[];
   };
 
   if (!name || !email || !password || !role) {
@@ -51,6 +52,7 @@ router.post("/", requireAuth, requireRole("admin"), async (req, res) => {
     year: year ? Number(year) : undefined,
     division: division?.trim().toUpperCase(),
     className: className?.trim(),
+    subjects: Array.isArray(subjects) ? subjects.filter(Boolean).map((s) => s.trim()) : [],
     passwordHash,
   };
   store.users.push(user);
@@ -67,14 +69,17 @@ router.put("/:id", requireAuth, requireRole("admin"), async (req, res) => {
     return;
   }
   const user = store.users[idx];
-  const { name, className, department, password } = req.body as {
-    name?: string; className?: string; department?: string; password?: string;
+  const { name, className, department, password, subjects } = req.body as {
+    name?: string; className?: string; department?: string; password?: string; subjects?: string[];
   };
   if (name) user.name = name.trim();
   if (className !== undefined) user.className = className.trim();
   if (department !== undefined) user.department = department.trim();
   if (password && password.length >= 6) {
     user.passwordHash = await bcrypt.hash(password, 10);
+  }
+  if (Array.isArray(subjects)) {
+    user.subjects = subjects.filter(Boolean).map((s: string) => s.trim());
   }
   const { passwordHash: _, ...safeUser } = user;
   res.json(safeUser);
