@@ -8,10 +8,11 @@ import { Colors } from "@/constants/colors";
 interface Props {
   title: string;
   subtitle?: string;
+  left?: React.ReactNode;
   right?: React.ReactNode;
 }
 
-export function GradientHeader({ title, subtitle, right }: Props) {
+export function GradientHeader({ title, subtitle, left, right }: Props) {
   const insets = useSafeAreaInsets();
   const topPad = Platform.OS === "web" ? 67 : insets.top;
 
@@ -21,9 +22,10 @@ export function GradientHeader({ title, subtitle, right }: Props) {
       style={[styles.container, { paddingTop: topPad + 12 }]}
     >
       <View style={styles.row}>
+        {left ? <View style={styles.leftArea}>{left}</View> : null}
         <View style={styles.textArea}>
-          <Text style={styles.title}>{title}</Text>
-          {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+          <Text style={styles.title} numberOfLines={1}>{title}</Text>
+          {subtitle ? <Text style={styles.subtitle} numberOfLines={1}>{subtitle}</Text> : null}
         </View>
         {right ? <View>{right}</View> : null}
       </View>
@@ -39,17 +41,18 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    gap: 12,
   },
+  leftArea: { flexShrink: 0 },
   textArea: { flex: 1 },
   title: {
     fontFamily: "Inter_700Bold",
-    fontSize: 26,
+    fontSize: 22,
     color: Colors.white,
   },
   subtitle: {
     fontFamily: "Inter_400Regular",
-    fontSize: 14,
+    fontSize: 13,
     color: "rgba(255,255,255,0.75)",
     marginTop: 2,
   },

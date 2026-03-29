@@ -12,12 +12,15 @@ router.get("/", requireAuth, requireRole("admin"), (req, res) => {
 });
 
 router.post("/", requireAuth, requireRole("admin"), async (req, res) => {
-  const { name, email, password, role, department, className } = req.body as {
+  const { name, email, password, role, department, departmentId, year, division, className } = req.body as {
     name: string;
     email: string;
     password: string;
     role: "teacher" | "student";
     department?: string;
+    departmentId?: string;
+    year?: number;
+    division?: string;
     className?: string;
   };
 
@@ -44,6 +47,9 @@ router.post("/", requireAuth, requireRole("admin"), async (req, res) => {
     email: email.trim().toLowerCase(),
     role,
     department: department?.trim(),
+    departmentId: departmentId?.trim(),
+    year: year ? Number(year) : undefined,
+    division: division?.trim().toUpperCase(),
     className: className?.trim(),
     passwordHash,
   };
