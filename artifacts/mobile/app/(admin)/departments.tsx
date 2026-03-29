@@ -31,7 +31,7 @@ type NavLevel =
   | { screen: "divs"; dept: Department; year: number }
   | { screen: "members"; dept: Department; year: number; cls: ClassRecord };
 
-type ModalMode = "none" | "add_dept" | "add_div" | "add_teacher" | "add_student" | "edit_user" | "confirm_delete" | "confirm_delete_div";
+type ModalMode = "none" | "add_dept" | "add_div" | "add_teacher" | "add_student" | "edit_user" | "confirm_delete" | "confirm_delete_div" | "confirm_delete_dept";
 
 const YEAR_LABELS: Record<number, string> = { 1: "First Year", 2: "Second Year", 3: "Third Year", 4: "Fourth Year" };
 const YEAR_ORDINALS: Record<number, string> = { 1: "1st", 2: "2nd", 3: "3rd", 4: "4th" };
@@ -56,6 +56,7 @@ export default function DepartmentsScreen() {
 
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedDiv, setSelectedDiv] = useState<ClassRecord | null>(null);
+  const [selectedDept, setSelectedDept] = useState<Department | null>(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -105,7 +106,8 @@ export default function DepartmentsScreen() {
 
   function resetFields() { setName(""); setEmail(""); setPassword(""); setDeptName(""); setDeptCode(""); setDivision(""); setSubjects([""]); setFormError(""); }
 
-  function closeModal() { setModalMode("none"); setSelectedUser(null); setSelectedDiv(null); resetFields(); }
+  function closeModal() { setModalMode("none"); setSelectedUser(null); setSelectedDiv(null); setSelectedDept(null); resetFields(); }
+  function openDeleteDept(dept: Department) { setSelectedDept(dept); setFormError(""); setModalMode("confirm_delete_dept"); }
 
   function openAddDept() { resetFields(); setModalMode("add_dept"); }
 
@@ -245,6 +247,18 @@ export default function DepartmentsScreen() {
     finally { setDeleting(false); }
   }
 
+  async function handleDeleteDept() {
+    if (!selectedDept) return;
+    setDeleting(true);
+    try {
+      await apiRequest("DELETE", `/departments/${selectedDept.id}`, undefined);
+      await invalidateAll();
+      closeModal();
+      setNav({ screen: "depts" });
+    } catch (e: any) { handleApiError(e); }
+    finally { setDeleting(false); }
+  }
+
   function onBack() {
     if (nav.screen === "years") setNav({ screen: "depts" });
     else if (nav.screen === "divs") setNav({ screen: "years", dept: nav.dept });
@@ -288,6 +302,13 @@ export default function DepartmentsScreen() {
                 <Text style={styles.deptName}>{dept.name}</Text>
                 <Text style={styles.deptMeta}>{classes.length} classes · {memberCount} members</Text>
               </View>
+              <TouchableOpacity
+                style={styles.deptTrashBtn}
+                onPress={(e) => { e.stopPropagation?.(); openDeleteDept(dept); }}
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              >
+                <Ionicons name="trash-outline" size={16} color={Colors.error} />
+              </TouchableOpacity>
               <Ionicons name="chevron-forward" size={18} color={Colors.textMuted} />
             </TouchableOpacity>
           );
@@ -518,6 +539,17 @@ export default function DepartmentsScreen() {
                     confirmLabel="Delete Division"
                     deleting={deleting}
                     onConfirm={handleDeleteDiv}
+                    onCancel={closeModal}
+                  />
+                )}
+                {modalMode === "confirm_delete_dept" && selectedDept && (
+                  <ConfirmSheet
+                    icon="business-outline"
+                    title={`Delete ${selectedDept.name}?`}
+                    body={`This will permanently delete the entire department — all years, divisions, teachers, students, sessions and attendance records. This cannot be undone.`}
+                    confirmLabel="Delete Department"
+                    deleting={deleting}
+                    onConfirm={handleDeleteDept}
                     onCancel={closeModal}
                   />
                 )}
@@ -793,6 +825,7 @@ const styles = StyleSheet.create({
   deptCode: { fontFamily: "Inter_700Bold", fontSize: 14, color: Colors.white },
   deptName: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.text },
   deptMeta: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
+  deptTrashBtn: { width: 32, height: 32, borderRadius: 9, backgroundColor: "#FEE2E2", alignItems: "center", justifyContent: "center", marginRight: 4 },
 
   yearCard: { flexDirection: "row", alignItems: "center", gap: 14, backgroundColor: Colors.card, borderRadius: 16, padding: 16, marginBottom: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.06, shadowRadius: 4, elevation: 1 },
   yearBadge: { width: 52, height: 52, borderRadius: 14, backgroundColor: Colors.accentPale, alignItems: "center", justifyContent: "center" },

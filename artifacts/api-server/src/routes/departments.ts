@@ -33,4 +33,38 @@ router.post("/", requireAuth, requireRole("admin"), (req, res) => {
   res.json(dept);
 });
 
+router.delete("/:id", requireAuth, requireRole("admin"), (req, res) => {
+  const store = getStore();
+  const dept = store.departments.find((d) => d.id === req.params.id);
+  if (!dept) {
+    res.status(404).json({ error: "Department not found" });
+    return;
+  }
+
+  // Collect all classes in this department
+  const deptClasses = store.classes.filter((c) => c.departmentId === dept.id);
+  const classNames = deptClasses.map((c) => `${c.departmentCode}-Y${c.year}-${c.division}`);
+
+  // Collect all users in this department
+  const deptUsers = store.users.filter((u) => u.departmentId === dept.id || classNames.includes(u.className ?? ""));
+  const deptUserIds = deptUsers.map((u) => u.id);
+  const teacherIds = deptUsers.filter((u) => u.role === "teacher").map((u) => u.id);
+
+  // Collect all sessions created by those teachers
+  const sessionIds = store.sessions
+    .filter((s) => teacherIds.includes(s.teacherId))
+    .map((s) => s.id);
+
+  // Cascade delete
+  store.attendance = store.attendance.filter(
+    (a) => !deptUserIds.includes(a.studentId) && !sessionIds.includes(a.sessionId)
+  );
+  store.sessions = store.sessions.filter((s) => !teacherIds.includes(s.teacherId));
+  store.users = store.users.filter((u) => !deptUserIds.includes(u.id));
+  store.classes = store.classes.filter((c) => c.departmentId !== dept.id);
+  store.departments = store.departments.filter((d) => d.id !== dept.id);
+
+  res.json({ ok: true, removedUsers: deptUserIds.length, removedClasses: deptClasses.length });
+});
+
 export default router;
