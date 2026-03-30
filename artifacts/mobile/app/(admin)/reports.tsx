@@ -15,6 +15,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useQuery } from "@tanstack/react-query";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
+import jsPDF from "jspdf";
 import { GradientHeader } from "@/components/GradientHeader";
 import { Colors } from "@/constants/colors";
 import { getApiUrl } from "@/lib/query-client";
@@ -62,95 +63,166 @@ function toDateStr(d: Date) {
 function isoToDateStr(iso: string) { return toDateStr(new Date(iso)); }
 function classCode(deptCode: string, year: number, div: string) { return `${deptCode}-Y${year}-${div}`; }
 
-/* ─── PDF helpers ────────────────────────────────────── */
-function buildAttendanceHtml(
-  dateLabel: string,
-  className: string,
-  sessions: Array<{ session: ClassSession; attendees: AttendanceRecord[] }>
-) {
-  const totalPresent = sessions.reduce((s, x) => s + x.attendees.length, 0);
-  const sessionRows = sessions.map(({ session, attendees }) => {
-    const statusTag = session.cancelledAt
-      ? `<span style="color:#dc2626;font-weight:600;">[Cancelled]</span>`
-      : "";
-    const studentList = attendees.length === 0
-      ? `<tr><td colspan="3" style="color:#9ca3af;font-style:italic;padding:6px 12px;">No attendance recorded</td></tr>`
-      : attendees.map((r, i) => `
-          <tr style="background:${i % 2 === 0 ? "#f9fafb" : "#fff"}">
-            <td style="padding:6px 12px;">${i + 1}</td>
-            <td style="padding:6px 12px;">${r.studentName}</td>
-            <td style="padding:6px 12px;">${new Date(r.markedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}</td>
-          </tr>`).join("");
-    return `
-      <div style="margin-bottom:24px;">
-        <div style="background:#1a3f7a;color:#fff;padding:10px 14px;border-radius:6px 6px 0 0;display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:15px;font-weight:600;">${session.subject ?? "Lecture"} ${statusTag}</span>
-          <span style="font-size:12px;opacity:0.85;">${session.teacherName ?? ""}${session.lectureStart ? " · " + session.lectureStart + (session.lectureEnd ? " – " + session.lectureEnd : "") : ""}</span>
-        </div>
-        <table style="width:100%;border-collapse:collapse;font-size:13px;">
-          <thead>
-            <tr style="background:#e5e7eb;">
-              <th style="padding:6px 12px;text-align:left;">#</th>
-              <th style="padding:6px 12px;text-align:left;">Student Name</th>
-              <th style="padding:6px 12px;text-align:left;">Marked At</th>
-            </tr>
-          </thead>
-          <tbody>${studentList}</tbody>
-        </table>
-        <div style="text-align:right;font-size:12px;color:#6b7280;padding:4px 12px 0;">
-          ${attendees.length} present
-        </div>
-      </div>`;
-  }).join("");
-
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8"/>
-  <title>Attendance Report – ${dateLabel}</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 32px; color: #111; }
-    h1   { color: #0f2d5a; margin-bottom: 4px; font-size: 22px; }
-    .sub { color: #6b7280; font-size: 13px; margin-bottom: 24px; }
-    .summary { display: flex; gap: 24px; margin-bottom: 28px; }
-    .stat { background: #f3f4f6; border-radius: 8px; padding: 12px 20px; text-align: center; }
-    .stat-num { font-size: 26px; font-weight: 700; color: #1a3f7a; }
-    .stat-label { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: .5px; }
-    @media print { body { margin: 16px; } }
-  </style>
-</head>
-<body>
-  <h1>K.C. College of Engineering – Attendance Report</h1>
-  <div class="sub">Class: ${className} &nbsp;|&nbsp; Date: ${dateLabel}</div>
-  <div class="summary">
-    <div class="stat">
-      <div class="stat-num">${sessions.length}</div>
-      <div class="stat-label">Total Lectures</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">${totalPresent}</div>
-      <div class="stat-label">Total Present</div>
-    </div>
-  </div>
-  ${sessionRows}
-  <div style="margin-top:32px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:11px;color:#9ca3af;">
-    Generated on ${new Date().toLocaleString("en-IN")} &nbsp;·&nbsp; K.C. College of Engineering, Thane East
-  </div>
-</body>
-</html>`;
-}
-
+/* ─── PDF export ─────────────────────────────────────── */
 async function exportDayPDF(
   dateLabel: string,
   className: string,
   sessions: Array<{ session: ClassSession; attendees: AttendanceRecord[] }>
 ) {
   try {
-    const html = buildAttendanceHtml(dateLabel, className, sessions);
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    const W = 210;
+    const margin = 14;
+    const colW = W - margin * 2;
+    let y = 0;
+
+    function ensurePage(needed: number) {
+      if (y + needed > 275) { doc.addPage(); y = 14; }
+    }
+
+    // ── Header block ──
+    doc.setFillColor(15, 45, 90);
+    doc.rect(0, 0, W, 22, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(13);
+    doc.setFont("helvetica", "bold");
+    doc.text("K.C. College of Engineering, Thane East", margin, 9);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.text("Attendance Report", margin, 15);
+    doc.setFontSize(9);
+    doc.text(`Generated: ${new Date().toLocaleString("en-IN")}`, W - margin, 15, { align: "right" });
+    y = 28;
+
+    // ── Meta row ──
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.text(`Class: ${className}`, margin, y);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Date: ${dateLabel}`, margin + 60, y);
+    y += 8;
+
+    // ── Summary boxes ──
+    const totalPresent = sessions.reduce((s, x) => s + x.attendees.length, 0);
+    const boxW = 38;
+    const boxes = [
+      { label: "Total Lectures", val: String(sessions.length) },
+      { label: "Total Present",  val: String(totalPresent) },
+    ];
+    boxes.forEach((b, i) => {
+      const bx = margin + i * (boxW + 4);
+      doc.setFillColor(240, 244, 255);
+      doc.roundedRect(bx, y, boxW, 16, 3, 3, "F");
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(26, 63, 122);
+      doc.text(b.val, bx + boxW / 2, y + 8, { align: "center" });
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(100, 100, 120);
+      doc.text(b.label.toUpperCase(), bx + boxW / 2, y + 13, { align: "center" });
+    });
+    y += 22;
+
+    // ── Session blocks ──
+    sessions.forEach(({ session, attendees }, idx) => {
+      ensurePage(24);
+
+      // Session header bar
+      doc.setFillColor(26, 63, 122);
+      doc.rect(margin, y, colW, 10, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "bold");
+      const subj = session.subject ?? `Lecture ${idx + 1}`;
+      const cancelled = session.cancelledAt ? "  [Cancelled]" : "";
+      doc.text(subj + cancelled, margin + 3, y + 6.5);
+
+      // Time + teacher on right side of header
+      if (session.lectureStart || session.teacherName) {
+        const info = [
+          session.lectureStart ? `${session.lectureStart}${session.lectureEnd ? " – " + session.lectureEnd : ""}` : "",
+          session.teacherName ?? "",
+        ].filter(Boolean).join("   ");
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.text(info, W - margin - 3, y + 6.5, { align: "right" });
+      }
+      y += 10;
+
+      // Sub-row: present count
+      doc.setFillColor(235, 240, 255);
+      doc.rect(margin, y, colW, 6, "F");
+      doc.setTextColor(50, 70, 140);
+      doc.setFontSize(7.5);
+      doc.setFont("helvetica", "normal");
+      doc.text(`${attendees.length} student${attendees.length !== 1 ? "s" : ""} present`, margin + 3, y + 4);
+      y += 6;
+
+      if (attendees.length === 0) {
+        ensurePage(8);
+        doc.setFillColor(252, 252, 252);
+        doc.rect(margin, y, colW, 8, "F");
+        doc.setTextColor(160, 160, 160);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "italic");
+        doc.text("No attendance recorded", margin + 3, y + 5);
+        y += 8;
+      } else {
+        // Table header
+        ensurePage(8);
+        doc.setFillColor(228, 232, 240);
+        doc.rect(margin, y, colW, 7, "F");
+        doc.setTextColor(30, 30, 30);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "bold");
+        doc.text("#", margin + 3, y + 4.5);
+        doc.text("Student Name", margin + 14, y + 4.5);
+        doc.text("Marked At", W - margin - 3, y + 4.5, { align: "right" });
+        y += 7;
+
+        attendees.forEach((r, i) => {
+          ensurePage(7);
+          doc.setFillColor(i % 2 === 0 ? 249 : 255, i % 2 === 0 ? 250 : 255, i % 2 === 0 ? 252 : 255);
+          doc.rect(margin, y, colW, 7, "F");
+          doc.setTextColor(30, 30, 30);
+          doc.setFontSize(8);
+          doc.setFont("helvetica", "normal");
+          doc.text(String(i + 1), margin + 3, y + 4.5);
+          doc.text(r.studentName, margin + 14, y + 4.5);
+          const markedTime = new Date(r.markedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
+          doc.text(markedTime, W - margin - 3, y + 4.5, { align: "right" });
+          y += 7;
+        });
+      }
+
+      // Row border bottom
+      doc.setDrawColor(220, 225, 235);
+      doc.line(margin, y, W - margin, y);
+      y += 6;
+    });
+
+    // ── Footer ──
+    doc.setFontSize(7.5);
+    doc.setTextColor(160, 160, 160);
+    doc.setFont("helvetica", "normal");
+    const pages = (doc as any).internal.getNumberOfPages();
+    for (let p = 1; p <= pages; p++) {
+      doc.setPage(p);
+      doc.text(`Page ${p} of ${pages}  ·  K.C. College of Engineering, Thane East`, W / 2, 290, { align: "center" });
+    }
+
+    // ── Save / Share ──
+    const filename = `Attendance_${className}_${dateLabel.replace(/[^a-zA-Z0-9]/g, "_")}.pdf`;
     if (Platform.OS === "web") {
-      await Print.printAsync({ html });
+      doc.save(filename);
     } else {
-      const { uri } = await Print.printToFileAsync({ html });
+      const base64 = doc.output("datauristring").split(",")[1];
+      const uri = `${(await import("expo-file-system")).FileSystem.cacheDirectory}${filename}`;
+      await (await import("expo-file-system")).FileSystem.writeAsStringAsync(uri, base64, {
+        encoding: (await import("expo-file-system")).FileSystem.EncodingType.Base64,
+      });
       const canShare = await Sharing.isAvailableAsync();
       if (canShare) {
         await Sharing.shareAsync(uri, { mimeType: "application/pdf", dialogTitle: "Save Attendance PDF", UTI: "com.adobe.pdf" });

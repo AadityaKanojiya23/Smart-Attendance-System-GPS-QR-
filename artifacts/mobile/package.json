@@ -59,6 +59,7 @@
     "expo-camera": "56.0.0-canary-20260305-5163746",
     "expo-print": "^55.0.9",
     "expo-sharing": "^55.0.14",
+    "jspdf": "^4.2.1",
     "react-native-qrcode-svg": "^6.3.21"
   }
 }
