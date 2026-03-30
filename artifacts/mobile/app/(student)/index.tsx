@@ -25,6 +25,13 @@ interface AttendanceRecord {
   markedAt: string;
 }
 
+interface Session {
+  id: string;
+  teacherId: string;
+  className: string;
+  expiresAt: string;
+}
+
 export default function StudentDashboard() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
@@ -38,6 +45,20 @@ export default function StudentDashboard() {
     },
     refetchInterval: 10000,
   });
+
+  const { data: sessions } = useQuery({
+    queryKey: ["student-sessions"],
+    queryFn: async () => {
+      const res = await fetch(getApiUrl("/sessions/active"), { credentials: "include" });
+      return res.json() as Promise<Session[]>;
+    },
+    refetchInterval: 10000,
+  });
+
+  const totalSessions = (sessions ?? []).filter((s) => s.className === user?.className).length;
+  const attendancePercent = totalSessions > 0 && records
+    ? Math.round((records.length / totalSessions) * 100)
+    : 0;
 
   async function handleLogout() {
     await logout();
@@ -65,8 +86,8 @@ export default function StudentDashboard() {
           ListHeaderComponent={
             <View style={styles.summaryCard}>
               <View style={styles.summaryItem}>
-                <Text style={styles.summaryNum}>{records?.length ?? 0}</Text>
-                <Text style={styles.summaryLabel}>Classes Attended</Text>
+                <Text style={styles.summaryNum}>{attendancePercent}%</Text>
+                <Text style={styles.summaryLabel}>Attendance</Text>
               </View>
               <View style={styles.divider} />
               <View style={styles.summaryItem}>
