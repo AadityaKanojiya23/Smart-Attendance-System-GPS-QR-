@@ -157,9 +157,10 @@ export default function GpsGateScreen() {
         </Text>
 
         {distance !== null && !isChecking && (
-          <Text style={styles.distanceText}>
-            {distance}m from campus{" "}
-            {isOutside ? `(need within ${CAMPUS_RADIUS_M}m)` : ""}
+          <Text style={[styles.distanceText, isOutside && styles.outOfRangeText]}>
+            {isOutside
+              ? `You are not in range. Current distance: ${distance}m`
+              : `${distance}m from campus`}
           </Text>
         )}
 
@@ -236,6 +237,10 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,0.7)",
     textAlign: "center",
     marginBottom: 8,
+  },
+  outOfRangeText: {
+    color: Colors.warning,
+    fontFamily: "Inter_500Medium",
   },
   errorMsg: {
     fontFamily: "Inter_400Regular",

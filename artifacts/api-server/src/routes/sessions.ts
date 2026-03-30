@@ -2,6 +2,21 @@ import { Router, type IRouter } from "express";
 import { getStore } from "../store.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
+const CAMPUS_LAT = 19.180010063951876;
+const CAMPUS_LNG = 72.98054933658015;
+const CAMPUS_RADIUS_M = 1400;
+
+function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371000;
+  const toRad = (deg: number) => (deg * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
 const router: IRouter = Router();
 
 router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
@@ -17,6 +32,17 @@ router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
   if (!teacherId || !className || !qrToken || !expiresAt) {
     res.status(400).json({ error: "Missing required fields" });
     return;
+  }
+
+  // Validate GPS location if provided
+  if (latitude !== undefined && longitude !== undefined) {
+    const distance = haversineDistance(latitude, longitude, CAMPUS_LAT, CAMPUS_LNG);
+    if (distance > CAMPUS_RADIUS_M) {
+      res.status(400).json({
+        error: `You are not in range. Current distance: ${Math.round(distance)}m`,
+      });
+      return;
+    }
   }
 
   const store = getStore();
