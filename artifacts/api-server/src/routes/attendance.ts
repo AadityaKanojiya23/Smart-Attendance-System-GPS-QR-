@@ -32,6 +32,12 @@ router.post("/", requireAuth, requireRole("student"), (req, res) => {
     return;
   }
 
+  const blockedStudents = (session as any).blockedStudents ?? [];
+  if (blockedStudents.includes(userId)) {
+    res.status(403).json({ error: "You are blocked for this session." });
+    return;
+  }
+
   const alreadyMarked = store.attendance.find(
     (a) => a.sessionId === session.id && a.studentId === userId
   );
@@ -84,6 +90,14 @@ router.delete("/:id", requireAuth, requireRole("teacher"), (req, res) => {
   }
 
   store.attendance = store.attendance.filter((a) => a.id !== req.params.id);
+  
+  // Also unblock the student when deleting their attendance
+  const blockedStudents = (session as any).blockedStudents ?? [];
+  const studentIndex = blockedStudents.indexOf(record.studentId);
+  if (studentIndex > -1) {
+    blockedStudents.splice(studentIndex, 1);
+  }
+  
   res.json({ success: true });
 });
 
