@@ -16,7 +16,7 @@ import QRCode from "react-native-qrcode-svg";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useQueryClient } from "@tanstack/react-query";
 import { GradientHeader } from "@/components/GradientHeader";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth, type TeacherAssignment } from "@/contexts/AuthContext";
 import { Colors } from "@/constants/colors";
 import { apiRequest } from "@/lib/query-client";
 import { CAMPUS_LAT, CAMPUS_LNG } from "@/lib/haversine";
@@ -24,8 +24,6 @@ import { CAMPUS_LAT, CAMPUS_LNG } from "@/lib/haversine";
 type SessionState = "idle" | "setup" | "generating" | "active" | "expired";
 
 const QR_DURATION_OPTIONS = [1, 2, 5, 10, 15, 30];
-const YEAR_OPTIONS = [1, 2, 3, 4];
-const DIVISION_OPTIONS = ["A", "B", "C", "D"];
 
 function pad(n: number) {
   return String(n).padStart(2, "0");
@@ -104,6 +102,23 @@ export default function TeacherSessionScreen() {
   const bottomPad = Platform.OS === "web" ? 34 + 84 : insets.bottom + 80;
   const qc = useQueryClient();
 
+  // Build assignments list: use teacher.assignments[] if available, else construct from flat fields
+  const assignments: TeacherAssignment[] = user?.assignments && user.assignments.length > 0
+    ? user.assignments
+    : (user?.year && user?.division
+      ? [{
+          className: user.className ?? "",
+          departmentId: user.departmentId ?? "",
+          departmentCode: user.className?.split("-")[0] ?? "CS",
+          year: user.year,
+          division: user.division,
+          subjects: user.subjects ?? [],
+        }]
+      : []);
+
+  // Available years from assignments (sorted)
+  const availableYears = Array.from(new Set(assignments.map(a => a.year))).sort();
+
   const now = new Date();
   const defStartH = now.getHours();
   const defStartM = roundTo5(now.getMinutes());
@@ -118,9 +133,22 @@ export default function TeacherSessionScreen() {
   const [endH, setEndH] = useState(defEndH);
   const [endM, setEndM] = useState(defEndM);
   const [qrDurationMin, setQrDurationMin] = useState(5);
-  const [selectedYear, setSelectedYear] = useState<number>(user?.year ?? 1);
-  const [selectedDivision, setSelectedDivision] = useState<string>(user?.division ?? "A");
+  const [selectedYear, setSelectedYear] = useState<number>(availableYears[0] ?? 1);
+  const [selectedDivision, setSelectedDivision] = useState<string>("");
   const [selectedSubject, setSelectedSubject] = useState<string>("");
+
+  // Divisions available for the selected year
+  const availableDivisions = assignments
+    .filter(a => a.year === selectedYear)
+    .map(a => a.division)
+    .sort();
+
+  // Current assignment (year + division)
+  const currentAssignment = assignments.find(
+    a => a.year === selectedYear && a.division === selectedDivision
+  );
+  const subjects = currentAssignment?.subjects ?? [];
+  const deptCode = currentAssignment?.departmentCode ?? user?.className?.split("-")[0] ?? "CS";
 
   const [qrToken, setQrToken] = useState("");
   const [timeLeft, setTimeLeft] = useState(300);
@@ -128,8 +156,6 @@ export default function TeacherSessionScreen() {
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const progressAnim = useRef(new Animated.Value(1)).current;
 
-  const subjects = user?.subjects ?? [];
-  const deptCode = user?.className?.split("-")[0] ?? "CS";
   const sessionDurationSecs = qrDurationMin * 60;
 
   useEffect(() => {
@@ -150,7 +176,25 @@ export default function TeacherSessionScreen() {
     setStartM(roundTo5(n.getMinutes()));
     setEndH((n.getHours() + 1) % 24);
     setEndM(roundTo5(n.getMinutes()));
+    // Auto-select first year and its first division
+    const firstYear = availableYears[0] ?? 1;
+    setSelectedYear(firstYear);
+    const firstDivForYear = assignments.filter(a => a.year === firstYear).map(a => a.division).sort()[0] ?? "";
+    setSelectedDivision(firstDivForYear);
+    setSelectedSubject("");
     setState("setup");
+  }
+
+  function handleYearChange(y: number) {
+    setSelectedYear(y);
+    const divsForYear = assignments.filter(a => a.year === y).map(a => a.division).sort();
+    setSelectedDivision(divsForYear[0] ?? "");
+    setSelectedSubject("");
+  }
+
+  function handleDivisionChange(d: string) {
+    setSelectedDivision(d);
+    setSelectedSubject("");
   }
 
   async function startSession() {
@@ -333,38 +377,49 @@ export default function TeacherSessionScreen() {
                 <Ionicons name="school-outline" size={18} color={Colors.accent} />
                 <Text style={styles.cardTitle}>Year & Division</Text>
               </View>
-              <Text style={styles.subLabel}>Year</Text>
-              <View style={styles.pillRow}>
-                {YEAR_OPTIONS.map((y) => (
-                  <TouchableOpacity
-                    key={y}
-                    style={[styles.pill, selectedYear === y && styles.pillActive]}
-                    onPress={() => setSelectedYear(y)}
-                  >
-                    <Text style={[styles.pillText, selectedYear === y && styles.pillTextActive]}>
-                      {y}{y === 1 ? "st" : y === 2 ? "nd" : y === 3 ? "rd" : "th"} Year
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-              <Text style={[styles.subLabel, { marginTop: 14 }]}>Division</Text>
-              <View style={styles.pillRow}>
-                {DIVISION_OPTIONS.map((d) => (
-                  <TouchableOpacity
-                    key={d}
-                    style={[styles.pill, styles.pillSm, selectedDivision === d && styles.pillActive]}
-                    onPress={() => setSelectedDivision(d)}
-                  >
-                    <Text style={[styles.pillText, selectedDivision === d && styles.pillTextActive]}>Div {d}</Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-              <View style={styles.classPreviewRow}>
-                <Ionicons name="layers-outline" size={13} color={Colors.textMuted} />
-                <Text style={styles.classPreviewText}>
-                  Class: {deptCode}-Y{selectedYear}-{selectedDivision}
-                </Text>
-              </View>
+              {availableYears.length === 0 ? (
+                <View style={styles.noSubjectsBox}>
+                  <Ionicons name="alert-circle-outline" size={20} color={Colors.textMuted} />
+                  <Text style={styles.noSubjectsText}>No classes assigned yet</Text>
+                </View>
+              ) : (
+                <>
+                  <Text style={styles.subLabel}>Year</Text>
+                  <View style={styles.pillRow}>
+                    {availableYears.map((y) => (
+                      <TouchableOpacity
+                        key={y}
+                        style={[styles.pill, selectedYear === y && styles.pillActive]}
+                        onPress={() => handleYearChange(y)}
+                      >
+                        <Text style={[styles.pillText, selectedYear === y && styles.pillTextActive]}>
+                          {y}{y === 1 ? "st" : y === 2 ? "nd" : y === 3 ? "rd" : "th"} Year
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                  <Text style={[styles.subLabel, { marginTop: 14 }]}>Division</Text>
+                  <View style={styles.pillRow}>
+                    {availableDivisions.map((d) => (
+                      <TouchableOpacity
+                        key={d}
+                        style={[styles.pill, styles.pillSm, selectedDivision === d && styles.pillActive]}
+                        onPress={() => handleDivisionChange(d)}
+                      >
+                        <Text style={[styles.pillText, selectedDivision === d && styles.pillTextActive]}>Div {d}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                  {selectedDivision ? (
+                    <View style={styles.classPreviewRow}>
+                      <Ionicons name="layers-outline" size={13} color={Colors.textMuted} />
+                      <Text style={styles.classPreviewText}>
+                        Class: {deptCode}-Y{selectedYear}-{selectedDivision}
+                      </Text>
+                    </View>
+                  ) : null}
+                </>
+              )}
             </View>
 
             <View style={styles.card}>

@@ -124,7 +124,7 @@ export default function TeacherDashboard() {
     <View style={styles.screen}>
       <GradientHeader
         title="Teacher Dashboard"
-        subtitle={`${user?.name ?? ""} · ${user?.className ?? ""}`}
+        subtitle={user?.name ?? ""}
         right={
           <TouchableOpacity onPress={handleLogout} style={styles.logoutBtn}>
             <Ionicons name="log-out-outline" size={20} color={Colors.white} />

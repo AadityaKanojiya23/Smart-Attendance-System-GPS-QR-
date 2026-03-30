@@ -13,7 +13,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useQuery } from "@tanstack/react-query";
 import { GradientHeader } from "@/components/GradientHeader";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth, type TeacherAssignment } from "@/contexts/AuthContext";
 import { Colors } from "@/constants/colors";
 import { getApiUrl } from "@/lib/query-client";
 
@@ -37,17 +37,23 @@ export default function TeacherProfile() {
     },
   });
 
-  // Calculate unique divisions from classes
-  const divisions = Array.from(
-    new Set(
-      (mySessions ?? []).map((s) => {
-        const parts = s.className.split("-");
-        return parts.length >= 2 ? `${parts[0]}-${parts[1]}` : s.className;
-      })
-    )
-  );
+  // Build assignments list: prefer user.assignments, fall back to flat fields
+  const assignments: TeacherAssignment[] = user?.assignments && user.assignments.length > 0
+    ? user.assignments
+    : (user?.year && user?.division
+      ? [{
+          className: user.className ?? "",
+          departmentId: user.departmentId ?? "",
+          departmentCode: user.className?.split("-")[0] ?? "",
+          year: user.year,
+          division: user.division,
+          subjects: user.subjects ?? [],
+        }]
+      : []);
 
-  const subjects = user?.subjects ?? [];
+  // All unique subjects across all assignments
+  const subjects = Array.from(new Set(assignments.flatMap(a => a.subjects)));
+  const classNames = assignments.map(a => a.className);
 
   async function handleLogout() {
     await logout();
@@ -82,8 +88,8 @@ export default function TeacherProfile() {
 
           <View style={styles.statsGrid}>
             <View style={styles.statBox}>
-              <Text style={styles.statValue}>{divisions.length}</Text>
-              <Text style={styles.statLabel}>Divisions</Text>
+              <Text style={styles.statValue}>{assignments.length}</Text>
+              <Text style={styles.statLabel}>Classes</Text>
             </View>
             <View style={styles.statBox}>
               <Text style={styles.statValue}>{subjects.length}</Text>
@@ -95,14 +101,19 @@ export default function TeacherProfile() {
             </View>
           </View>
 
-          {divisions.length > 0 && (
+          {assignments.length > 0 && (
             <>
-              <Text style={styles.sectionTitle}>Divisions Assigned</Text>
+              <Text style={styles.sectionTitle}>Classes Assigned</Text>
               <View style={styles.divisionsWrap}>
-                {divisions.map((div, i) => (
+                {assignments.map((a, i) => (
                   <View key={i} style={styles.divisionTag}>
                     <Ionicons name="layers-outline" size={14} color={Colors.accent} />
-                    <Text style={styles.divisionTagText}>{div}</Text>
+                    <View style={{ marginLeft: 6 }}>
+                      <Text style={styles.divisionTagText}>{a.className}</Text>
+                      <Text style={styles.divisionTagSub}>
+                        {a.year}{a.year === 1 ? "st" : a.year === 2 ? "nd" : a.year === 3 ? "rd" : "th"} Year · Div {a.division}
+                      </Text>
+                    </View>
                   </View>
                 ))}
               </View>
@@ -156,7 +167,7 @@ const styles = StyleSheet.create({
   profileAvatarText: { fontFamily: "Inter_700Bold", fontSize: 28, color: Colors.accent },
   profileName: { fontFamily: "Inter_700Bold", fontSize: 18, color: Colors.text },
   profileEmail: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
-  profileClass: { fontFamily: "Inter_500Medium", fontSize: 12, color: Colors.accent, marginTop: 4 },
+  profileClass: { fontFamily: "Inter_500Medium", fontSize: 12, color: Colors.accent, marginTop: 4, display: "none" },
   statsGrid: { flexDirection: "row", gap: 10, marginVertical: 20 },
   statBox: { flex: 1, backgroundColor: Colors.card, borderRadius: 14, padding: 12, alignItems: "center", borderWidth: 1, borderColor: Colors.border },
   statValue: { fontFamily: "Inter_700Bold", fontSize: 22, color: Colors.accent },
@@ -164,7 +175,8 @@ const styles = StyleSheet.create({
   sectionTitle: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.text, marginVertical: 12 },
   divisionsWrap: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 16 },
   divisionTag: { flexDirection: "row", alignItems: "center", backgroundColor: Colors.card, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 8, borderWidth: 1, borderColor: Colors.border },
-  divisionTagText: { fontFamily: "Inter_500Medium", fontSize: 12, color: Colors.text, marginLeft: 6 },
+  divisionTagText: { fontFamily: "Inter_600SemiBold", fontSize: 13, color: Colors.text },
+  divisionTagSub: { fontFamily: "Inter_400Regular", fontSize: 11, color: Colors.textSecondary, marginTop: 1 },
   subjectsWrap: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 16 },
   subjectTag: { flexDirection: "row", alignItems: "center", backgroundColor: Colors.accent, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 8 },
   subjectTagText: { fontFamily: "Inter_600SemiBold", fontSize: 12, color: Colors.white, marginLeft: 6 },

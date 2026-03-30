@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import bcrypt from "bcryptjs";
-import { getStore } from "../store.js";
+import { getStore, type TeacherAssignment } from "../store.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
 const router: IRouter = Router();
@@ -35,11 +35,45 @@ router.post("/", requireAuth, requireRole("admin"), async (req, res) => {
   }
 
   const store = getStore();
-  const existing = store.users.find((u) => u.email === email);
+  const existing = store.users.find((u) => u.email === email.trim().toLowerCase());
+
+  // If existing teacher: add new assignment instead of error
   if (existing) {
+    if (existing.role === "teacher" && role === "teacher" && className && departmentId) {
+      const cleanSubjects = Array.isArray(subjects) ? subjects.filter(Boolean).map((s) => s.trim()) : [];
+      const newAssignment: TeacherAssignment = {
+        className: className.trim(),
+        departmentId: departmentId.trim(),
+        departmentCode: className.split("-")[0] ?? "",
+        year: year ? Number(year) : 1,
+        division: division?.trim().toUpperCase() ?? "",
+        subjects: cleanSubjects,
+      };
+      if (!existing.assignments) existing.assignments = [];
+      const alreadyAssigned = existing.assignments.some(a => a.className === newAssignment.className);
+      if (!alreadyAssigned) {
+        existing.assignments.push(newAssignment);
+        // Merge subjects
+        const allSubjects = Array.from(new Set([...(existing.subjects ?? []), ...cleanSubjects]));
+        existing.subjects = allSubjects;
+      }
+      const { passwordHash: _, ...safeUser } = existing;
+      res.json(safeUser);
+      return;
+    }
     res.status(400).json({ error: "A user with this email already exists" });
     return;
   }
+
+  const cleanSubjects = Array.isArray(subjects) ? subjects.filter(Boolean).map((s) => s.trim()) : [];
+  const firstAssignment: TeacherAssignment | undefined = role === "teacher" && className && departmentId ? {
+    className: className.trim(),
+    departmentId: departmentId.trim(),
+    departmentCode: className.split("-")[0] ?? "",
+    year: year ? Number(year) : 1,
+    division: division?.trim().toUpperCase() ?? "",
+    subjects: cleanSubjects,
+  } : undefined;
 
   const passwordHash = await bcrypt.hash(password, 10);
   const user = {
@@ -52,7 +86,8 @@ router.post("/", requireAuth, requireRole("admin"), async (req, res) => {
     year: year ? Number(year) : undefined,
     division: division?.trim().toUpperCase(),
     className: className?.trim(),
-    subjects: Array.isArray(subjects) ? subjects.filter(Boolean).map((s) => s.trim()) : [],
+    subjects: cleanSubjects,
+    assignments: firstAssignment ? [firstAssignment] : undefined,
     passwordHash,
   };
   store.users.push(user);

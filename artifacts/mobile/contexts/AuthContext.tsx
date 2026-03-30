@@ -9,6 +9,15 @@ import { apiRequest, getApiUrl } from "@/lib/query-client";
 
 export type UserRole = "admin" | "teacher" | "student";
 
+export interface TeacherAssignment {
+  className: string;
+  departmentId: string;
+  departmentCode: string;
+  year: number;
+  division: string;
+  subjects: string[];
+}
+
 export interface User {
   id: string;
   name: string;
@@ -20,6 +29,7 @@ export interface User {
   year?: number;
   division?: string;
   subjects?: string[];
+  assignments?: TeacherAssignment[];
 }
 
 interface AuthContextType {

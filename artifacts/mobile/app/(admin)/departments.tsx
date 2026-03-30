@@ -23,7 +23,8 @@ import { apiRequest, getApiUrl } from "@/lib/query-client";
 
 interface Department { id: string; name: string; code: string; }
 interface ClassRecord { id: string; departmentId: string; departmentCode: string; year: number; division: string; }
-interface User { id: string; name: string; email: string; role: string; department?: string; departmentId?: string; year?: number; division?: string; className?: string; subjects?: string[]; }
+interface TeacherAssignment { className: string; departmentId: string; departmentCode: string; year: number; division: string; subjects: string[]; }
+interface User { id: string; name: string; email: string; role: string; department?: string; departmentId?: string; year?: number; division?: string; className?: string; subjects?: string[]; assignments?: TeacherAssignment[]; }
 
 type NavLevel =
   | { screen: "depts" }
@@ -101,7 +102,10 @@ export default function DepartmentsScreen() {
   function getClassesForYear(deptId: string, year: number) { return (allClasses ?? []).filter((c) => c.departmentId === deptId && c.year === year); }
   function getUsersForClass(cls: ClassRecord) {
     const cn = mkClassName(cls.departmentCode, cls.year, cls.division);
-    return (users ?? []).filter((u) => u.className === cn);
+    return (users ?? []).filter((u) =>
+      u.className === cn ||
+      (u.role === "teacher" && (u.assignments ?? []).some(a => a.className === cn))
+    );
   }
 
   function resetFields() { setName(""); setEmail(""); setPassword(""); setDeptName(""); setDeptCode(""); setDivision(""); setSubjects([""]); setFormError(""); }
