@@ -15,7 +15,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useQuery } from "@tanstack/react-query";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
-import jsPDF from "jspdf";
 import { GradientHeader } from "@/components/GradientHeader";
 import { Colors } from "@/constants/colors";
 import { getApiUrl } from "@/lib/query-client";
@@ -70,6 +69,21 @@ async function exportDayPDF(
   sessions: Array<{ session: ClassSession; attendees: AttendanceRecord[] }>
 ) {
   try {
+    // On Android/iOS use expo-print (native WebView renderer) + expo-sharing
+    if (Platform.OS !== "web") {
+      const html = buildAttendanceHtml(dateLabel, className, sessions);
+      const { uri } = await Print.printToFileAsync({ html });
+      const canShare = await Sharing.isAvailableAsync();
+      if (canShare) {
+        await Sharing.shareAsync(uri, { mimeType: "application/pdf", dialogTitle: "Save Attendance PDF", UTI: "com.adobe.pdf" });
+      } else {
+        Alert.alert("PDF saved", uri);
+      }
+      return;
+    }
+
+    // On web: jspdf for direct download (no print dialog)
+    const { default: jsPDF } = await import("jspdf");
     const doc = new jsPDF({ unit: "mm", format: "a4" });
     const W = 210;
     const margin = 14;
@@ -213,26 +227,65 @@ async function exportDayPDF(
       doc.text(`Page ${p} of ${pages}  ·  K.C. College of Engineering, Thane East`, W / 2, 290, { align: "center" });
     }
 
-    // ── Save / Share ──
+    // ── Save (web only) ──
     const filename = `Attendance_${className}_${dateLabel.replace(/[^a-zA-Z0-9]/g, "_")}.pdf`;
-    if (Platform.OS === "web") {
-      doc.save(filename);
-    } else {
-      const base64 = doc.output("datauristring").split(",")[1];
-      const uri = `${(await import("expo-file-system")).FileSystem.cacheDirectory}${filename}`;
-      await (await import("expo-file-system")).FileSystem.writeAsStringAsync(uri, base64, {
-        encoding: (await import("expo-file-system")).FileSystem.EncodingType.Base64,
-      });
-      const canShare = await Sharing.isAvailableAsync();
-      if (canShare) {
-        await Sharing.shareAsync(uri, { mimeType: "application/pdf", dialogTitle: "Save Attendance PDF", UTI: "com.adobe.pdf" });
-      } else {
-        Alert.alert("PDF saved", uri);
-      }
-    }
+    doc.save(filename);
   } catch (e: any) {
     Alert.alert("Export failed", e?.message ?? "Unknown error");
   }
+}
+
+/* Native PDF via expo-print + expo-sharing */
+function buildAttendanceHtml(
+  dateLabel: string,
+  className: string,
+  sessions: Array<{ session: ClassSession; attendees: AttendanceRecord[] }>
+) {
+  const totalPresent = sessions.reduce((s, x) => s + x.attendees.length, 0);
+  const rows = sessions.map(({ session, attendees }) => {
+    const cancelled = session.cancelledAt ? ' <span style="color:#dc2626">[Cancelled]</span>' : "";
+    const timeInfo = [session.teacherName, session.lectureStart ? `${session.lectureStart}${session.lectureEnd ? " – " + session.lectureEnd : ""}` : ""].filter(Boolean).join(" · ");
+    const studentRows = attendees.length === 0
+      ? `<tr><td colspan="3" style="color:#9ca3af;font-style:italic;padding:6px 10px;">No attendance recorded</td></tr>`
+      : attendees.map((r, i) => `<tr style="background:${i%2===0?"#f9fafb":"#fff"}">
+          <td style="padding:5px 10px;">${i+1}</td>
+          <td style="padding:5px 10px;">${r.studentName}</td>
+          <td style="padding:5px 10px;">${new Date(r.markedAt).toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"})}</td>
+        </tr>`).join("");
+    return `<div style="margin-bottom:18px;">
+      <div style="background:#1a3f7a;color:#fff;padding:8px 12px;border-radius:5px 5px 0 0;display:flex;justify-content:space-between;">
+        <b>${session.subject ?? "Lecture"}${cancelled}</b>
+        <span style="font-size:11px;opacity:.85;">${timeInfo}</span>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr style="background:#e5e7eb;">
+          <th style="padding:5px 10px;text-align:left;">#</th>
+          <th style="padding:5px 10px;text-align:left;">Student</th>
+          <th style="padding:5px 10px;text-align:left;">Time</th>
+        </tr></thead>
+        <tbody>${studentRows}</tbody>
+      </table>
+      <div style="text-align:right;font-size:11px;color:#6b7280;padding:3px 10px 0;">${attendees.length} present</div>
+    </div>`;
+  }).join("");
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"/>
+  <style>body{font-family:Arial,sans-serif;margin:24px;color:#111;}
+  h2{color:#0f2d5a;margin:0 0 2px;}
+  .sub{color:#6b7280;font-size:12px;margin-bottom:16px;}
+  .stats{display:flex;gap:16px;margin-bottom:20px;}
+  .stat{background:#f0f4ff;border-radius:6px;padding:10px 18px;text-align:center;}
+  .n{font-size:22px;font-weight:700;color:#1a3f7a;}.l{font-size:10px;color:#6b7280;text-transform:uppercase;}</style>
+  </head><body>
+  <h2>K.C. College of Engineering — Attendance Report</h2>
+  <div class="sub">Class: ${className} &nbsp;|&nbsp; Date: ${dateLabel}</div>
+  <div class="stats">
+    <div class="stat"><div class="n">${sessions.length}</div><div class="l">Total Lectures</div></div>
+    <div class="stat"><div class="n">${totalPresent}</div><div class="l">Total Present</div></div>
+  </div>
+  ${rows}
+  <div style="margin-top:24px;border-top:1px solid #e5e7eb;padding-top:8px;font-size:10px;color:#9ca3af;">
+    Generated ${new Date().toLocaleString("en-IN")} · K.C. College of Engineering, Thane East
+  </div></body></html>`;
 }
 
 /* ─── Mini Calendar ──────────────────────────────────── */
