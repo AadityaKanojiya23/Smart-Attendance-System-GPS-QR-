@@ -68,6 +68,17 @@ router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
   res.json(session);
 });
 
+router.get("/by-class", requireAuth, requireRole("admin"), (req, res) => {
+  const { className } = req.query as { className?: string };
+  const store = getStore();
+  if (!className) { res.json([]); return; }
+  const sessions = store.sessions
+    .filter((s) => s.className === className)
+    .slice()
+    .reverse();
+  res.json(sessions);
+});
+
 router.get("/active", requireAuth, (req, res) => {
   const store = getStore();
   const now = new Date();

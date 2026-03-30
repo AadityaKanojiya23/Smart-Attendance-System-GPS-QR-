@@ -31,6 +31,12 @@ interface AttendanceRecord {
   lectureEnd?: string;
   teacherName?: string;
 }
+interface ClassSession {
+  id: string;
+  className: string;
+  subject?: string;
+  cancelledAt?: string;
+}
 
 type NavLevel =
   | { screen: "depts" }
@@ -147,6 +153,18 @@ export default function ReportsScreen() {
     },
     enabled: !!reportClassName,
   });
+
+  const { data: classSessions } = useQuery({
+    queryKey: ["admin-class-sessions", reportClassName],
+    queryFn: async () => {
+      const url = getApiUrl(`/sessions/by-class?className=${encodeURIComponent(reportClassName!)}`);
+      const res = await fetch(url, { credentials: "include" });
+      return res.json() as Promise<ClassSession[]>;
+    },
+    enabled: !!reportClassName,
+  });
+
+  const totalLectures = (classSessions ?? []).filter(s => !s.cancelledAt).length;
 
   /* ── Derived data ─ */
   const availableYears = useMemo(() => {
@@ -298,16 +316,16 @@ export default function ReportsScreen() {
               {/* Stats bar */}
               <View style={styles.statsRow}>
                 <View style={styles.statBox}>
-                  <Text style={styles.statNum}>{highlightDates.size}</Text>
-                  <Text style={styles.statLabel}>Days Recorded</Text>
+                  <Text style={styles.statNum}>{totalLectures}</Text>
+                  <Text style={styles.statLabel}>Total Lectures</Text>
                 </View>
                 <View style={styles.statBox}>
                   <Text style={styles.statNum}>{attendanceRecords?.length ?? 0}</Text>
-                  <Text style={styles.statLabel}>Total Entries</Text>
+                  <Text style={styles.statLabel}>Total Present</Text>
                 </View>
                 <View style={styles.statBox}>
                   <Text style={styles.statNum}>
-                    {new Set((attendanceRecords ?? []).map(r => r.subject ?? "")).size}
+                    {new Set((classSessions ?? []).filter(s => !s.cancelledAt).map(s => s.subject ?? "")).size}
                   </Text>
                   <Text style={styles.statLabel}>Subjects</Text>
                 </View>
