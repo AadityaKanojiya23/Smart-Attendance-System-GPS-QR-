@@ -54,6 +54,7 @@ export interface StoredSession {
   lectureEnd?: string;
   durationSecs?: number;
   blockedStudents?: string[];
+  cancelledAt?: string;
 }
 
 export interface StoredAttendance {

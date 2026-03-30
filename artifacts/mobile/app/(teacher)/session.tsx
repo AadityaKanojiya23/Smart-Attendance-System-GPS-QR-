@@ -151,6 +151,7 @@ export default function TeacherSessionScreen() {
   const deptCode = currentAssignment?.departmentCode ?? user?.className?.split("-")[0] ?? "CS";
 
   const [qrToken, setQrToken] = useState("");
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState(300);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -222,7 +223,7 @@ export default function TeacherSessionScreen() {
       const expiresAt = new Date(Date.now() + sessionDurationSecs * 1000).toISOString();
       const newClassName = `${deptCode}-Y${selectedYear}-${selectedDivision}`;
 
-      await apiRequest("POST", "/sessions", {
+      const created = await apiRequest("POST", "/sessions", {
         teacherId: user!.id,
         className: newClassName,
         latitude: lat,
@@ -235,6 +236,7 @@ export default function TeacherSessionScreen() {
         durationSecs: sessionDurationSecs,
       });
 
+      setCurrentSessionId(created?.id ?? null);
       setQrToken(token);
       setTimeLeft(sessionDurationSecs);
       setState("active");
@@ -265,13 +267,21 @@ export default function TeacherSessionScreen() {
     }
   }
 
-  function resetSession() {
+  async function resetSession() {
     if (timerRef.current) clearInterval(timerRef.current);
+    // Tell backend to mark this session as cancelled (if it was started)
+    if (currentSessionId) {
+      try {
+        await apiRequest("POST", `/sessions/${currentSessionId}/cancel`, {});
+      } catch {}
+      setCurrentSessionId(null);
+    }
     setQrToken("");
     setTimeLeft(sessionDurationSecs);
     setState("idle");
     setError("");
     setSelectedSubject("");
+    qc.invalidateQueries({ queryKey: ["teacher-sessions"] });
   }
 
   useEffect(() => {

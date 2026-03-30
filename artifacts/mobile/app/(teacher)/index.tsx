@@ -28,6 +28,7 @@ interface Session {
   subject?: string;
   lectureStart?: string;
   lectureEnd?: string;
+  cancelledAt?: string;
 }
 interface AttendanceRecord {
   id: string;
@@ -55,7 +56,7 @@ export default function TeacherDashboard() {
   });
 
   const activeSessions = (mySessions ?? []).filter(
-    (s) => new Date(s.expiresAt) > new Date()
+    (s) => new Date(s.expiresAt) > new Date() && !s.cancelledAt
   );
 
   function openSessionDetails(session: Session) {
@@ -155,8 +156,11 @@ export default function TeacherDashboard() {
             </View>
           )}
           {mySessions?.slice(0, 10).map((s) => {
-            const isActive = new Date(s.expiresAt) > new Date();
-            const sessionAttendance = getSessionAttendance(s.id);
+            const isCancelled = !!s.cancelledAt;
+            const isActive    = !isCancelled && new Date(s.expiresAt) > new Date();
+            const badgeBg     = isCancelled ? "#FEE2E2" : isActive ? Colors.successPale : "#F1F5F9";
+            const badgeColor  = isCancelled ? Colors.error : isActive ? Colors.success : Colors.textMuted;
+            const badgeLabel  = isCancelled ? "Cancelled" : isActive ? "Active" : "Expired";
             return (
               <TouchableOpacity key={s.id} style={styles.sessionCard} onPress={() => openSessionDetails(s)}>
                 <View style={[styles.sessionIcon, { backgroundColor: isActive ? Colors.accentPale : "#F8FAFC" }]}>
@@ -171,10 +175,8 @@ export default function TeacherDashboard() {
                   </Text>
                   <Text style={styles.sessionAttendance}>Tap to view attendance</Text>
                 </View>
-                <View style={[styles.statusBadge, { backgroundColor: isActive ? Colors.successPale : "#F1F5F9" }]}>
-                  <Text style={[styles.statusText, { color: isActive ? Colors.success : Colors.textMuted }]}>
-                    {isActive ? "Active" : "Expired"}
-                  </Text>
+                <View style={[styles.statusBadge, { backgroundColor: badgeBg }]}>
+                  <Text style={[styles.statusText, { color: badgeColor }]}>{badgeLabel}</Text>
                 </View>
               </TouchableOpacity>
             );

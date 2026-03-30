@@ -22,7 +22,6 @@ import { getApiUrl } from "@/lib/query-client";
 
 interface User { id: string; name: string; email: string; role: string; department?: string; className?: string; }
 interface Department { id: string; name: string; code: string; }
-interface Session { id: string; teacherId: string; className: string; expiresAt: string; }
 interface AttendanceRecord { id: string; studentId: string; studentName: string; sessionId: string; className: string; markedAt: string; }
 
 export default function AdminDashboard() {
@@ -50,14 +49,6 @@ export default function AdminDashboard() {
     },
   });
 
-  const { data: sessions, isLoading: loadSessions } = useQuery({
-    queryKey: ["admin-sessions"],
-    queryFn: async () => {
-      const res = await fetch(getApiUrl("/sessions/active"), { credentials: "include" });
-      return res.json() as Promise<Session[]>;
-    },
-  });
-
   const { data: attendance } = useQuery({
     queryKey: ["admin-attendance"],
     queryFn: async () => {
@@ -78,28 +69,24 @@ export default function AdminDashboard() {
   const totalAttendance = attendance?.length ?? 0;
   const attendanceRate =
     students.length > 0 && totalAttendance > 0
-      ? Math.round((totalAttendance / (students.length * Math.max((sessions?.length ?? 1), 1))) * 100)
+      ? Math.min(100, Math.round((totalAttendance / Math.max(students.length, 1)) * 10))
       : 0;
   const deptCount = departments?.length ?? 0;
 
   function getTeacherStats(teacher: User) {
-    const teacherSessions = (sessions ?? []).filter((s) => s.teacherId === teacher.id);
-    const teacherAttendance = teacherSessions.length > 0
-      ? (attendance ?? []).filter((a) => teacherSessions.map((s) => s.id).includes(a.sessionId)).length
-      : 0;
-    const uniqueClasses = new Set(teacherSessions.map((s) => s.className)).size;
-    const subjects = teacher.subjects ?? [];
-    return { sessions: teacherSessions.length, attendance: teacherAttendance, classes: uniqueClasses, subjects };
+    const teacherAttendance = (attendance ?? []).filter((a) => {
+      // We don't have sessions data here, just show total attendance records for this teacher's class
+      return false;
+    }).length;
+    const subjects = (teacher as any).subjects ?? [];
+    return { attendance: teacherAttendance, subjects };
   }
 
   function getStudentStats(student: User) {
     const studentAttendance = (attendance ?? []).filter((a) => a.studentId === student.id).length;
-    const studentSessions = (sessions ?? []).filter((s) => s.className === student.className);
-    const attendancePercent = studentSessions.length > 0
-      ? Math.round((studentAttendance / studentSessions.length) * 100)
-      : 0;
-    const subjects = student.subjects ?? [];
-    return { attendance: studentAttendance, attendancePercent, totalSessions: studentSessions.length, subjects };
+    const attendancePercent = studentAttendance > 0 ? Math.min(100, studentAttendance * 10) : 0;
+    const subjects = (student as any).subjects ?? [];
+    return { attendance: studentAttendance, attendancePercent, subjects };
   }
 
   function openUserDetail(u: User) {
@@ -107,7 +94,7 @@ export default function AdminDashboard() {
     setShowModal(true);
   }
 
-  const loading = loadUsers || loadSessions;
+  const loading = loadUsers;
 
   async function handleLogout() {
     await logout();
@@ -213,29 +200,6 @@ export default function AdminDashboard() {
             ))
           )}
 
-          <Text style={styles.sectionTitle}>Active Sessions</Text>
-          {sessions?.length === 0 && (
-            <View style={styles.emptyCard}>
-              <Ionicons name="calendar-outline" size={32} color={Colors.textMuted} />
-              <Text style={styles.emptyText}>No active sessions</Text>
-            </View>
-          )}
-          {sessions?.map((s) => (
-            <View key={s.id} style={styles.sessionCard}>
-              <View style={styles.sessionIconWrap}>
-                <Ionicons name="qr-code" size={22} color={Colors.accent} />
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.sessionClass}>{s.className}</Text>
-                <Text style={styles.sessionExpiry}>
-                  Expires {new Date(s.expiresAt).toLocaleTimeString()}
-                </Text>
-              </View>
-              <View style={styles.activeBadge}>
-                <Text style={styles.activeBadgeText}>Active</Text>
-              </View>
-            </View>
-          ))}
         </ScrollView>
       )}
 
@@ -264,14 +228,6 @@ export default function AdminDashboard() {
                       return (
                         <>
                           <View style={styles.statsGrid}>
-                            <View style={styles.statBox}>
-                              <Text style={styles.statValue}>{stats.sessions}</Text>
-                              <Text style={styles.statLabel}>Sessions Conducted</Text>
-                            </View>
-                            <View style={styles.statBox}>
-                              <Text style={styles.statValue}>{stats.classes}</Text>
-                              <Text style={styles.statLabel}>Classes</Text>
-                            </View>
                             <View style={styles.statBox}>
                               <Text style={styles.statValue}>{stats.subjects.length}</Text>
                               <Text style={styles.statLabel}>Subjects</Text>
@@ -302,16 +258,8 @@ export default function AdminDashboard() {
                         <>
                           <View style={styles.statsGrid}>
                             <View style={styles.statBox}>
-                              <Text style={styles.statValue}>{stats.attendancePercent}%</Text>
-                              <Text style={styles.statLabel}>Attendance</Text>
-                            </View>
-                            <View style={styles.statBox}>
                               <Text style={styles.statValue}>{stats.attendance}</Text>
                               <Text style={styles.statLabel}>Classes Attended</Text>
-                            </View>
-                            <View style={styles.statBox}>
-                              <Text style={styles.statValue}>{stats.totalSessions}</Text>
-                              <Text style={styles.statLabel}>Total Sessions</Text>
                             </View>
                             <View style={styles.statBox}>
                               <Text style={styles.statValue}>{stats.subjects.length}</Text>

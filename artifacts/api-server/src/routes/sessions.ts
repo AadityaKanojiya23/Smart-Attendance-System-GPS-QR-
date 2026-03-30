@@ -71,7 +71,7 @@ router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
 router.get("/active", requireAuth, (req, res) => {
   const store = getStore();
   const now = new Date();
-  const active = store.sessions.filter((s) => new Date(s.expiresAt) > now);
+  const active = store.sessions.filter((s) => new Date(s.expiresAt) > now && !s.cancelledAt);
   res.json(active);
 });
 
@@ -107,6 +107,18 @@ router.get("/:id/attendance", requireAuth, (req, res) => {
   }
   const records = store.attendance.filter((a) => a.sessionId === req.params.id);
   res.json(records);
+});
+
+router.post("/:id/cancel", requireAuth, requireRole("teacher"), (req, res) => {
+  const userId = (req.session as any).userId;
+  const store = getStore();
+  const session = store.sessions.find((s) => s.id === req.params.id);
+  if (!session || session.teacherId !== userId) {
+    res.status(403).json({ error: "Forbidden" });
+    return;
+  }
+  session.cancelledAt = new Date().toISOString();
+  res.json({ success: true });
 });
 
 router.post("/:id/block/:studentId", requireAuth, requireRole("teacher"), (req, res) => {
