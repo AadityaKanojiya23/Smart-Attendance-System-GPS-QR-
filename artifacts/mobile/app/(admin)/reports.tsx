@@ -113,19 +113,23 @@ export default function ReportsScreen() {
 
   /* ── Data queries ─ */
   const { data: depts, isLoading: deptsLoading } = useQuery({
-    queryKey: ["admin-depts"],
+    queryKey: ["departments"],
     queryFn: async () => {
       const res = await fetch(getApiUrl("/departments"), { credentials: "include" });
       return res.json() as Promise<Department[]>;
     },
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
   const { data: allClasses } = useQuery({
-    queryKey: ["admin-classes"],
+    queryKey: ["all-classes"],
     queryFn: async () => {
       const res = await fetch(getApiUrl("/classes"), { credentials: "include" });
       return res.json() as Promise<ClassRecord[]>;
     },
+    staleTime: 0,
+    refetchOnMount: true,
   });
 
   // Only fetch attendance when on report screen
