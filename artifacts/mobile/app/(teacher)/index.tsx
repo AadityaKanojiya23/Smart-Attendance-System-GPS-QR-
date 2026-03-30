@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -38,6 +39,7 @@ export default function TeacherDashboard() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
   const bottomPad = Platform.OS === "web" ? 34 + 84 : insets.bottom + 80;
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { data: mySessions, isLoading } = useQuery({
     queryKey: ["teacher-sessions"],
@@ -51,6 +53,10 @@ export default function TeacherDashboard() {
   const activeSessions = (mySessions ?? []).filter(
     (s) => new Date(s.expiresAt) > new Date()
   );
+  
+  const filteredSessions = searchQuery.trim()
+    ? (mySessions ?? []).filter((s) => s.className.toLowerCase().includes(searchQuery.toLowerCase()))
+    : (mySessions ?? []);
 
   async function handleLogout() {
     await logout();
@@ -72,6 +78,23 @@ export default function TeacherDashboard() {
         <ActivityIndicator color={Colors.accent} style={{ marginTop: 40 }} />
       ) : (
         <ScrollView contentContainerStyle={[styles.scroll, { paddingBottom: bottomPad }]}>
+          <View style={styles.searchWrap}>
+            <Ionicons name="search-outline" size={18} color={Colors.textMuted} style={styles.searchIcon} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search sessions by class name..."
+              placeholderTextColor={Colors.textMuted}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              autoCapitalize="none"
+            />
+            {searchQuery ? (
+              <TouchableOpacity onPress={() => setSearchQuery("")}>
+                <Ionicons name="close-circle" size={18} color={Colors.textMuted} />
+              </TouchableOpacity>
+            ) : null}
+          </View>
+
           <View style={styles.summaryRow}>
             <View style={styles.summaryCard}>
               <Text style={styles.summaryValue}>{mySessions?.length ?? 0}</Text>
@@ -91,7 +114,7 @@ export default function TeacherDashboard() {
               <Text style={styles.emptyHint}>Go to Session tab to start one</Text>
             </View>
           )}
-          {mySessions?.slice(0, 10).map((s) => {
+          {filteredSessions.slice(0, 10).map((s) => {
             const isActive = new Date(s.expiresAt) > new Date();
             return (
               <View key={s.id} style={styles.sessionCard}>
@@ -121,6 +144,24 @@ export default function TeacherDashboard() {
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: Colors.background },
   scroll: { padding: 16 },
+  searchWrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.card,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingHorizontal: 12,
+    marginBottom: 16,
+  },
+  searchIcon: { marginRight: 8 },
+  searchInput: {
+    flex: 1,
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    color: Colors.text,
+    paddingVertical: 12,
+  },
   summaryRow: { flexDirection: "row", gap: 12, marginBottom: 20 },
   summaryCard: {
     flex: 1,

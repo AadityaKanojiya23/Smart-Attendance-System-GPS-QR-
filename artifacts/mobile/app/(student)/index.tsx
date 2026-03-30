@@ -1,12 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
   Platform,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -29,6 +30,7 @@ export default function StudentDashboard() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
   const bottomPad = Platform.OS === "web" ? 34 + 84 : insets.bottom + 80;
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { data: records, isLoading } = useQuery({
     queryKey: ["student-attendance"],
@@ -38,6 +40,10 @@ export default function StudentDashboard() {
     },
     refetchInterval: 10000,
   });
+
+  const filteredRecords = searchQuery.trim()
+    ? (records ?? []).filter((r) => r.className.toLowerCase().includes(searchQuery.toLowerCase()))
+    : (records ?? []);
 
   async function handleLogout() {
     await logout();
@@ -59,11 +65,28 @@ export default function StudentDashboard() {
         <ActivityIndicator color={Colors.accent} style={{ marginTop: 40 }} />
       ) : (
         <FlatList
-          data={records ?? []}
+          data={filteredRecords}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ padding: 16, paddingBottom: bottomPad }}
           ListHeaderComponent={
-            <View style={styles.summaryCard}>
+            <View style={styles.headerWrap}>
+              <View style={styles.searchWrap}>
+                <Ionicons name="search-outline" size={18} color={Colors.textMuted} style={styles.searchIcon} />
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder="Search by class name..."
+                  placeholderTextColor={Colors.textMuted}
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                  autoCapitalize="none"
+                />
+                {searchQuery ? (
+                  <TouchableOpacity onPress={() => setSearchQuery("")}>
+                    <Ionicons name="close-circle" size={18} color={Colors.textMuted} />
+                  </TouchableOpacity>
+                ) : null}
+              </View>
+              <View style={styles.summaryCard}>
               <View style={styles.summaryItem}>
                 <Text style={styles.summaryNum}>{records?.length ?? 0}</Text>
                 <Text style={styles.summaryLabel}>Classes Attended</Text>
@@ -72,6 +95,7 @@ export default function StudentDashboard() {
               <View style={styles.summaryItem}>
                 <Ionicons name="checkmark-circle" size={28} color={Colors.success} />
                 <Text style={styles.summaryLabel}>All Verified</Text>
+              </View>
               </View>
             </View>
           }
@@ -118,6 +142,24 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: "rgba(255,255,255,0.15)",
     borderRadius: 10,
+  },
+  headerWrap: { gap: 12, marginBottom: 4 },
+  searchWrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.card,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingHorizontal: 12,
+  },
+  searchIcon: { marginRight: 8 },
+  searchInput: {
+    flex: 1,
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    color: Colors.text,
+    paddingVertical: 12,
   },
   summaryCard: {
     flexDirection: "row",
