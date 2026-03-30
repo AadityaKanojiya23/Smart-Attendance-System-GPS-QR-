@@ -1,13 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import {
   ActivityIndicator,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -28,7 +27,6 @@ export default function AdminDashboard() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
   const bottomPad = Platform.OS === "web" ? 34 + 84 : insets.bottom + 80;
-  const [searchQuery, setSearchQuery] = useState("");
 
   const { data: departments } = useQuery({
     queryKey: ["departments"],
@@ -62,18 +60,8 @@ export default function AdminDashboard() {
     },
   });
 
-  const allStudents = users?.filter((u) => u.role === "student") ?? [];
-  const allTeachers = users?.filter((u) => u.role === "teacher") ?? [];
-  
-  const filteredStudents = searchQuery.trim() 
-    ? allStudents.filter((u) => u.name.toLowerCase().includes(searchQuery.toLowerCase()))
-    : allStudents;
-  const filteredTeachers = searchQuery.trim()
-    ? allTeachers.filter((u) => u.name.toLowerCase().includes(searchQuery.toLowerCase()))
-    : allTeachers;
-  
-  const students = searchQuery.trim() ? filteredStudents : allStudents;
-  const teachers = searchQuery.trim() ? filteredTeachers : allTeachers;
+  const students = users?.filter((u) => u.role === "student") ?? [];
+  const teachers = users?.filter((u) => u.role === "teacher") ?? [];
   const totalAttendance = attendance?.length ?? 0;
   const attendanceRate =
     students.length > 0 && totalAttendance > 0
@@ -103,23 +91,6 @@ export default function AdminDashboard() {
         <ActivityIndicator color={Colors.accent} style={{ marginTop: 40 }} />
       ) : (
         <ScrollView contentContainerStyle={[styles.scroll, { paddingBottom: bottomPad }]}>
-          <View style={styles.searchWrap}>
-            <Ionicons name="search-outline" size={18} color={Colors.textMuted} style={styles.searchIcon} />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search teacher or student by name..."
-              placeholderTextColor={Colors.textMuted}
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-              autoCapitalize="none"
-            />
-            {searchQuery ? (
-              <TouchableOpacity onPress={() => setSearchQuery("")}>
-                <Ionicons name="close-circle" size={18} color={Colors.textMuted} />
-              </TouchableOpacity>
-            ) : null}
-          </View>
-
           <Text style={styles.sectionTitle}>Overview</Text>
           <View style={styles.statsRow}>
             <StatCard label="Departments" value={deptCount} icon="business-outline" color="#8B5CF6" />
@@ -164,24 +135,6 @@ export default function AdminDashboard() {
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: Colors.background },
   scroll: { padding: 16 },
-  searchWrap: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: Colors.card,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    paddingHorizontal: 12,
-    marginBottom: 16,
-  },
-  searchIcon: { marginRight: 8 },
-  searchInput: {
-    flex: 1,
-    fontFamily: "Inter_400Regular",
-    fontSize: 14,
-    color: Colors.text,
-    paddingVertical: 12,
-  },
   sectionTitle: {
     fontFamily: "Inter_700Bold",
     fontSize: 17,
