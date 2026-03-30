@@ -85,7 +85,26 @@ router.get("/my", requireAuth, requireRole("student"), (req, res) => {
 
 router.get("/", requireAuth, requireRole("admin"), (req, res) => {
   const store = getStore();
-  res.json(store.attendance.slice().reverse());
+  const { className, date } = req.query as { className?: string; date?: string };
+
+  let records = store.attendance.slice();
+
+  if (className) {
+    records = records.filter((a) => a.className === className);
+  }
+
+  if (date) {
+    // date format: YYYY-MM-DD, match on local date of markedAt
+    records = records.filter((a) => {
+      const d = new Date(a.markedAt);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}` === date;
+    });
+  }
+
+  res.json(records.reverse());
 });
 
 router.delete("/:id", requireAuth, requireRole("teacher"), (req, res) => {
