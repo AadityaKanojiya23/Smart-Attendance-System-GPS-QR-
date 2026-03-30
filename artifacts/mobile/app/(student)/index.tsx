@@ -50,19 +50,17 @@ export default function StudentDashboard() {
     refetchInterval: 10000,
   });
 
-  const { data: sessions } = useQuery({
-    queryKey: ["student-sessions"],
+  const { data: classSessions } = useQuery({
+    queryKey: ["student-class-sessions"],
     queryFn: async () => {
-      const res = await fetch(getApiUrl("/sessions/active"), { credentials: "include" });
+      const res = await fetch(getApiUrl("/sessions/class"), { credentials: "include" });
       return res.json() as Promise<Session[]>;
     },
     refetchInterval: 10000,
   });
 
-  const totalSessions = (sessions ?? []).filter((s) => s.className === user?.className).length;
-  const attendancePercent = totalSessions > 0 && records
-    ? Math.round((records.length / totalSessions) * 100)
-    : 0;
+  const totalSessions = classSessions?.length ?? 0;
+  const classesAbsent = Math.max(0, totalSessions - (records?.length ?? 0));
 
   async function handleLogout() {
     await logout();
@@ -90,8 +88,10 @@ export default function StudentDashboard() {
           ListHeaderComponent={
             <View style={styles.summaryCard}>
               <View style={styles.summaryItem}>
-                <Text style={styles.summaryNum}>{attendancePercent}%</Text>
-                <Text style={styles.summaryLabel}>Attendance</Text>
+                <Text style={[styles.summaryNum, classesAbsent > 0 && { color: Colors.error }]}>
+                  {classesAbsent}
+                </Text>
+                <Text style={styles.summaryLabel}>Classes Absent</Text>
               </View>
               <View style={styles.divider} />
               <View style={styles.summaryItem}>
