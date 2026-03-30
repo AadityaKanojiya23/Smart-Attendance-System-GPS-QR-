@@ -168,7 +168,7 @@ export default function ReportsScreen() {
     enabled: !!reportClassName,
   });
 
-  const totalLectures = (classSessions ?? []).filter(s => !s.cancelledAt).length;
+  const totalLectures = (classSessions ?? []).length;
 
   /* ── Derived data ─ */
   const availableYears = useMemo(() => {
@@ -183,11 +183,10 @@ export default function ReportsScreen() {
     return Array.from(new Set(classes.map(c => c.division))).sort();
   }, [nav, allClasses]);
 
-  // Highlight dates = any date a session was conducted (not cancelled)
+  // Highlight dates = any date a session was started (including cancelled)
   const highlightDates = useMemo(() => {
     const dates = new Set<string>();
     (classSessions ?? [])
-      .filter(cs => !cs.cancelledAt)
       .forEach(cs => cs.createdAt && dates.add(isoToDateStr(cs.createdAt)));
     return dates;
   }, [classSessions]);
@@ -196,7 +195,7 @@ export default function ReportsScreen() {
   const sessionsForDate = useMemo(() => {
     if (!selectedDate) return [];
     const daySessions = (classSessions ?? [])
-      .filter(s => !s.cancelledAt && isoToDateStr(s.createdAt) === selectedDate);
+      .filter(s => isoToDateStr(s.createdAt) === selectedDate);
     return daySessions.map(session => ({
       session,
       attendees: (attendanceRecords ?? []).filter(r => r.sessionId === session.id),
@@ -354,15 +353,23 @@ export default function ReportsScreen() {
                   ) : (
                     sessionsForDate.map(({ session, attendees }) => (
                       <View key={session.id} style={styles.subjectGroup}>
-                        {/* Session header: subject + count */}
+                        {/* Session header: subject + count / cancelled tag */}
                         <View style={styles.subjectHeader}>
                           <View style={styles.subjectIconWrap}>
-                            <Ionicons name="book-outline" size={16} color={Colors.accent} />
+                            <Ionicons name="book-outline" size={16} color={session.cancelledAt ? Colors.error : Colors.accent} />
                           </View>
-                          <Text style={styles.subjectName}>{session.subject ?? "Lecture"}</Text>
-                          <View style={styles.subjectBadge}>
-                            <Text style={styles.subjectBadgeText}>{attendees.length}</Text>
-                          </View>
+                          <Text style={[styles.subjectName, session.cancelledAt && { color: Colors.textMuted }]}>
+                            {session.subject ?? "Lecture"}
+                          </Text>
+                          {session.cancelledAt ? (
+                            <View style={[styles.subjectBadge, { backgroundColor: "#FEE2E2" }]}>
+                              <Text style={[styles.subjectBadgeText, { color: Colors.error }]}>Cancelled</Text>
+                            </View>
+                          ) : (
+                            <View style={styles.subjectBadge}>
+                              <Text style={styles.subjectBadgeText}>{attendees.length}</Text>
+                            </View>
+                          )}
                         </View>
 
                         {/* Teacher + timing row */}
