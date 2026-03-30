@@ -1,12 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -27,6 +28,8 @@ export default function AdminDashboard() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
   const bottomPad = Platform.OS === "web" ? 34 + 84 : insets.bottom + 80;
+  const [searchTeachers, setSearchTeachers] = useState("");
+  const [searchStudents, setSearchStudents] = useState("");
 
   const { data: departments } = useQuery({
     queryKey: ["departments"],
@@ -60,8 +63,15 @@ export default function AdminDashboard() {
     },
   });
 
-  const students = users?.filter((u) => u.role === "student") ?? [];
-  const teachers = users?.filter((u) => u.role === "teacher") ?? [];
+  const allStudents = users?.filter((u) => u.role === "student") ?? [];
+  const allTeachers = users?.filter((u) => u.role === "teacher") ?? [];
+  
+  const students = searchStudents.trim()
+    ? allStudents.filter((u) => u.name.toLowerCase().includes(searchStudents.toLowerCase()))
+    : allStudents;
+  const teachers = searchTeachers.trim()
+    ? allTeachers.filter((u) => u.name.toLowerCase().includes(searchTeachers.toLowerCase()))
+    : allTeachers;
   const totalAttendance = attendance?.length ?? 0;
   const attendanceRate =
     students.length > 0 && totalAttendance > 0
@@ -95,13 +105,83 @@ export default function AdminDashboard() {
           <View style={styles.statsRow}>
             <StatCard label="Departments" value={deptCount} icon="business-outline" color="#8B5CF6" />
             <View style={{ width: 12 }} />
-            <StatCard label="Teachers" value={teachers.length} icon="school-outline" color={Colors.warning} />
+            <StatCard label="Teachers" value={allTeachers.length} icon="school-outline" color={Colors.warning} />
           </View>
           <View style={styles.statsRow}>
-            <StatCard label="Students" value={students.length} icon="people-outline" color={Colors.accent} />
+            <StatCard label="Students" value={allStudents.length} icon="people-outline" color={Colors.accent} />
             <View style={{ width: 12 }} />
             <StatCard label="Attend. Rate" value={`${attendanceRate}%`} icon="bar-chart-outline" color={Colors.success} />
           </View>
+
+          <Text style={styles.sectionTitle}>Teachers</Text>
+          <View style={styles.searchRow}>
+            <View style={styles.searchWrap}>
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search teachers..."
+                placeholderTextColor={Colors.textMuted}
+                value={searchTeachers}
+                onChangeText={setSearchTeachers}
+                autoCapitalize="none"
+              />
+            </View>
+            <TouchableOpacity style={styles.searchBtn} onPress={() => setSearchTeachers("")}>
+              <Ionicons name={searchTeachers ? "close" : "search"} size={18} color={Colors.white} />
+            </TouchableOpacity>
+          </View>
+          {teachers.length === 0 ? (
+            <View style={styles.emptySmall}>
+              <Text style={styles.emptySmallText}>No teachers found</Text>
+            </View>
+          ) : (
+            teachers.map((t) => (
+              <View key={t.id} style={styles.userCard}>
+                <View style={styles.userAvatar}>
+                  <Text style={styles.userAvatarText}>{t.name[0]?.toUpperCase()}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.userName}>{t.name}</Text>
+                  <Text style={styles.userEmail}>{t.email}</Text>
+                  {t.className && <Text style={styles.userClass}>{t.className}</Text>}
+                </View>
+              </View>
+            ))
+          )}
+
+          <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Students</Text>
+          <View style={styles.searchRow}>
+            <View style={styles.searchWrap}>
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search students..."
+                placeholderTextColor={Colors.textMuted}
+                value={searchStudents}
+                onChangeText={setSearchStudents}
+                autoCapitalize="none"
+              />
+            </View>
+            <TouchableOpacity style={styles.searchBtn} onPress={() => setSearchStudents("")}>
+              <Ionicons name={searchStudents ? "close" : "search"} size={18} color={Colors.white} />
+            </TouchableOpacity>
+          </View>
+          {students.length === 0 ? (
+            <View style={styles.emptySmall}>
+              <Text style={styles.emptySmallText}>No students found</Text>
+            </View>
+          ) : (
+            students.map((s) => (
+              <View key={s.id} style={styles.userCard}>
+                <View style={styles.userAvatar}>
+                  <Text style={styles.userAvatarText}>{s.name[0]?.toUpperCase()}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.userName}>{s.name}</Text>
+                  <Text style={styles.userEmail}>{s.email}</Text>
+                  {s.className && <Text style={styles.userClass}>{s.className}</Text>}
+                </View>
+              </View>
+            ))
+          )}
 
           <Text style={styles.sectionTitle}>Active Sessions</Text>
           {sessions?.length === 0 && (
@@ -142,6 +222,40 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     marginTop: 8,
   },
+  searchRow: { flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 12 },
+  searchWrap: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.card,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    paddingHorizontal: 12,
+  },
+  searchInput: {
+    flex: 1,
+    fontFamily: "Inter_400Regular",
+    fontSize: 14,
+    color: Colors.text,
+    paddingVertical: 12,
+  },
+  searchBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: Colors.accent,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptySmall: { backgroundColor: Colors.card, borderRadius: 12, paddingVertical: 12, paddingHorizontal: 12, marginBottom: 12 },
+  emptySmallText: { fontFamily: "Inter_400Regular", fontSize: 13, color: Colors.textMuted, textAlign: "center" },
+  userCard: { flexDirection: "row", alignItems: "center", backgroundColor: Colors.card, borderRadius: 12, padding: 12, marginBottom: 8, borderWidth: 1, borderColor: Colors.border },
+  userAvatar: { width: 40, height: 40, borderRadius: 10, backgroundColor: Colors.accentPale, alignItems: "center", justifyContent: "center", marginRight: 12 },
+  userAvatarText: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.accent },
+  userName: { fontFamily: "Inter_600SemiBold", fontSize: 14, color: Colors.text },
+  userEmail: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
+  userClass: { fontFamily: "Inter_500Medium", fontSize: 11, color: Colors.accent, marginTop: 3 },
   statsRow: { flexDirection: "row", marginBottom: 0 },
   emptyCard: {
     backgroundColor: Colors.card,
