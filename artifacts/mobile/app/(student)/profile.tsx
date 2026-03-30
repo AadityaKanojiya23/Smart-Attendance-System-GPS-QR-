@@ -126,25 +126,25 @@ export default function ProfileScreen() {
     refetchInterval: 15000,
   });
 
-  const attended = myRecords?.length ?? 0;
-  const total = classSessions?.length ?? 0;
+  const safeRecords = Array.isArray(myRecords) ? myRecords : [];
+  const safeSessions = Array.isArray(classSessions) ? classSessions : [];
+  const attended = safeRecords.length;
+  const total = safeSessions.length;
   const absent = Math.max(0, total - attended);
   const percent = total > 0 ? Math.round((attended / total) * 100) : 0;
 
   const monthlyStats = useMemo(() => {
-    if (!myRecords) return [];
     const map: Record<string, number> = {};
-    for (const r of myRecords) {
+    for (const r of safeRecords) {
       const key = new Date(r.markedAt).toLocaleDateString("en-IN", { month: "long", year: "numeric" });
       map[key] = (map[key] ?? 0) + 1;
     }
     return Object.entries(map).map(([month, count]) => ({ month, count })).reverse();
-  }, [myRecords]);
+  }, [safeRecords]);
 
   const recentSessions = useMemo(() => {
-    if (!myRecords) return [];
-    return [...myRecords].slice(0, 10);
-  }, [myRecords]);
+    return [...safeRecords].slice(0, 10);
+  }, [safeRecords]);
 
   async function handleLogout() {
     await logout();
@@ -219,10 +219,10 @@ export default function ProfileScreen() {
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Monthly Breakdown</Text>
               {monthlyStats.map(({ month, count }) => {
-                const monthTotal = classSessions?.filter((s) => {
+                const monthTotal = safeSessions.filter((s) => {
                   const key = new Date(s.createdAt).toLocaleDateString("en-IN", { month: "long", year: "numeric" });
                   return key === month;
-                }).length ?? 1;
+                }).length || 1;
                 const pct = Math.round((count / monthTotal) * 100);
                 const barColor = pct >= 75 ? Colors.success : pct >= 50 ? Colors.warning : Colors.error;
                 return (

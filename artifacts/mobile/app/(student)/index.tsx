@@ -59,8 +59,10 @@ export default function StudentDashboard() {
     refetchInterval: 10000,
   });
 
-  const totalSessions = classSessions?.length ?? 0;
-  const classesAbsent = Math.max(0, totalSessions - (records?.length ?? 0));
+  const safeClassSessions = Array.isArray(classSessions) ? classSessions : [];
+  const safeRecords = Array.isArray(records) ? records : [];
+  const totalSessions = safeClassSessions.length;
+  const classesAbsent = Math.max(0, totalSessions - safeRecords.length);
 
   async function handleLogout() {
     await logout();
@@ -82,7 +84,7 @@ export default function StudentDashboard() {
         <ActivityIndicator color={Colors.accent} style={{ marginTop: 40 }} />
       ) : (
         <FlatList
-          data={records ?? []}
+          data={safeRecords}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ padding: 16, paddingBottom: bottomPad }}
           ListHeaderComponent={
@@ -95,7 +97,7 @@ export default function StudentDashboard() {
               </View>
               <View style={styles.divider} />
               <View style={styles.summaryItem}>
-                <Text style={styles.summaryNum}>{records?.length ?? 0}</Text>
+                <Text style={styles.summaryNum}>{safeRecords.length}</Text>
                 <Text style={styles.summaryLabel}>Classes Attended</Text>
               </View>
             </View>

@@ -57,8 +57,9 @@ export default function AdminDashboard() {
     },
   });
 
-  const allStudents = users?.filter((u) => u.role === "student") ?? [];
-  const allTeachers = users?.filter((u) => u.role === "teacher") ?? [];
+  const safeUsers = Array.isArray(users) ? users : [];
+  const allStudents = safeUsers.filter((u) => u.role === "student");
+  const allTeachers = safeUsers.filter((u) => u.role === "teacher");
   
   const students = searchStudents.trim()
     ? allStudents.filter((u) => u.name.toLowerCase().includes(searchStudents.toLowerCase()))
@@ -66,7 +67,8 @@ export default function AdminDashboard() {
   const teachers = searchTeachers.trim()
     ? allTeachers.filter((u) => u.name.toLowerCase().includes(searchTeachers.toLowerCase()))
     : allTeachers;
-  const totalAttendance = attendance?.length ?? 0;
+  const safeAttendance = Array.isArray(attendance) ? attendance : [];
+  const totalAttendance = safeAttendance.length;
   const attendanceRate =
     students.length > 0 && totalAttendance > 0
       ? Math.min(100, Math.round((totalAttendance / Math.max(students.length, 1)) * 10))
@@ -83,7 +85,7 @@ export default function AdminDashboard() {
   }
 
   function getStudentStats(student: User) {
-    const studentAttendance = (attendance ?? []).filter((a) => a.studentId === student.id).length;
+    const studentAttendance = safeAttendance.filter((a) => a.studentId === student.id).length;
     const attendancePercent = studentAttendance > 0 ? Math.min(100, studentAttendance * 10) : 0;
     const subjects = (student as any).subjects ?? [];
     return { attendance: studentAttendance, attendancePercent, subjects };
