@@ -60,7 +60,7 @@ export default function TeacherDashboard() {
     setShowModal(true);
   }
 
-  const { data: sessionAttendanceData } = useQuery({
+  const { data: sessionAttendanceData, refetch: refetchAttendance } = useQuery({
     queryKey: ["session-attendance", selectedSession?.id],
     queryFn: async () => {
       if (!selectedSession?.id) return [];
@@ -84,8 +84,7 @@ export default function TeacherDashboard() {
         credentials: "include",
       });
       if (res.ok) {
-        // Refetch attendance
-        (window as any).location.reload();
+        refetchAttendance();
       }
     } catch (e) {
       console.error("Error removing attendance", e);
@@ -99,8 +98,7 @@ export default function TeacherDashboard() {
         credentials: "include",
       });
       if (res.ok) {
-        // Refetch attendance
-        (window as any).location.reload();
+        refetchAttendance();
       }
     } catch (e) {
       console.error("Error blocking student", e);
