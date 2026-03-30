@@ -269,10 +269,6 @@ export default function AdminDashboard() {
                               <Text style={styles.statLabel}>Sessions Conducted</Text>
                             </View>
                             <View style={styles.statBox}>
-                              <Text style={styles.statValue}>{stats.attendance}</Text>
-                              <Text style={styles.statLabel}>Attendance Marked</Text>
-                            </View>
-                            <View style={styles.statBox}>
                               <Text style={styles.statValue}>{stats.classes}</Text>
                               <Text style={styles.statLabel}>Classes</Text>
                             </View>
