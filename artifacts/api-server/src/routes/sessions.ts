@@ -101,4 +101,30 @@ router.get("/:id/attendance", requireAuth, (req, res) => {
   res.json(records);
 });
 
+router.post("/:id/block/:studentId", requireAuth, requireRole("teacher"), (req, res) => {
+  const userId = (req.session as any).userId;
+  const { id, studentId } = req.params;
+  const store = getStore();
+
+  const session = store.sessions.find((s) => s.id === id);
+  if (!session || session.teacherId !== userId) {
+    res.status(403).json({ error: "Forbidden" });
+    return;
+  }
+
+  const student = store.users.find((u) => u.id === studentId);
+  if (!student) {
+    res.status(404).json({ error: "Student not found" });
+    return;
+  }
+
+  if (!session.blockedStudents) {
+    (session as any).blockedStudents = [];
+  }
+  if (!(session as any).blockedStudents.includes(studentId)) {
+    (session as any).blockedStudents.push(studentId);
+  }
+  res.json({ success: true });
+});
+
 export default router;

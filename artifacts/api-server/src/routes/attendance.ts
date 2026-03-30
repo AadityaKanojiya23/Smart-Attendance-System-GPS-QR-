@@ -67,4 +67,24 @@ router.get("/", requireAuth, requireRole("admin"), (req, res) => {
   res.json(store.attendance.slice().reverse());
 });
 
+router.delete("/:id", requireAuth, requireRole("teacher"), (req, res) => {
+  const userId = (req.session as any).userId;
+  const store = getStore();
+  const record = store.attendance.find((a) => a.id === req.params.id);
+
+  if (!record) {
+    res.status(404).json({ error: "Attendance record not found" });
+    return;
+  }
+
+  const session = store.sessions.find((s) => s.id === record.sessionId);
+  if (!session || session.teacherId !== userId) {
+    res.status(403).json({ error: "Forbidden" });
+    return;
+  }
+
+  store.attendance = store.attendance.filter((a) => a.id !== req.params.id);
+  res.json({ success: true });
+});
+
 export default router;

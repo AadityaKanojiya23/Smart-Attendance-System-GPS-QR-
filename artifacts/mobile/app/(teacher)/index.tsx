@@ -77,6 +77,36 @@ export default function TeacherDashboard() {
     return sessionAttendanceData ?? [];
   }
 
+  async function removeAttendance(recordId: string) {
+    try {
+      const res = await fetch(getApiUrl(`/attendance/${recordId}`), {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (res.ok) {
+        // Refetch attendance
+        (window as any).location.reload();
+      }
+    } catch (e) {
+      console.error("Error removing attendance", e);
+    }
+  }
+
+  async function blockStudent(sessionId: string, studentId: string) {
+    try {
+      const res = await fetch(getApiUrl(`/sessions/${sessionId}/block/${studentId}`), {
+        method: "POST",
+        credentials: "include",
+      });
+      if (res.ok) {
+        // Refetch attendance
+        (window as any).location.reload();
+      }
+    } catch (e) {
+      console.error("Error blocking student", e);
+    }
+  }
+
   async function handleLogout() {
     await logout();
     router.replace("/login");
@@ -184,7 +214,20 @@ export default function TeacherDashboard() {
                           {new Date(record.markedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
                         </Text>
                       </View>
-                      <Ionicons name="checkmark-circle" size={20} color={Colors.success} />
+                      <View style={styles.actionButtons}>
+                        <TouchableOpacity
+                          style={styles.actionBtn}
+                          onPress={() => removeAttendance(record.id)}
+                        >
+                          <Ionicons name="trash-outline" size={18} color={Colors.error} />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.actionBtn}
+                          onPress={() => blockStudent(selectedSession.id, record.studentId)}
+                        >
+                          <Ionicons name="ban" size={18} color={Colors.warning} />
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   ))}
                 </View>
@@ -296,6 +339,8 @@ const styles = StyleSheet.create({
   studentAvatarText: { fontFamily: "Inter_600SemiBold", fontSize: 14, color: Colors.accent },
   studentName: { fontFamily: "Inter_600SemiBold", fontSize: 13, color: Colors.text },
   markedTime: { fontFamily: "Inter_400Regular", fontSize: 11, color: Colors.textSecondary, marginTop: 2 },
+  actionButtons: { flexDirection: "row", gap: 6, marginLeft: 8 },
+  actionBtn: { padding: 6 },
   closeBtn: { backgroundColor: Colors.accent, borderRadius: 14, paddingVertical: 14, alignItems: "center", marginTop: 8 },
   closeBtnText: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.white },
 });
