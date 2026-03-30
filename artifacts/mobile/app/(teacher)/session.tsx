@@ -19,6 +19,7 @@ import { GradientHeader } from "@/components/GradientHeader";
 import { useAuth } from "@/contexts/AuthContext";
 import { Colors } from "@/constants/colors";
 import { apiRequest } from "@/lib/query-client";
+import { CAMPUS_LAT, CAMPUS_LNG } from "@/lib/haversine";
 
 type SessionState = "idle" | "generating" | "active" | "expired";
 
@@ -53,8 +54,8 @@ export default function TeacherSessionScreen() {
     setState("generating");
     setError("");
     try {
-      let lat = 19.1897;
-      let lng = 72.9862;
+      let lat = CAMPUS_LAT;
+      let lng = CAMPUS_LNG;
       if (Platform.OS !== "web") {
         try {
           const { status } = await Location.requestForegroundPermissionsAsync();

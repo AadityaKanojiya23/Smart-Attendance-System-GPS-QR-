@@ -1,6 +1,6 @@
-export const CAMPUS_LAT = 19.1897;
-export const CAMPUS_LNG = 72.9862;
-export const CAMPUS_RADIUS_M = 300;
+export const CAMPUS_LAT = 19.180010063951876;
+export const CAMPUS_LNG = 72.98054933658015;
+export const CAMPUS_RADIUS_M = 1400;
 export const TEACHER_PROXIMITY_M = 100;
 
 export function haversineDistance(
