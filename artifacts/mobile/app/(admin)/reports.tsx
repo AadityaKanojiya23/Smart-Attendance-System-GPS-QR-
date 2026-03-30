@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import React, { useMemo, useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
   Platform,
   ScrollView,
@@ -12,6 +13,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useQuery } from "@tanstack/react-query";
+import * as Print from "expo-print";
+import * as Sharing from "expo-sharing";
 import { GradientHeader } from "@/components/GradientHeader";
 import { Colors } from "@/constants/colors";
 import { getApiUrl } from "@/lib/query-client";
@@ -58,6 +61,107 @@ function toDateStr(d: Date) {
 }
 function isoToDateStr(iso: string) { return toDateStr(new Date(iso)); }
 function classCode(deptCode: string, year: number, div: string) { return `${deptCode}-Y${year}-${div}`; }
+
+/* ─── PDF helpers ────────────────────────────────────── */
+function buildAttendanceHtml(
+  dateLabel: string,
+  className: string,
+  sessions: Array<{ session: ClassSession; attendees: AttendanceRecord[] }>
+) {
+  const totalPresent = sessions.reduce((s, x) => s + x.attendees.length, 0);
+  const sessionRows = sessions.map(({ session, attendees }) => {
+    const statusTag = session.cancelledAt
+      ? `<span style="color:#dc2626;font-weight:600;">[Cancelled]</span>`
+      : "";
+    const studentList = attendees.length === 0
+      ? `<tr><td colspan="3" style="color:#9ca3af;font-style:italic;padding:6px 12px;">No attendance recorded</td></tr>`
+      : attendees.map((r, i) => `
+          <tr style="background:${i % 2 === 0 ? "#f9fafb" : "#fff"}">
+            <td style="padding:6px 12px;">${i + 1}</td>
+            <td style="padding:6px 12px;">${r.studentName}</td>
+            <td style="padding:6px 12px;">${new Date(r.markedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}</td>
+          </tr>`).join("");
+    return `
+      <div style="margin-bottom:24px;">
+        <div style="background:#1a3f7a;color:#fff;padding:10px 14px;border-radius:6px 6px 0 0;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:15px;font-weight:600;">${session.subject ?? "Lecture"} ${statusTag}</span>
+          <span style="font-size:12px;opacity:0.85;">${session.teacherName ?? ""}${session.lectureStart ? " · " + session.lectureStart + (session.lectureEnd ? " – " + session.lectureEnd : "") : ""}</span>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="background:#e5e7eb;">
+              <th style="padding:6px 12px;text-align:left;">#</th>
+              <th style="padding:6px 12px;text-align:left;">Student Name</th>
+              <th style="padding:6px 12px;text-align:left;">Marked At</th>
+            </tr>
+          </thead>
+          <tbody>${studentList}</tbody>
+        </table>
+        <div style="text-align:right;font-size:12px;color:#6b7280;padding:4px 12px 0;">
+          ${attendees.length} present
+        </div>
+      </div>`;
+  }).join("");
+
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Attendance Report – ${dateLabel}</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 32px; color: #111; }
+    h1   { color: #0f2d5a; margin-bottom: 4px; font-size: 22px; }
+    .sub { color: #6b7280; font-size: 13px; margin-bottom: 24px; }
+    .summary { display: flex; gap: 24px; margin-bottom: 28px; }
+    .stat { background: #f3f4f6; border-radius: 8px; padding: 12px 20px; text-align: center; }
+    .stat-num { font-size: 26px; font-weight: 700; color: #1a3f7a; }
+    .stat-label { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: .5px; }
+    @media print { body { margin: 16px; } }
+  </style>
+</head>
+<body>
+  <h1>K.C. College of Engineering – Attendance Report</h1>
+  <div class="sub">Class: ${className} &nbsp;|&nbsp; Date: ${dateLabel}</div>
+  <div class="summary">
+    <div class="stat">
+      <div class="stat-num">${sessions.length}</div>
+      <div class="stat-label">Total Lectures</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">${totalPresent}</div>
+      <div class="stat-label">Total Present</div>
+    </div>
+  </div>
+  ${sessionRows}
+  <div style="margin-top:32px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:11px;color:#9ca3af;">
+    Generated on ${new Date().toLocaleString("en-IN")} &nbsp;·&nbsp; K.C. College of Engineering, Thane East
+  </div>
+</body>
+</html>`;
+}
+
+async function exportDayPDF(
+  dateLabel: string,
+  className: string,
+  sessions: Array<{ session: ClassSession; attendees: AttendanceRecord[] }>
+) {
+  try {
+    const html = buildAttendanceHtml(dateLabel, className, sessions);
+    if (Platform.OS === "web") {
+      await Print.printAsync({ html });
+    } else {
+      const { uri } = await Print.printToFileAsync({ html });
+      const canShare = await Sharing.isAvailableAsync();
+      if (canShare) {
+        await Sharing.shareAsync(uri, { mimeType: "application/pdf", dialogTitle: "Save Attendance PDF", UTI: "com.adobe.pdf" });
+      } else {
+        Alert.alert("PDF saved", uri);
+      }
+    }
+  } catch (e: any) {
+    Alert.alert("Export failed", e?.message ?? "Unknown error");
+  }
+}
 
 /* ─── Mini Calendar ──────────────────────────────────── */
 function MiniCalendar({
@@ -336,17 +440,30 @@ export default function ReportsScreen() {
               {/* Sessions for selected date */}
               {selectedDate ? (
                 <>
-                  <View style={styles.dateHeaderRow}>
-                    <Ionicons name="calendar" size={16} color={Colors.accent} />
-                    <Text style={styles.dateHeaderText}>
-                      {new Date(selectedDate + "T00:00:00").toLocaleDateString("en-IN", {
-                        weekday: "long", day: "numeric", month: "long", year: "numeric",
-                      })}
-                    </Text>
-                    <View style={styles.dateBadge}>
-                      <Text style={styles.dateBadgeText}>{sessionsForDate.length} lecture{sessionsForDate.length !== 1 ? "s" : ""}</Text>
-                    </View>
-                  </View>
+                  {(() => {
+                    const dateLabel = new Date(selectedDate + "T00:00:00").toLocaleDateString("en-IN", {
+                      weekday: "long", day: "numeric", month: "long", year: "numeric",
+                    });
+                    return (
+                      <View style={styles.dateHeaderRow}>
+                        <Ionicons name="calendar" size={16} color={Colors.accent} />
+                        <Text style={[styles.dateHeaderText, { flex: 1 }]}>{dateLabel}</Text>
+                        <View style={styles.dateBadge}>
+                          <Text style={styles.dateBadgeText}>{sessionsForDate.length} lecture{sessionsForDate.length !== 1 ? "s" : ""}</Text>
+                        </View>
+                        {sessionsForDate.length > 0 && (
+                          <TouchableOpacity
+                            style={styles.pdfBtn}
+                            onPress={() => exportDayPDF(dateLabel, reportClassName!, sessionsForDate)}
+                            activeOpacity={0.75}
+                          >
+                            <Ionicons name="download-outline" size={15} color="#fff" />
+                            <Text style={styles.pdfBtnText}>PDF</Text>
+                          </TouchableOpacity>
+                        )}
+                      </View>
+                    );
+                  })()}
 
                   {sessionsForDate.length === 0 ? (
                     <EmptyState icon="calendar-outline" text="No lectures on this date" />
@@ -500,6 +617,8 @@ const styles = StyleSheet.create({
   dateHeaderText: { fontFamily: "Inter_600SemiBold", fontSize: 14, color: Colors.text, flex: 1 },
   dateBadge: { backgroundColor: Colors.accentPale, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4 },
   dateBadgeText: { fontFamily: "Inter_600SemiBold", fontSize: 12, color: Colors.accent },
+  pdfBtn: { flexDirection: "row", alignItems: "center", gap: 4, backgroundColor: Colors.accent, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6 },
+  pdfBtnText: { fontFamily: "Inter_600SemiBold", fontSize: 12, color: "#fff" },
 
   subjectGroup: { backgroundColor: Colors.card, borderRadius: 16, marginBottom: 12, overflow: "hidden", borderWidth: 1, borderColor: Colors.border },
   subjectHeader: { flexDirection: "row", alignItems: "center", gap: 10, padding: 14, borderBottomWidth: 1, borderColor: Colors.border },
