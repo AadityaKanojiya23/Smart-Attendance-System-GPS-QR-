@@ -16,7 +16,11 @@ function NativeTeacherTabs() {
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="session">
         <Icon sf={{ default: "qrcode", selected: "qrcode" }} />
-        <Label>Session</Label>
+        <Label>Scanner</Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="profile">
+        <Icon sf={{ default: "person", selected: "person.fill" }} />
+        <Label>Profile</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   );
@@ -60,8 +64,15 @@ function ClassicTeacherTabs() {
       <Tabs.Screen
         name="session"
         options={{
-          title: "Session",
+          title: "Scanner",
           tabBarIcon: ({ color }) => <Ionicons name="qr-code-outline" size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color }) => <Ionicons name="person-outline" size={22} color={color} />,
         }}
       />
     </Tabs>
