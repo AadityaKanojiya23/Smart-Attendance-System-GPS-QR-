@@ -91,8 +91,8 @@ export default function StudentDashboard() {
               </View>
               <View style={styles.divider} />
               <View style={styles.summaryItem}>
-                <Ionicons name="checkmark-circle" size={28} color={Colors.success} />
-                <Text style={styles.summaryLabel}>All Verified</Text>
+                <Text style={styles.summaryNum}>{records?.length ?? 0}</Text>
+                <Text style={styles.summaryLabel}>Classes Attended</Text>
               </View>
             </View>
           }
