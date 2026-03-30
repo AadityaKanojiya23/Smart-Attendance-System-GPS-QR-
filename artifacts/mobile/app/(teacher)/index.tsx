@@ -1,9 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  Modal,
   Platform,
   ScrollView,
   StyleSheet,
@@ -38,6 +39,8 @@ export default function TeacherDashboard() {
   const { user, logout } = useAuth();
   const insets = useSafeAreaInsets();
   const bottomPad = Platform.OS === "web" ? 34 + 84 : insets.bottom + 80;
+  const [selectedSession, setSelectedSession] = useState<Session | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const { data: mySessions, isLoading } = useQuery({
     queryKey: ["teacher-sessions"],
@@ -48,9 +51,27 @@ export default function TeacherDashboard() {
     refetchInterval: 5000,
   });
 
+  const { data: allAttendance } = useQuery({
+    queryKey: ["attendance-all"],
+    queryFn: async () => {
+      const res = await fetch(getApiUrl("/attendance"), { credentials: "include" });
+      return res.json() as Promise<AttendanceRecord[]>;
+    },
+    refetchInterval: 5000,
+  });
+
   const activeSessions = (mySessions ?? []).filter(
     (s) => new Date(s.expiresAt) > new Date()
   );
+
+  function openSessionDetails(session: Session) {
+    setSelectedSession(session);
+    setShowModal(true);
+  }
+
+  function getSessionAttendance(sessionId: string) {
+    return (allAttendance ?? []).filter((a) => a.sessionId === sessionId);
+  }
 
   async function handleLogout() {
     await logout();
@@ -93,8 +114,9 @@ export default function TeacherDashboard() {
           )}
           {mySessions?.slice(0, 10).map((s) => {
             const isActive = new Date(s.expiresAt) > new Date();
+            const sessionAttendance = getSessionAttendance(s.id);
             return (
-              <View key={s.id} style={styles.sessionCard}>
+              <TouchableOpacity key={s.id} style={styles.sessionCard} onPress={() => openSessionDetails(s)}>
                 <View style={[styles.sessionIcon, { backgroundColor: isActive ? Colors.accentPale : "#F8FAFC" }]}>
                   <Ionicons name="qr-code" size={20} color={isActive ? Colors.accent : Colors.textMuted} />
                 </View>
@@ -103,17 +125,74 @@ export default function TeacherDashboard() {
                   <Text style={styles.sessionTime}>
                     {new Date(s.expiresAt).toLocaleString()}
                   </Text>
+                  <Text style={styles.sessionAttendance}>{sessionAttendance.length} students marked</Text>
                 </View>
                 <View style={[styles.statusBadge, { backgroundColor: isActive ? Colors.successPale : "#F1F5F9" }]}>
                   <Text style={[styles.statusText, { color: isActive ? Colors.success : Colors.textMuted }]}>
                     {isActive ? "Active" : "Expired"}
                   </Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </ScrollView>
       )}
+
+      <Modal visible={showModal} animationType="slide" transparent presentationStyle="overFullScreen">
+        <TouchableOpacity style={styles.modalBackdrop} onPress={() => setShowModal(false)} />
+        <View style={[styles.modalWrap, { paddingBottom: (Platform.OS === "web" ? 34 : insets.bottom) + 16 }]}>
+          <View style={styles.modalHandle} />
+          {selectedSession && (
+            <ScrollView contentContainerStyle={{ gap: 16 }}>
+              <View style={styles.sessionHeader}>
+                <View style={styles.sessionAvatar}>
+                  <Ionicons name="qr-code" size={24} color={Colors.accent} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.sessionHeaderClass}>{selectedSession.className}</Text>
+                  <Text style={styles.sessionHeaderTime}>
+                    {new Date(selectedSession.expiresAt).toLocaleString()}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.attendanceStats}>
+                <Text style={styles.statsLabel}>Students Marked</Text>
+                <Text style={styles.statsValue}>{getSessionAttendance(selectedSession.id).length}</Text>
+              </View>
+
+              <Text style={styles.listTitle}>Attendance List</Text>
+              {getSessionAttendance(selectedSession.id).length === 0 ? (
+                <View style={styles.emptyAttendance}>
+                  <Ionicons name="person-outline" size={32} color={Colors.textMuted} />
+                  <Text style={styles.emptyAttendanceText}>No attendance records yet</Text>
+                </View>
+              ) : (
+                <View>
+                  {getSessionAttendance(selectedSession.id).map((record, idx) => (
+                    <View key={record.id} style={[styles.attendanceItem, idx === getSessionAttendance(selectedSession.id).length - 1 && { marginBottom: 0 }]}>
+                      <View style={styles.studentAvatar}>
+                        <Text style={styles.studentAvatarText}>{record.studentName[0]?.toUpperCase()}</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.studentName}>{record.studentName}</Text>
+                        <Text style={styles.markedTime}>
+                          {new Date(record.markedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+                        </Text>
+                      </View>
+                      <Ionicons name="checkmark-circle" size={20} color={Colors.success} />
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              <TouchableOpacity style={styles.closeBtn} onPress={() => setShowModal(false)}>
+                <Text style={styles.closeBtnText}>Close</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          )}
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -183,6 +262,7 @@ const styles = StyleSheet.create({
   },
   sessionClass: { fontFamily: "Inter_600SemiBold", fontSize: 15, color: Colors.text },
   sessionTime: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
+  sessionAttendance: { fontFamily: "Inter_500Medium", fontSize: 11, color: Colors.accent, marginTop: 4 },
   statusBadge: {
     borderRadius: 8,
     paddingHorizontal: 10,
@@ -194,4 +274,24 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.15)",
     borderRadius: 10,
   },
+  modalBackdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
+  modalWrap: { backgroundColor: Colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 20, paddingTop: 12, maxHeight: "90%" },
+  modalHandle: { width: 36, height: 4, borderRadius: 2, backgroundColor: Colors.border, alignSelf: "center", marginBottom: 16 },
+  sessionHeader: { flexDirection: "row", alignItems: "center", gap: 12, paddingBottom: 16, borderBottomWidth: 1, borderBottomColor: Colors.border },
+  sessionAvatar: { width: 50, height: 50, borderRadius: 12, backgroundColor: Colors.accentPale, alignItems: "center", justifyContent: "center" },
+  sessionHeaderClass: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.text },
+  sessionHeaderTime: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
+  attendanceStats: { backgroundColor: Colors.background, borderRadius: 14, padding: 16, alignItems: "center" },
+  statsLabel: { fontFamily: "Inter_500Medium", fontSize: 12, color: Colors.textSecondary },
+  statsValue: { fontFamily: "Inter_700Bold", fontSize: 28, color: Colors.accent, marginTop: 4 },
+  listTitle: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.text },
+  emptyAttendance: { backgroundColor: Colors.background, borderRadius: 14, paddingVertical: 32, alignItems: "center", gap: 8 },
+  emptyAttendanceText: { fontFamily: "Inter_400Regular", fontSize: 13, color: Colors.textMuted },
+  attendanceItem: { flexDirection: "row", alignItems: "center", paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: Colors.border },
+  studentAvatar: { width: 36, height: 36, borderRadius: 10, backgroundColor: Colors.accentPale, alignItems: "center", justifyContent: "center", marginRight: 10 },
+  studentAvatarText: { fontFamily: "Inter_600SemiBold", fontSize: 14, color: Colors.accent },
+  studentName: { fontFamily: "Inter_600SemiBold", fontSize: 13, color: Colors.text },
+  markedTime: { fontFamily: "Inter_400Regular", fontSize: 11, color: Colors.textSecondary, marginTop: 2 },
+  closeBtn: { backgroundColor: Colors.accent, borderRadius: 14, paddingVertical: 14, alignItems: "center", marginTop: 8 },
+  closeBtnText: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.white },
 });
