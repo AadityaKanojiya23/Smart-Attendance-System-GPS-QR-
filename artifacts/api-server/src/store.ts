@@ -39,6 +39,11 @@ export interface StoredSession {
   qrToken: string;
   expiresAt: string;
   createdAt: string;
+  subject?: string;
+  lectureStart?: string;
+  lectureEnd?: string;
+  durationSecs?: number;
+  blockedStudents?: string[];
 }
 
 export interface StoredAttendance {
@@ -108,14 +113,14 @@ export async function seedStore() {
 
   const demoUsers: Array<Omit<StoredUser, "id" | "passwordHash"> & { password: string }> = [
     { name: "Admin User",   email: "admin@campus.edu",  password: "admin123",   role: "admin" },
-    { name: "Anita Sharma", email: "anita@campus.edu",  password: "teacher123", role: "teacher", department: "Computer Science",        departmentId: csId, year: 1, division: "A", className: classCode("CS", 1, "A") },
-    { name: "Rahul Verma",  email: "rahul@campus.edu",  password: "teacher123", role: "teacher", department: "Computer Science",        departmentId: csId, year: 1, division: "B", className: classCode("CS", 1, "B") },
+    { name: "Anita Sharma", email: "anita@campus.edu",  password: "teacher123", role: "teacher", department: "Computer Science",        departmentId: csId, year: 1, division: "A", className: classCode("CS", 1, "A"), subjects: ["Data Structures", "Algorithms", "C Programming", "Mathematics-I"] },
+    { name: "Rahul Verma",  email: "rahul@campus.edu",  password: "teacher123", role: "teacher", department: "Computer Science",        departmentId: csId, year: 1, division: "B", className: classCode("CS", 1, "B"), subjects: ["Digital Electronics", "Basic Electronics", "Mathematics-I"] },
     { name: "Priya Mehta",  email: "priya@campus.edu",  password: "student123", role: "student", department: "Computer Science",        departmentId: csId, year: 1, division: "A", className: classCode("CS", 1, "A") },
     { name: "Arjun Singh",  email: "arjun@campus.edu",  password: "student123", role: "student", department: "Computer Science",        departmentId: csId, year: 1, division: "A", className: classCode("CS", 1, "A") },
     { name: "Sneha Patil",  email: "sneha@campus.edu",  password: "student123", role: "student", department: "Computer Science",        departmentId: csId, year: 1, division: "B", className: classCode("CS", 1, "B") },
-    { name: "Vikram Nair",  email: "vikram@campus.edu", password: "teacher123", role: "teacher", department: "Electronics Engineering", departmentId: eeId, year: 1, division: "A", className: classCode("EE", 1, "A") },
+    { name: "Vikram Nair",  email: "vikram@campus.edu", password: "teacher123", role: "teacher", department: "Electronics Engineering", departmentId: eeId, year: 1, division: "A", className: classCode("EE", 1, "A"), subjects: ["Basic Electrical", "Circuit Theory", "Physics", "Mathematics-II"] },
     { name: "Riya Joshi",   email: "riya@campus.edu",   password: "student123", role: "student", department: "Electronics Engineering", departmentId: eeId, year: 1, division: "A", className: classCode("EE", 1, "A") },
-    { name: "Suresh Patil", email: "suresh@campus.edu", password: "teacher123", role: "teacher", department: "Mechanical Engineering",  departmentId: meId, year: 1, division: "A", className: classCode("ME", 1, "A") },
+    { name: "Suresh Patil", email: "suresh@campus.edu", password: "teacher123", role: "teacher", department: "Mechanical Engineering",  departmentId: meId, year: 1, division: "A", className: classCode("ME", 1, "A"), subjects: ["Engineering Mechanics", "Thermodynamics", "Workshop", "Mathematics-II"] },
   ];
 
   for (const u of demoUsers) {

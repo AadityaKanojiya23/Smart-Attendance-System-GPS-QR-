@@ -20,13 +20,17 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
 const router: IRouter = Router();
 
 router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
-  const { teacherId, className, latitude, longitude, qrToken, expiresAt } = req.body as {
+  const { teacherId, className, latitude, longitude, qrToken, expiresAt, subject, lectureStart, lectureEnd, durationSecs } = req.body as {
     teacherId: string;
     className: string;
     latitude: number;
     longitude: number;
     qrToken: string;
     expiresAt: string;
+    subject?: string;
+    lectureStart?: string;
+    lectureEnd?: string;
+    durationSecs?: number;
   };
 
   if (!teacherId || !className || !qrToken || !expiresAt) {
@@ -34,7 +38,6 @@ router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
     return;
   }
 
-  // Validate GPS location if provided
   if (latitude !== undefined && longitude !== undefined) {
     const distance = haversineDistance(latitude, longitude, CAMPUS_LAT, CAMPUS_LNG);
     if (distance > CAMPUS_RADIUS_M) {
@@ -55,6 +58,11 @@ router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
     qrToken,
     expiresAt,
     createdAt: new Date().toISOString(),
+    subject: subject ?? undefined,
+    lectureStart: lectureStart ?? undefined,
+    lectureEnd: lectureEnd ?? undefined,
+    durationSecs: durationSecs ?? undefined,
+    blockedStudents: [] as string[],
   };
   store.sessions.push(session);
   res.json(session);

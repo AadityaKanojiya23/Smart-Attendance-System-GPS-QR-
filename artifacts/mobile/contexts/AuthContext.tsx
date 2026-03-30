@@ -15,6 +15,11 @@ export interface User {
   email: string;
   role: UserRole;
   className?: string;
+  department?: string;
+  departmentId?: string;
+  year?: number;
+  division?: string;
+  subjects?: string[];
 }
 
 interface AuthContextType {

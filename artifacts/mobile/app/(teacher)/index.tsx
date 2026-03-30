@@ -25,6 +25,9 @@ interface Session {
   className: string;
   expiresAt: string;
   qrToken: string;
+  subject?: string;
+  lectureStart?: string;
+  lectureEnd?: string;
 }
 interface AttendanceRecord {
   id: string;
@@ -160,9 +163,11 @@ export default function TeacherDashboard() {
                   <Ionicons name="qr-code" size={20} color={isActive ? Colors.accent : Colors.textMuted} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.sessionClass}>{s.className}</Text>
+                  <Text style={styles.sessionClass}>{s.subject ?? s.className}</Text>
                   <Text style={styles.sessionTime}>
-                    {new Date(s.expiresAt).toLocaleString()}
+                    {s.lectureStart && s.lectureEnd
+                      ? `${s.lectureStart} – ${s.lectureEnd} · ${s.className}`
+                      : s.className}
                   </Text>
                   <Text style={styles.sessionAttendance}>Tap to view attendance</Text>
                 </View>
@@ -188,10 +193,17 @@ export default function TeacherDashboard() {
                   <Ionicons name="qr-code" size={24} color={Colors.accent} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.sessionHeaderClass}>{selectedSession.className}</Text>
-                  <Text style={styles.sessionHeaderTime}>
-                    {new Date(selectedSession.expiresAt).toLocaleString()}
+                  <Text style={styles.sessionHeaderClass}>
+                    {selectedSession.subject ?? selectedSession.className}
                   </Text>
+                  <Text style={styles.sessionHeaderTime}>
+                    {selectedSession.lectureStart && selectedSession.lectureEnd
+                      ? `${selectedSession.lectureStart} – ${selectedSession.lectureEnd}`
+                      : new Date(selectedSession.expiresAt).toLocaleString()}
+                  </Text>
+                  {selectedSession.subject && (
+                    <Text style={styles.sessionHeaderClass2}>{selectedSession.className}</Text>
+                  )}
                 </View>
               </View>
 
@@ -332,6 +344,7 @@ const styles = StyleSheet.create({
   sessionHeader: { flexDirection: "row", alignItems: "center", gap: 12, paddingBottom: 16, borderBottomWidth: 1, borderBottomColor: Colors.border },
   sessionAvatar: { width: 50, height: 50, borderRadius: 12, backgroundColor: Colors.accentPale, alignItems: "center", justifyContent: "center" },
   sessionHeaderClass: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.text },
+  sessionHeaderClass2: { fontFamily: "Inter_500Medium", fontSize: 11, color: Colors.accent, marginTop: 2 },
   sessionHeaderTime: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
   attendanceStats: { backgroundColor: Colors.background, borderRadius: 14, padding: 16, alignItems: "center" },
   statsLabel: { fontFamily: "Inter_500Medium", fontSize: 12, color: Colors.textSecondary },
