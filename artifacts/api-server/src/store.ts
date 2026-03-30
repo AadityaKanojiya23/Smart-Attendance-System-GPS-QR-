@@ -63,6 +63,10 @@ export interface StoredAttendance {
   sessionId: string;
   className: string;
   markedAt: string;
+  subject?: string;
+  lectureStart?: string;
+  lectureEnd?: string;
+  teacherName?: string;
 }
 
 interface Store {

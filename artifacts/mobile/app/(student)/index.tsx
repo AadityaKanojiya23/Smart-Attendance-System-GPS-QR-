@@ -23,6 +23,10 @@ interface AttendanceRecord {
   sessionId: string;
   className: string;
   markedAt: string;
+  subject?: string;
+  lectureStart?: string;
+  lectureEnd?: string;
+  teacherName?: string;
 }
 
 interface Session {
@@ -105,25 +109,42 @@ export default function StudentDashboard() {
           }
           renderItem={({ item }) => (
             <View style={styles.card}>
-              <View style={styles.cardIcon}>
-                <Ionicons name="checkmark-circle" size={22} color={Colors.success} />
+              <View style={styles.cardIconWrap}>
+                <Ionicons name="checkmark-circle" size={24} color={Colors.success} />
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.cardClass}>{item.className}</Text>
-                <Text style={styles.cardTime}>
-                  {new Date(item.markedAt).toLocaleDateString("en-IN", {
-                    weekday: "short",
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </Text>
-                <Text style={styles.cardTimeSub}>
-                  {new Date(item.markedAt).toLocaleTimeString()}
-                </Text>
-              </View>
-              <View style={styles.presentBadge}>
-                <Text style={styles.presentBadgeText}>Present</Text>
+              <View style={{ flex: 1, gap: 2 }}>
+                {/* Subject row */}
+                <View style={styles.cardTopRow}>
+                  <Text style={styles.cardSubject} numberOfLines={1}>
+                    {item.subject ?? item.className}
+                  </Text>
+                  <View style={styles.presentBadge}>
+                    <Text style={styles.presentBadgeText}>Present</Text>
+                  </View>
+                </View>
+
+                {/* Class + teacher */}
+                <Text style={styles.cardClass}>{item.className}{item.teacherName ? ` · ${item.teacherName}` : ""}</Text>
+
+                {/* Lecture timing */}
+                {(item.lectureStart || item.lectureEnd) ? (
+                  <View style={styles.cardTimeRow}>
+                    <Ionicons name="time-outline" size={12} color={Colors.textMuted} />
+                    <Text style={styles.cardTimeText}>
+                      {item.lectureStart ?? ""}{item.lectureStart && item.lectureEnd ? " – " : ""}{item.lectureEnd ?? ""}
+                    </Text>
+                  </View>
+                ) : null}
+
+                {/* Date marked */}
+                <View style={styles.cardTimeRow}>
+                  <Ionicons name="calendar-outline" size={12} color={Colors.textMuted} />
+                  <Text style={styles.cardTimeText}>
+                    {new Date(item.markedAt).toLocaleDateString("en-IN", {
+                      weekday: "short", day: "numeric", month: "short", year: "numeric",
+                    })}{" · "}{new Date(item.markedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+                  </Text>
+                </View>
               </View>
             </View>
           )}
@@ -162,7 +183,7 @@ const styles = StyleSheet.create({
   emptyHint: { fontFamily: "Inter_400Regular", fontSize: 13, color: Colors.textMuted, textAlign: "center" },
   card: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     backgroundColor: Colors.card,
     borderRadius: 14,
     padding: 14,
@@ -172,24 +193,28 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
     shadowRadius: 3,
     elevation: 1,
+    gap: 12,
   },
-  cardIcon: {
-    width: 42,
-    height: 42,
+  cardIconWrap: {
+    width: 40,
+    height: 40,
     borderRadius: 12,
     backgroundColor: Colors.successPale,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 12,
+    flexShrink: 0,
   },
-  cardClass: { fontFamily: "Inter_600SemiBold", fontSize: 15, color: Colors.text },
-  cardTime: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
-  cardTimeSub: { fontFamily: "Inter_400Regular", fontSize: 11, color: Colors.textMuted },
+  cardTopRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8 },
+  cardSubject: { fontFamily: "Inter_700Bold", fontSize: 15, color: Colors.text, flex: 1 },
+  cardClass: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary },
+  cardTimeRow: { flexDirection: "row", alignItems: "center", gap: 4, marginTop: 1 },
+  cardTimeText: { fontFamily: "Inter_400Regular", fontSize: 11, color: Colors.textMuted },
   presentBadge: {
     backgroundColor: Colors.successPale,
     borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    flexShrink: 0,
   },
   presentBadgeText: { fontFamily: "Inter_600SemiBold", fontSize: 11, color: Colors.success },
 });

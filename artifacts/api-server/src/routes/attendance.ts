@@ -32,6 +32,14 @@ router.post("/", requireAuth, requireRole("student"), (req, res) => {
     return;
   }
 
+  // Subject check: if session has a subject and student has enrolled subjects, verify match
+  if (session.subject && student.subjects && student.subjects.length > 0) {
+    if (!student.subjects.includes(session.subject)) {
+      res.status(400).json({ error: `Subject not assigned. This session is for ${session.subject}, which is not in your enrolled subjects.` });
+      return;
+    }
+  }
+
   const blockedStudents = (session as any).blockedStudents ?? [];
   if (blockedStudents.includes(userId)) {
     res.status(403).json({ error: "You are blocked for this session." });
@@ -46,6 +54,9 @@ router.post("/", requireAuth, requireRole("student"), (req, res) => {
     return;
   }
 
+  // Look up teacher name to store with the record
+  const teacher = store.users.find((u) => u.id === session.teacherId);
+
   const record = {
     id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
     studentId: userId,
@@ -53,6 +64,10 @@ router.post("/", requireAuth, requireRole("student"), (req, res) => {
     sessionId: session.id,
     className: session.className,
     markedAt: new Date().toISOString(),
+    subject: session.subject,
+    lectureStart: session.lectureStart,
+    lectureEnd: session.lectureEnd,
+    teacherName: teacher?.name,
   };
   store.attendance.push(record);
   res.json(record);
