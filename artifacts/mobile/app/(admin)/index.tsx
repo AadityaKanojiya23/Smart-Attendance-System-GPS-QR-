@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Modal,
   Platform,
   ScrollView,
   StyleSheet,
@@ -30,6 +31,8 @@ export default function AdminDashboard() {
   const bottomPad = Platform.OS === "web" ? 34 + 84 : insets.bottom + 80;
   const [searchTeachers, setSearchTeachers] = useState("");
   const [searchStudents, setSearchStudents] = useState("");
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const { data: departments } = useQuery({
     queryKey: ["departments"],
@@ -78,6 +81,31 @@ export default function AdminDashboard() {
       ? Math.round((totalAttendance / (students.length * Math.max((sessions?.length ?? 1), 1))) * 100)
       : 0;
   const deptCount = departments?.length ?? 0;
+
+  function getTeacherStats(teacher: User) {
+    const teacherSessions = (sessions ?? []).filter((s) => s.teacherId === teacher.id);
+    const teacherAttendance = teacherSessions.length > 0
+      ? (attendance ?? []).filter((a) => teacherSessions.map((s) => s.id).includes(a.sessionId)).length
+      : 0;
+    const uniqueClasses = new Set(teacherSessions.map((s) => s.className)).size;
+    const subjects = teacher.subjects ?? [];
+    return { sessions: teacherSessions.length, attendance: teacherAttendance, classes: uniqueClasses, subjects };
+  }
+
+  function getStudentStats(student: User) {
+    const studentAttendance = (attendance ?? []).filter((a) => a.studentId === student.id).length;
+    const studentSessions = (sessions ?? []).filter((s) => s.className === student.className);
+    const attendancePercent = studentSessions.length > 0
+      ? Math.round((studentAttendance / studentSessions.length) * 100)
+      : 0;
+    const subjects = student.subjects ?? [];
+    return { attendance: studentAttendance, attendancePercent, totalSessions: studentSessions.length, subjects };
+  }
+
+  function openUserDetail(u: User) {
+    setSelectedUser(u);
+    setShowModal(true);
+  }
 
   const loading = loadUsers || loadSessions;
 
@@ -135,7 +163,7 @@ export default function AdminDashboard() {
             </View>
           ) : (
             teachers.map((t) => (
-              <View key={t.id} style={styles.userCard}>
+              <TouchableOpacity key={t.id} style={styles.userCard} onPress={() => openUserDetail(t)}>
                 <View style={styles.userAvatar}>
                   <Text style={styles.userAvatarText}>{t.name[0]?.toUpperCase()}</Text>
                 </View>
@@ -144,7 +172,8 @@ export default function AdminDashboard() {
                   <Text style={styles.userEmail}>{t.email}</Text>
                   {t.className && <Text style={styles.userClass}>{t.className}</Text>}
                 </View>
-              </View>
+                <Ionicons name="chevron-forward" size={16} color={Colors.textMuted} />
+              </TouchableOpacity>
             ))
           )}
 
@@ -170,7 +199,7 @@ export default function AdminDashboard() {
             </View>
           ) : (
             students.map((s) => (
-              <View key={s.id} style={styles.userCard}>
+              <TouchableOpacity key={s.id} style={styles.userCard} onPress={() => openUserDetail(s)}>
                 <View style={styles.userAvatar}>
                   <Text style={styles.userAvatarText}>{s.name[0]?.toUpperCase()}</Text>
                 </View>
@@ -179,7 +208,8 @@ export default function AdminDashboard() {
                   <Text style={styles.userEmail}>{s.email}</Text>
                   {s.className && <Text style={styles.userClass}>{s.className}</Text>}
                 </View>
-              </View>
+                <Ionicons name="chevron-forward" size={16} color={Colors.textMuted} />
+              </TouchableOpacity>
             ))
           )}
 
@@ -208,6 +238,117 @@ export default function AdminDashboard() {
           ))}
         </ScrollView>
       )}
+
+      <Modal visible={showModal} animationType="slide" transparent presentationStyle="overFullScreen">
+        <TouchableOpacity style={styles.modalBackdrop} onPress={() => setShowModal(false)} />
+        <View style={[styles.modalWrap, { paddingBottom: (Platform.OS === "web" ? 34 : insets.bottom) + 16 }]}>
+          <View style={styles.modalHandle} />
+          <ScrollView contentContainerStyle={{ gap: 16 }}>
+            {selectedUser && (
+              <>
+                <View style={styles.detailHeader}>
+                  <View style={styles.detailAvatar}>
+                    <Text style={styles.detailAvatarText}>{selectedUser.name[0]?.toUpperCase()}</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.detailName}>{selectedUser.name}</Text>
+                    <Text style={styles.detailEmail}>{selectedUser.email}</Text>
+                    {selectedUser.className && <Text style={styles.detailClass}>{selectedUser.className}</Text>}
+                  </View>
+                </View>
+
+                {selectedUser.role === "teacher" ? (
+                  <>
+                    {(() => {
+                      const stats = getTeacherStats(selectedUser);
+                      return (
+                        <>
+                          <View style={styles.statsGrid}>
+                            <View style={styles.statBox}>
+                              <Text style={styles.statValue}>{stats.sessions}</Text>
+                              <Text style={styles.statLabel}>Sessions Conducted</Text>
+                            </View>
+                            <View style={styles.statBox}>
+                              <Text style={styles.statValue}>{stats.attendance}</Text>
+                              <Text style={styles.statLabel}>Attendance Marked</Text>
+                            </View>
+                            <View style={styles.statBox}>
+                              <Text style={styles.statValue}>{stats.classes}</Text>
+                              <Text style={styles.statLabel}>Classes</Text>
+                            </View>
+                            <View style={styles.statBox}>
+                              <Text style={styles.statValue}>{stats.subjects.length}</Text>
+                              <Text style={styles.statLabel}>Subjects</Text>
+                            </View>
+                          </View>
+
+                          {stats.subjects.length > 0 && (
+                            <>
+                              <Text style={styles.sectionLabel}>Subjects Taught</Text>
+                              <View style={styles.tagsWrap}>
+                                {stats.subjects.map((subj, i) => (
+                                  <View key={i} style={styles.subjectTag}>
+                                    <Text style={styles.subjectTagText}>{subj}</Text>
+                                  </View>
+                                ))}
+                              </View>
+                            </>
+                          )}
+                        </>
+                      );
+                    })()}
+                  </>
+                ) : (
+                  <>
+                    {(() => {
+                      const stats = getStudentStats(selectedUser);
+                      return (
+                        <>
+                          <View style={styles.statsGrid}>
+                            <View style={styles.statBox}>
+                              <Text style={styles.statValue}>{stats.attendancePercent}%</Text>
+                              <Text style={styles.statLabel}>Attendance</Text>
+                            </View>
+                            <View style={styles.statBox}>
+                              <Text style={styles.statValue}>{stats.attendance}</Text>
+                              <Text style={styles.statLabel}>Classes Attended</Text>
+                            </View>
+                            <View style={styles.statBox}>
+                              <Text style={styles.statValue}>{stats.totalSessions}</Text>
+                              <Text style={styles.statLabel}>Total Sessions</Text>
+                            </View>
+                            <View style={styles.statBox}>
+                              <Text style={styles.statValue}>{stats.subjects.length}</Text>
+                              <Text style={styles.statLabel}>Subjects</Text>
+                            </View>
+                          </View>
+
+                          {stats.subjects.length > 0 && (
+                            <>
+                              <Text style={styles.sectionLabel}>Subjects Enrolled</Text>
+                              <View style={styles.tagsWrap}>
+                                {stats.subjects.map((subj, i) => (
+                                  <View key={i} style={styles.subjectTag}>
+                                    <Text style={styles.subjectTagText}>{subj}</Text>
+                                  </View>
+                                ))}
+                              </View>
+                            </>
+                          )}
+                        </>
+                      );
+                    })()}
+                  </>
+                )}
+
+                <TouchableOpacity style={styles.closeBtn} onPress={() => setShowModal(false)}>
+                  <Text style={styles.closeBtnText}>Close</Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </ScrollView>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -256,6 +397,25 @@ const styles = StyleSheet.create({
   userName: { fontFamily: "Inter_600SemiBold", fontSize: 14, color: Colors.text },
   userEmail: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
   userClass: { fontFamily: "Inter_500Medium", fontSize: 11, color: Colors.accent, marginTop: 3 },
+  modalBackdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
+  modalWrap: { backgroundColor: Colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 20, paddingTop: 12, maxHeight: "90%" },
+  modalHandle: { width: 36, height: 4, borderRadius: 2, backgroundColor: Colors.border, alignSelf: "center", marginBottom: 16 },
+  detailHeader: { flexDirection: "row", alignItems: "center", gap: 14, paddingBottom: 16, borderBottomWidth: 1, borderBottomColor: Colors.border },
+  detailAvatar: { width: 60, height: 60, borderRadius: 16, backgroundColor: Colors.accentPale, alignItems: "center", justifyContent: "center" },
+  detailAvatarText: { fontFamily: "Inter_700Bold", fontSize: 24, color: Colors.accent },
+  detailName: { fontFamily: "Inter_700Bold", fontSize: 18, color: Colors.text },
+  detailEmail: { fontFamily: "Inter_400Regular", fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
+  detailClass: { fontFamily: "Inter_500Medium", fontSize: 12, color: Colors.accent, marginTop: 4 },
+  statsGrid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
+  statBox: { flex: 1, minWidth: "45%", backgroundColor: Colors.background, borderRadius: 14, padding: 14, alignItems: "center" },
+  statValue: { fontFamily: "Inter_700Bold", fontSize: 24, color: Colors.accent },
+  statLabel: { fontFamily: "Inter_400Regular", fontSize: 11, color: Colors.textSecondary, marginTop: 4, textAlign: "center" },
+  sectionLabel: { fontFamily: "Inter_600SemiBold", fontSize: 14, color: Colors.text, marginTop: 4 },
+  tagsWrap: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  subjectTag: { backgroundColor: Colors.accentPale, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 6 },
+  subjectTagText: { fontFamily: "Inter_500Medium", fontSize: 12, color: Colors.accent },
+  closeBtn: { backgroundColor: Colors.accent, borderRadius: 14, paddingVertical: 14, alignItems: "center", marginTop: 8 },
+  closeBtnText: { fontFamily: "Inter_700Bold", fontSize: 16, color: Colors.white },
   statsRow: { flexDirection: "row", marginBottom: 0 },
   emptyCard: {
     backgroundColor: Colors.card,
