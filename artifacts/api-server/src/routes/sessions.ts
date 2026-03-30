@@ -75,7 +75,11 @@ router.get("/by-class", requireAuth, requireRole("admin"), (req, res) => {
   const sessions = store.sessions
     .filter((s) => s.className === className)
     .slice()
-    .reverse();
+    .reverse()
+    .map((s) => {
+      const teacher = store.users.find((u) => u.id === s.teacherId);
+      return { ...s, teacherName: teacher?.name };
+    });
   res.json(sessions);
 });
 

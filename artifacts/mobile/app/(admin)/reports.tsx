@@ -35,7 +35,11 @@ interface ClassSession {
   id: string;
   className: string;
   subject?: string;
+  lectureStart?: string;
+  lectureEnd?: string;
+  createdAt: string;
   cancelledAt?: string;
+  teacherName?: string;
 }
 
 type NavLevel =
@@ -179,28 +183,25 @@ export default function ReportsScreen() {
     return Array.from(new Set(classes.map(c => c.division))).sort();
   }, [nav, allClasses]);
 
-  // All dates that have records (for calendar highlights)
+  // Highlight dates = any date a session was conducted (not cancelled)
   const highlightDates = useMemo(() => {
-    const s = new Set<string>();
-    (attendanceRecords ?? []).forEach(r => s.add(isoToDateStr(r.markedAt)));
-    return s;
-  }, [attendanceRecords]);
+    const dates = new Set<string>();
+    (classSessions ?? [])
+      .filter(cs => !cs.cancelledAt)
+      .forEach(cs => cs.createdAt && dates.add(isoToDateStr(cs.createdAt)));
+    return dates;
+  }, [classSessions]);
 
-  // Filter by selected date, then group by subject
-  const recordsForDate = useMemo(() => {
+  // Sessions that happened on the selected date (using createdAt), with their attendance records
+  const sessionsForDate = useMemo(() => {
     if (!selectedDate) return [];
-    return (attendanceRecords ?? []).filter(r => isoToDateStr(r.markedAt) === selectedDate);
-  }, [attendanceRecords, selectedDate]);
-
-  const groupedBySubject = useMemo(() => {
-    const map = new Map<string, AttendanceRecord[]>();
-    for (const r of recordsForDate) {
-      const key = r.subject ?? "Other";
-      if (!map.has(key)) map.set(key, []);
-      map.get(key)!.push(r);
-    }
-    return Array.from(map.entries()).map(([subject, records]) => ({ subject, records }));
-  }, [recordsForDate]);
+    const daySessions = (classSessions ?? [])
+      .filter(s => !s.cancelledAt && isoToDateStr(s.createdAt) === selectedDate);
+    return daySessions.map(session => ({
+      session,
+      attendees: (attendanceRecords ?? []).filter(r => r.sessionId === session.id),
+    }));
+  }, [classSessions, attendanceRecords, selectedDate]);
 
   /* ── Nav helpers ─ */
   function goBack() {
@@ -323,12 +324,6 @@ export default function ReportsScreen() {
                   <Text style={styles.statNum}>{attendanceRecords?.length ?? 0}</Text>
                   <Text style={styles.statLabel}>Total Present</Text>
                 </View>
-                <View style={styles.statBox}>
-                  <Text style={styles.statNum}>
-                    {new Set((classSessions ?? []).filter(s => !s.cancelledAt).map(s => s.subject ?? "")).size}
-                  </Text>
-                  <Text style={styles.statLabel}>Subjects</Text>
-                </View>
               </View>
 
               {/* Calendar */}
@@ -339,7 +334,7 @@ export default function ReportsScreen() {
                 highlightDates={highlightDates}
               />
 
-              {/* Records for selected date */}
+              {/* Sessions for selected date */}
               {selectedDate ? (
                 <>
                   <View style={styles.dateHeaderRow}>
@@ -350,50 +345,62 @@ export default function ReportsScreen() {
                       })}
                     </Text>
                     <View style={styles.dateBadge}>
-                      <Text style={styles.dateBadgeText}>{recordsForDate.length} present</Text>
+                      <Text style={styles.dateBadgeText}>{sessionsForDate.length} lecture{sessionsForDate.length !== 1 ? "s" : ""}</Text>
                     </View>
                   </View>
 
-                  {groupedBySubject.length === 0 ? (
-                    <EmptyState icon="document-outline" text="No attendance on this date" />
+                  {sessionsForDate.length === 0 ? (
+                    <EmptyState icon="calendar-outline" text="No lectures on this date" />
                   ) : (
-                    groupedBySubject.map(({ subject, records }) => (
-                      <View key={subject} style={styles.subjectGroup}>
+                    sessionsForDate.map(({ session, attendees }) => (
+                      <View key={session.id} style={styles.subjectGroup}>
+                        {/* Session header: subject + count */}
                         <View style={styles.subjectHeader}>
                           <View style={styles.subjectIconWrap}>
                             <Ionicons name="book-outline" size={16} color={Colors.accent} />
                           </View>
-                          <Text style={styles.subjectName}>{subject}</Text>
+                          <Text style={styles.subjectName}>{session.subject ?? "Lecture"}</Text>
                           <View style={styles.subjectBadge}>
-                            <Text style={styles.subjectBadgeText}>{records.length}</Text>
+                            <Text style={styles.subjectBadgeText}>{attendees.length}</Text>
                           </View>
                         </View>
-                        {records[0]?.teacherName && (
-                          <View style={styles.teacherRow}>
-                            <Ionicons name="person-outline" size={12} color={Colors.textMuted} />
-                            <Text style={styles.teacherName}>{records[0].teacherName}</Text>
-                            {records[0].lectureStart ? (
-                              <>
-                                <Ionicons name="time-outline" size={12} color={Colors.textMuted} />
-                                <Text style={styles.teacherName}>
-                                  {records[0].lectureStart}{records[0].lectureEnd ? ` – ${records[0].lectureEnd}` : ""}
-                                </Text>
-                              </>
-                            ) : null}
+
+                        {/* Teacher + timing row */}
+                        <View style={styles.teacherRow}>
+                          {session.teacherName ? (
+                            <>
+                              <Ionicons name="person-outline" size={12} color={Colors.textMuted} />
+                              <Text style={styles.teacherName}>{session.teacherName}</Text>
+                            </>
+                          ) : null}
+                          {session.lectureStart ? (
+                            <>
+                              <Ionicons name="time-outline" size={12} color={Colors.textMuted} />
+                              <Text style={styles.teacherName}>
+                                {session.lectureStart}{session.lectureEnd ? ` – ${session.lectureEnd}` : ""}
+                              </Text>
+                            </>
+                          ) : null}
+                        </View>
+
+                        {/* Students who attended — no "Present" chip */}
+                        {attendees.length === 0 ? (
+                          <View style={[styles.studentRow, { opacity: 0.5 }]}>
+                            <Ionicons name="person-outline" size={16} color={Colors.textMuted} />
+                            <Text style={[styles.studentName, { color: Colors.textMuted, fontFamily: "Inter_400Regular" }]}>
+                              No attendance recorded
+                            </Text>
                           </View>
+                        ) : (
+                          attendees.map(r => (
+                            <View key={r.id} style={styles.studentRow}>
+                              <View style={styles.studentAvatar}>
+                                <Text style={styles.studentAvatarText}>{r.studentName[0]?.toUpperCase()}</Text>
+                              </View>
+                              <Text style={styles.studentName}>{r.studentName}</Text>
+                            </View>
+                          ))
                         )}
-                        {records.map(r => (
-                          <View key={r.id} style={styles.studentRow}>
-                            <View style={styles.studentAvatar}>
-                              <Text style={styles.studentAvatarText}>{r.studentName[0]?.toUpperCase()}</Text>
-                            </View>
-                            <Text style={styles.studentName}>{r.studentName}</Text>
-                            <View style={styles.presentChip}>
-                              <Ionicons name="checkmark-circle" size={13} color={Colors.success} />
-                              <Text style={styles.presentChipText}>Present</Text>
-                            </View>
-                          </View>
-                        ))}
                       </View>
                     ))
                   )}
