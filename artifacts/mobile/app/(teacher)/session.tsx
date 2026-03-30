@@ -306,9 +306,9 @@ export default function TeacherSessionScreen() {
             <View style={styles.infoCard}>
               <Text style={styles.infoTitle}>How it works</Text>
               {[
-                { icon: "locate-outline" as const,          text: "Your GPS location is captured" },
                 { icon: "create-outline" as const,          text: "Set lecture timing, year, division & subject" },
                 { icon: "qr-code-outline" as const,         text: "A unique QR code is generated" },
+                { icon: "location-outline" as const,        text: "Students within 200m can scan to attend" },
                 { icon: "checkmark-circle-outline" as const, text: "Attendance is auto-recorded" },
               ].map((item, i) => (
                 <View key={i} style={styles.infoRow}>
@@ -499,7 +499,7 @@ export default function TeacherSessionScreen() {
             <View style={styles.generatingIcon}>
               <Ionicons name="sync-outline" size={40} color={Colors.accent} />
             </View>
-            <Text style={styles.generatingText}>Capturing GPS & Generating QR...</Text>
+            <Text style={styles.generatingText}>Generating QR Code...</Text>
           </View>
         )}
 
@@ -550,7 +550,7 @@ export default function TeacherSessionScreen() {
 
             <View style={styles.sessionMeta}>
               <Ionicons name="location-outline" size={14} color={Colors.textSecondary} />
-              <Text style={styles.sessionMetaText}>GPS Active</Text>
+              <Text style={styles.sessionMetaText}>Students must be within 200m to scan</Text>
             </View>
 
             <TouchableOpacity style={styles.cancelBtn} onPress={resetSession}>

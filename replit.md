@@ -49,12 +49,15 @@ artifacts/api-server/      # Express API server
       haversine.ts         # Server-side GPS distance calculation
 ```
 
-## Campus GPS Settings
+## GPS Settings
 
-- **Campus**: K.C. College of Engineering, Thane East, Kopri
-- **Latitude**: 19.1897, **Longitude**: 72.9862
-- **Campus gate radius**: 300 metres
-- **Teacher proximity for scan**: 100 metres
+- **Campus**: K.C. College of Engineering, Thane East
+- **Latitude**: 19.180010063951876, **Longitude**: 72.98054933658015
+- **Campus gate radius**: 1400m (app-open check only, soft — no blocking)
+- **QR generation**: NO GPS check — teachers can generate QR from anywhere
+- **Student scanning proximity**: 200m — students must be within 200m of teacher's location to scan QR
+- Teacher's lat/lng is silently captured when creating a session (fallback to campus center on web)
+- Student's lat/lng is captured before QR scan and sent to backend for proximity validation
 
 ## Demo Accounts
 

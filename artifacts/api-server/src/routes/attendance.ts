@@ -4,8 +4,21 @@ import { requireAuth, requireRole } from "../middleware/auth.js";
 
 const router: IRouter = Router();
 
+const SCAN_PROXIMITY_M = 200;
+
+function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371000;
+  const toRad = (deg: number) => (deg * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
 router.post("/", requireAuth, requireRole("student"), (req, res) => {
-  const { qrToken } = req.body as { qrToken: string };
+  const { qrToken, latitude, longitude } = req.body as { qrToken: string; latitude?: number; longitude?: number };
 
   const userId = (req.session as any).userId;
   const store = getStore();
@@ -25,6 +38,24 @@ router.post("/", requireAuth, requireRole("student"), (req, res) => {
   if (new Date(session.expiresAt) < new Date()) {
     res.status(400).json({ error: "This session has expired. Ask your teacher to start a new one." });
     return;
+  }
+
+  if (latitude == null || longitude == null ||
+      typeof latitude !== "number" || typeof longitude !== "number" ||
+      !isFinite(latitude) || !isFinite(longitude) ||
+      latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+    res.status(400).json({ error: "Valid location required. Please enable GPS to mark attendance." });
+    return;
+  }
+
+  if (session.latitude != null && session.longitude != null) {
+    const distance = haversineDistance(latitude, longitude, session.latitude, session.longitude);
+    if (distance > SCAN_PROXIMITY_M) {
+      res.status(400).json({
+        error: `You are too far from the class. You are ${Math.round(distance)}m away — must be within ${SCAN_PROXIMITY_M}m.`,
+      });
+      return;
+    }
   }
 
   if (student.className !== session.className) {

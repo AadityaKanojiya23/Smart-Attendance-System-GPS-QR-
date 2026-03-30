@@ -20,8 +20,7 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
 const router: IRouter = Router();
 
 router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
-  const { teacherId, className, latitude, longitude, qrToken, expiresAt, subject, lectureStart, lectureEnd, durationSecs } = req.body as {
-    teacherId: string;
+  const { className, latitude, longitude, qrToken, expiresAt, subject, lectureStart, lectureEnd, durationSecs } = req.body as {
     className: string;
     latitude: number;
     longitude: number;
@@ -33,28 +32,24 @@ router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
     durationSecs?: number;
   };
 
+  const teacherId = (req.session as any).userId;
+
   if (!teacherId || !className || !qrToken || !expiresAt) {
     res.status(400).json({ error: "Missing required fields" });
     return;
   }
 
-  if (latitude !== undefined && longitude !== undefined) {
-    const distance = haversineDistance(latitude, longitude, CAMPUS_LAT, CAMPUS_LNG);
-    if (distance > CAMPUS_RADIUS_M) {
-      res.status(400).json({
-        error: `You are not in range. Current distance: ${Math.round(distance)}m`,
-      });
-      return;
-    }
-  }
+  const lat = typeof latitude === "number" && isFinite(latitude) && latitude >= -90 && latitude <= 90 ? latitude : CAMPUS_LAT;
+  const lng = typeof longitude === "number" && isFinite(longitude) && longitude >= -180 && longitude <= 180 ? longitude : CAMPUS_LNG;
+
 
   const store = getStore();
   const session = {
     id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
     teacherId,
     className,
-    latitude,
-    longitude,
+    latitude: lat,
+    longitude: lng,
     qrToken,
     expiresAt,
     createdAt: new Date().toISOString(),

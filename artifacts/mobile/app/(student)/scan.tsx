@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as Haptics from "expo-haptics";
+import * as Location from "expo-location";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useRef, useState } from "react";
 import {
@@ -68,7 +69,28 @@ export default function ScanScreen() {
     setScanState("processing");
 
     try {
-      await apiRequest("POST", "/attendance", { qrToken: data });
+      let lat: number | undefined;
+      let lng: number | undefined;
+      if (Platform.OS !== "web") {
+        try {
+          const { status } = await Location.requestForegroundPermissionsAsync();
+          if (status === "granted") {
+            const loc = await Location.getCurrentPositionAsync({});
+            lat = loc.coords.latitude;
+            lng = loc.coords.longitude;
+          }
+        } catch {}
+      }
+
+      if (lat == null || lng == null) {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        setErrorMsg("Could not get your location. Please enable GPS and try again.");
+        setScanState("error");
+        isProcessing.current = false;
+        return;
+      }
+
+      await apiRequest("POST", "/attendance", { qrToken: data, latitude: lat, longitude: lng });
 
       scannedTokens.current.add(data);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -150,9 +172,9 @@ export default function ScanScreen() {
                 <Text style={styles.reqTitle}>Requirements</Text>
                 {[
                   { icon: "qr-code-outline" as const, text: "Point your camera at the teacher's QR code" },
-                  { icon: "timer-outline" as const, text: "Scan within the 60-second window" },
+                  { icon: "location-outline" as const, text: "You must be within 200m of the class" },
+                  { icon: "timer-outline" as const, text: "Scan within the QR validity window" },
                   { icon: "school-outline" as const, text: "Your class must match the session" },
-                  { icon: "shield-checkmark-outline" as const, text: "Each QR code can only be used once" },
                 ].map((r, i) => (
                   <View key={i} style={styles.reqRow}>
                     <View style={styles.reqIconWrap}>
