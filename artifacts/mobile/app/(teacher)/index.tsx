@@ -60,17 +60,24 @@ export default function TeacherDashboard() {
     setShowModal(true);
   }
 
+  const sessionId = selectedSession?.id || "";
   const { data: sessionAttendanceData, refetch: refetchAttendance } = useQuery({
-    queryKey: ["session-attendance", selectedSession?.id],
+    queryKey: ["session-attendance", sessionId],
     queryFn: async () => {
-      if (!selectedSession?.id) return [];
-      const res = await fetch(getApiUrl(`/sessions/${selectedSession.id}/attendance`), {
-        credentials: "include",
-      });
-      if (!res.ok) return [];
-      return res.json() as Promise<AttendanceRecord[]>;
+      if (!sessionId) return [];
+      try {
+        const res = await fetch(getApiUrl(`/sessions/${sessionId}/attendance`), {
+          credentials: "include",
+        });
+        if (!res.ok) return [];
+        return res.json() as Promise<AttendanceRecord[]>;
+      } catch {
+        return [];
+      }
     },
-    enabled: !!selectedSession?.id,
+    enabled: !!sessionId,
+    staleTime: 0,
+    gcTime: 0,
   });
 
   function getSessionAttendance(sessionId: string) {
@@ -84,7 +91,7 @@ export default function TeacherDashboard() {
         credentials: "include",
       });
       if (res.ok) {
-        refetchAttendance();
+        setTimeout(() => refetchAttendance(), 100);
       }
     } catch (e) {
       console.error("Error removing attendance", e);
@@ -98,7 +105,7 @@ export default function TeacherDashboard() {
         credentials: "include",
       });
       if (res.ok) {
-        refetchAttendance();
+        setTimeout(() => refetchAttendance(), 100);
       }
     } catch (e) {
       console.error("Error blocking student", e);
