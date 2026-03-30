@@ -60,8 +60,21 @@ export default function TeacherDashboard() {
     setShowModal(true);
   }
 
+  const { data: sessionAttendanceData } = useQuery({
+    queryKey: ["session-attendance", selectedSession?.id],
+    queryFn: async () => {
+      if (!selectedSession?.id) return [];
+      const res = await fetch(getApiUrl(`/sessions/${selectedSession.id}/attendance`), {
+        credentials: "include",
+      });
+      if (!res.ok) return [];
+      return res.json() as Promise<AttendanceRecord[]>;
+    },
+    enabled: !!selectedSession?.id,
+  });
+
   function getSessionAttendance(sessionId: string) {
-    return [];
+    return sessionAttendanceData ?? [];
   }
 
   async function handleLogout() {
@@ -116,6 +129,7 @@ export default function TeacherDashboard() {
                   <Text style={styles.sessionTime}>
                     {new Date(s.expiresAt).toLocaleString()}
                   </Text>
+                  <Text style={styles.sessionAttendance}>Tap to view attendance</Text>
                 </View>
                 <View style={[styles.statusBadge, { backgroundColor: isActive ? Colors.successPale : "#F1F5F9" }]}>
                   <Text style={[styles.statusText, { color: isActive ? Colors.success : Colors.textMuted }]}>
@@ -128,6 +142,61 @@ export default function TeacherDashboard() {
         </ScrollView>
       )}
 
+      <Modal visible={showModal} animationType="slide" transparent presentationStyle="overFullScreen">
+        <TouchableOpacity style={styles.modalBackdrop} onPress={() => setShowModal(false)} />
+        <View style={[styles.modalWrap, { paddingBottom: (Platform.OS === "web" ? 34 : insets.bottom) + 16 }]}>
+          <View style={styles.modalHandle} />
+          {selectedSession && (
+            <ScrollView contentContainerStyle={{ gap: 16 }}>
+              <View style={styles.sessionHeader}>
+                <View style={styles.sessionAvatar}>
+                  <Ionicons name="qr-code" size={24} color={Colors.accent} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.sessionHeaderClass}>{selectedSession.className}</Text>
+                  <Text style={styles.sessionHeaderTime}>
+                    {new Date(selectedSession.expiresAt).toLocaleString()}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.attendanceStats}>
+                <Text style={styles.statsLabel}>Students Marked</Text>
+                <Text style={styles.statsValue}>{getSessionAttendance(selectedSession.id).length}</Text>
+              </View>
+
+              <Text style={styles.listTitle}>Attendance List</Text>
+              {getSessionAttendance(selectedSession.id).length === 0 ? (
+                <View style={styles.emptyAttendance}>
+                  <Ionicons name="person-outline" size={32} color={Colors.textMuted} />
+                  <Text style={styles.emptyAttendanceText}>No attendance records yet</Text>
+                </View>
+              ) : (
+                <View>
+                  {getSessionAttendance(selectedSession.id).map((record, idx) => (
+                    <View key={record.id} style={[styles.attendanceItem, idx === getSessionAttendance(selectedSession.id).length - 1 && { marginBottom: 0 }]}>
+                      <View style={styles.studentAvatar}>
+                        <Text style={styles.studentAvatarText}>{record.studentName[0]?.toUpperCase()}</Text>
+                      </View>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.studentName}>{record.studentName}</Text>
+                        <Text style={styles.markedTime}>
+                          {new Date(record.markedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+                        </Text>
+                      </View>
+                      <Ionicons name="checkmark-circle" size={20} color={Colors.success} />
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              <TouchableOpacity style={styles.closeBtn} onPress={() => setShowModal(false)}>
+                <Text style={styles.closeBtnText}>Close</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          )}
+        </View>
+      </Modal>
     </View>
   );
 }
