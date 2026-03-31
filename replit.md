@@ -12,7 +12,7 @@ A full-stack mobile attendance system for K.C. College of Engineering, Thane Eas
 - **UI**: Inter font, @expo/vector-icons, expo-linear-gradient, expo-blur
 - **QR**: react-native-qrcode-svg (display), expo-camera (scan)
 - **Location**: expo-location, expo-haptics
-- **Storage**: In-memory (no database), pre-seeded demo accounts
+- **Storage**: File-based persistence (`.data.json`), pre-seeded demo accounts
 
 ## Structure
 
@@ -58,6 +58,14 @@ artifacts/api-server/      # Express API server
 - **Student scanning proximity**: 200m — students must be within 200m of teacher's location to scan QR
 - Teacher's lat/lng is silently captured when creating a session (fallback to campus center on web)
 - Student's lat/lng is captured before QR scan and sent to backend for proximity validation
+
+## Data Persistence
+
+- **Backend**: All data (users, sessions, attendance) is persisted to `.data.json` on disk
+- **Server restarts**: Data is automatically loaded from `.data.json` — nothing is lost
+- **App restarts**: Mobile app re-fetches data from server on startup
+- **First run**: Demo accounts are created and saved to disk
+- **Subsequent runs**: Existing data in `.data.json` is loaded; demo seeding is skipped
 
 ## Demo Accounts
 

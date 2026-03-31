@@ -4,7 +4,7 @@ import session from "express-session";
 import pinoHttp from "pino-http";
 import router from "./routes/index.js";
 import { logger } from "./lib/logger.js";
-import { seedStore } from "./store.js";
+import { seedStore, loadStore } from "./store.js";
 
 const app: Express = express();
 
@@ -51,6 +51,7 @@ app.use(
 
 app.use("/api", router);
 
+loadStore();
 seedStore().then(() => {
   logger.info("Demo accounts seeded");
 }).catch((err) => {

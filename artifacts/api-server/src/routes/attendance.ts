@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { getStore } from "../store.js";
+import { getStore, persistStore } from "../store.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
 const router: IRouter = Router();
@@ -105,6 +105,7 @@ router.post("/", requireAuth, requireRole("student"), (req, res) => {
     teacherName: teacher?.name,
   };
   store.attendance.push(record);
+  persistStore();
   res.json(record);
 });
 
@@ -167,6 +168,7 @@ router.delete("/:id", requireAuth, requireRole("teacher"), (req, res) => {
     blockedStudents.splice(studentIndex, 1);
   }
   
+  persistStore();
   res.json({ success: true });
 });
 

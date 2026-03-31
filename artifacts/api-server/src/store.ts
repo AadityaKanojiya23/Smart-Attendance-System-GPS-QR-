@@ -1,4 +1,8 @@
 import bcrypt from "bcryptjs";
+import { writeFileSync, readFileSync, existsSync } from "fs";
+import { join } from "path";
+
+const STORE_FILE = join(process.cwd(), ".data.json");
 
 export interface TeacherAssignment {
   className: string;
@@ -78,7 +82,7 @@ interface Store {
   attendance: StoredAttendance[];
 }
 
-const store: Store = {
+let store: Store = {
   users: [],
   departments: [],
   classes: [],
@@ -86,8 +90,32 @@ const store: Store = {
   attendance: [],
 };
 
+export function loadStore(): void {
+  try {
+    if (existsSync(STORE_FILE)) {
+      const data = readFileSync(STORE_FILE, "utf-8");
+      store = JSON.parse(data);
+      return;
+    }
+  } catch (e) {
+    console.error("Failed to load store from disk:", e);
+  }
+}
+
+function saveStore(): void {
+  try {
+    writeFileSync(STORE_FILE, JSON.stringify(store, null, 2), "utf-8");
+  } catch (e) {
+    console.error("Failed to save store to disk:", e);
+  }
+}
+
 export function getStore(): Store {
   return store;
+}
+
+export function persistStore(): void {
+  saveStore();
 }
 
 function makeId(): string {
@@ -99,6 +127,9 @@ function classCode(deptCode: string, year: number, division: string) {
 }
 
 export async function seedStore() {
+  // Only seed if store is empty (fresh start)
+  if (store.users.length > 0) return;
+
   const csId = makeId();
   const eeId = makeId();
   const meId = makeId();
@@ -148,4 +179,7 @@ export async function seedStore() {
     store.users.push({ id: makeId(), passwordHash, ...rest });
     await new Promise((r) => setTimeout(r, 10));
   }
+
+  // Save seeded data to disk
+  saveStore();
 }

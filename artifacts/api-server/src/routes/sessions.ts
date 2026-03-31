@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express";
-import { getStore } from "../store.js";
+import { getStore, persistStore } from "../store.js";
 import { requireAuth, requireRole } from "../middleware/auth.js";
 
 const CAMPUS_LAT = 19.180010063951876;
@@ -60,6 +60,7 @@ router.post("/", requireAuth, requireRole("teacher"), (req, res) => {
     blockedStudents: [] as string[],
   };
   store.sessions.push(session);
+  persistStore();
   res.json(session);
 });
 
@@ -128,6 +129,7 @@ router.post("/:id/cancel", requireAuth, requireRole("teacher"), (req, res) => {
     return;
   }
   session.cancelledAt = new Date().toISOString();
+  persistStore();
   res.json({ success: true });
 });
 
@@ -154,6 +156,7 @@ router.post("/:id/block/:studentId", requireAuth, requireRole("teacher"), (req, 
   if (!(session as any).blockedStudents.includes(studentId)) {
     (session as any).blockedStudents.push(studentId);
   }
+  persistStore();
   res.json({ success: true });
 });
 

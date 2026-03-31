@@ -1,0 +1,293 @@
+{
+  "users": [
+    {
+      "id": "177494736699932o854wlc",
+      "passwordHash": "$2b$10$.HAmpLvhghaWk0aA2lMG9.HpqGyNlOGxyhueSw3U6y3.sw8lKGbtq",
+      "name": "Admin User",
+      "email": "admin@campus.edu",
+      "role": "admin"
+    },
+    {
+      "id": "1774947367095agqfuisrb",
+      "passwordHash": "$2b$10$dKX8EpFOK8x/6KaRgH9RLujQ20IdTUrVcon6Kx.IFq2O/kmZGDfT6",
+      "name": "Anita Sharma",
+      "email": "anita@campus.edu",
+      "role": "teacher",
+      "department": "Computer Science",
+      "departmentId": "177494736685559qcy07t7",
+      "year": 1,
+      "division": "A",
+      "className": "CS-Y1-A",
+      "subjects": [
+        "Data Structures",
+        "Algorithms",
+        "C Programming",
+        "Mathematics-I"
+      ],
+      "assignments": [
+        {
+          "className": "CS-Y1-A",
+          "departmentId": "177494736685559qcy07t7",
+          "departmentCode": "CS",
+          "year": 1,
+          "division": "A",
+          "subjects": [
+            "Data Structures",
+            "Algorithms",
+            "C Programming",
+            "Mathematics-I"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1774947367204qs1v5p8k0",
+      "passwordHash": "$2b$10$iMfCyqwNkGnblti77wj.nOkoklzt3Pej0oz8SgH93/hD/UEicW34K",
+      "name": "Rahul Verma",
+      "email": "rahul@campus.edu",
+      "role": "teacher",
+      "department": "Computer Science",
+      "departmentId": "177494736685559qcy07t7",
+      "year": 1,
+      "division": "B",
+      "className": "CS-Y1-B",
+      "subjects": [
+        "Digital Electronics",
+        "Basic Electronics",
+        "Mathematics-I"
+      ],
+      "assignments": [
+        {
+          "className": "CS-Y1-B",
+          "departmentId": "177494736685559qcy07t7",
+          "departmentCode": "CS",
+          "year": 1,
+          "division": "B",
+          "subjects": [
+            "Digital Electronics",
+            "Basic Electronics",
+            "Mathematics-I"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1774947367311ychdegsry",
+      "passwordHash": "$2b$10$qaG7xMQyIH27h0D256LX/.zyGJbgzqo1PPIXuaaB0UmQ5VU3GQhjm",
+      "name": "Priya Mehta",
+      "email": "priya@campus.edu",
+      "role": "student",
+      "department": "Computer Science",
+      "departmentId": "177494736685559qcy07t7",
+      "year": 1,
+      "division": "A",
+      "className": "CS-Y1-A"
+    },
+    {
+      "id": "1774947367405kvk7r33g1",
+      "passwordHash": "$2b$10$e6RipBa38eFfdXHnpOxtCelYGveYlY4xuALMQlxVEFqoXleGlV60m",
+      "name": "Arjun Singh",
+      "email": "arjun@campus.edu",
+      "role": "student",
+      "department": "Computer Science",
+      "departmentId": "177494736685559qcy07t7",
+      "year": 1,
+      "division": "A",
+      "className": "CS-Y1-A"
+    },
+    {
+      "id": "1774947367493lmlkw920a",
+      "passwordHash": "$2b$10$tssiNQ8d7v/s6g/mkkbW6uO7MMPAu.DUGokBi/WvXQ2oMZ3qsU2se",
+      "name": "Sneha Patil",
+      "email": "sneha@campus.edu",
+      "role": "student",
+      "department": "Computer Science",
+      "departmentId": "177494736685559qcy07t7",
+      "year": 1,
+      "division": "B",
+      "className": "CS-Y1-B"
+    },
+    {
+      "id": "1774947367580bakg5yeyh",
+      "passwordHash": "$2b$10$avWwIJlFnCcG6DA3xd0zsuy780cQtb0mN.YrSF2HjozrIg4FU9RZG",
+      "name": "Vikram Nair",
+      "email": "vikram@campus.edu",
+      "role": "teacher",
+      "department": "Electronics Engineering",
+      "departmentId": "17749473668556p0o2c1pw",
+      "year": 1,
+      "division": "A",
+      "className": "EE-Y1-A",
+      "subjects": [
+        "Basic Electrical",
+        "Circuit Theory",
+        "Physics",
+        "Mathematics-II"
+      ],
+      "assignments": [
+        {
+          "className": "EE-Y1-A",
+          "departmentId": "17749473668556p0o2c1pw",
+          "departmentCode": "EE",
+          "year": 1,
+          "division": "A",
+          "subjects": [
+            "Basic Electrical",
+            "Circuit Theory",
+            "Physics",
+            "Mathematics-II"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "17749473676684urnuif7h",
+      "passwordHash": "$2b$10$GA8l9M1q4gmHds0NCiMy0.8LSmr1VR.1aRFAhWooquzLbgF6nXi.a",
+      "name": "Riya Joshi",
+      "email": "riya@campus.edu",
+      "role": "student",
+      "department": "Electronics Engineering",
+      "departmentId": "17749473668556p0o2c1pw",
+      "year": 1,
+      "division": "A",
+      "className": "EE-Y1-A"
+    },
+    {
+      "id": "1774947367757wq6yx3y0m",
+      "passwordHash": "$2b$10$NH323aUXQYJP4JJyFpBgwemOFJoMkfJNQRT4QDYhbu.AWHznbPrkO",
+      "name": "Suresh Patil",
+      "email": "suresh@campus.edu",
+      "role": "teacher",
+      "department": "Mechanical Engineering",
+      "departmentId": "17749473668552y7ton0yd",
+      "year": 1,
+      "division": "A",
+      "className": "ME-Y1-A",
+      "subjects": [
+        "Engineering Mechanics",
+        "Thermodynamics",
+        "Workshop",
+        "Mathematics-II"
+      ],
+      "assignments": [
+        {
+          "className": "ME-Y1-A",
+          "departmentId": "17749473668552y7ton0yd",
+          "departmentCode": "ME",
+          "year": 1,
+          "division": "A",
+          "subjects": [
+            "Engineering Mechanics",
+            "Thermodynamics",
+            "Workshop",
+            "Mathematics-II"
+          ]
+        }
+      ]
+    }
+  ],
+  "departments": [
+    {
+      "id": "177494736685559qcy07t7",
+      "name": "Computer Science",
+      "code": "CS",
+      "createdAt": "2026-03-31T08:56:06.855Z"
+    },
+    {
+      "id": "17749473668556p0o2c1pw",
+      "name": "Electronics Engineering",
+      "code": "EE",
+      "createdAt": "2026-03-31T08:56:06.856Z"
+    },
+    {
+      "id": "17749473668552y7ton0yd",
+      "name": "Mechanical Engineering",
+      "code": "ME",
+      "createdAt": "2026-03-31T08:56:06.856Z"
+    }
+  ],
+  "classes": [
+    {
+      "id": "1774947366856lby5v8plk",
+      "createdAt": "2026-03-31T08:56:06.856Z",
+      "departmentId": "177494736685559qcy07t7",
+      "departmentCode": "CS",
+      "year": 1,
+      "division": "A"
+    },
+    {
+      "id": "1774947366862izmi9zx8p",
+      "createdAt": "2026-03-31T08:56:06.862Z",
+      "departmentId": "177494736685559qcy07t7",
+      "departmentCode": "CS",
+      "year": 1,
+      "division": "B"
+    },
+    {
+      "id": "177494736686752qdy3g6p",
+      "createdAt": "2026-03-31T08:56:06.867Z",
+      "departmentId": "177494736685559qcy07t7",
+      "departmentCode": "CS",
+      "year": 2,
+      "division": "A"
+    },
+    {
+      "id": "1774947366872ax05925bx",
+      "createdAt": "2026-03-31T08:56:06.872Z",
+      "departmentId": "177494736685559qcy07t7",
+      "departmentCode": "CS",
+      "year": 2,
+      "division": "B"
+    },
+    {
+      "id": "17749473668776oc5ypf4n",
+      "createdAt": "2026-03-31T08:56:06.877Z",
+      "departmentId": "177494736685559qcy07t7",
+      "departmentCode": "CS",
+      "year": 3,
+      "division": "A"
+    },
+    {
+      "id": "1774947366882bdqm60831",
+      "createdAt": "2026-03-31T08:56:06.882Z",
+      "departmentId": "177494736685559qcy07t7",
+      "departmentCode": "CS",
+      "year": 4,
+      "division": "A"
+    },
+    {
+      "id": "1774947366887ebkvnpax7",
+      "createdAt": "2026-03-31T08:56:06.887Z",
+      "departmentId": "17749473668556p0o2c1pw",
+      "departmentCode": "EE",
+      "year": 1,
+      "division": "A"
+    },
+    {
+      "id": "1774947366892i4mtik4jq",
+      "createdAt": "2026-03-31T08:56:06.892Z",
+      "departmentId": "17749473668556p0o2c1pw",
+      "departmentCode": "EE",
+      "year": 2,
+      "division": "A"
+    },
+    {
+      "id": "177494736689790vpm72bt",
+      "createdAt": "2026-03-31T08:56:06.897Z",
+      "departmentId": "17749473668552y7ton0yd",
+      "departmentCode": "ME",
+      "year": 1,
+      "division": "A"
+    },
+    {
+      "id": "1774947366903jy4rz3uva",
+      "createdAt": "2026-03-31T08:56:06.903Z",
+      "departmentId": "17749473668552y7ton0yd",
+      "departmentCode": "ME",
+      "year": 2,
+      "division": "A"
+    }
+  ],
+  "sessions": [],
+  "attendance": []
+}
