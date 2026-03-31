@@ -288,6 +288,23 @@
       "division": "A"
     }
   ],
-  "sessions": [],
+  "sessions": [
+    {
+      "id": "17749477733841yhbzb7nu",
+      "teacherId": "1774947367095agqfuisrb",
+      "className": "CS-Y1-A",
+      "latitude": 19.180010063951876,
+      "longitude": 72.98054933658015,
+      "qrToken": "SESSION_1774947367095agqfuisrb_1774947772899_tfg2xnbif",
+      "expiresAt": "2026-03-31T09:07:52.899Z",
+      "createdAt": "2026-03-31T09:02:53.384Z",
+      "subject": "C Programming",
+      "lectureStart": "14:30",
+      "lectureEnd": "15:30",
+      "durationSecs": 300,
+      "blockedStudents": [],
+      "cancelledAt": "2026-03-31T09:03:55.771Z"
+    }
+  ],
   "attendance": []
 }
