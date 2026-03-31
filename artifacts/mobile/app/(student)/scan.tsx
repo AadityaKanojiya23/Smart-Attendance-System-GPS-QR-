@@ -75,9 +75,17 @@ export default function ScanScreen() {
         try {
           const { status } = await Location.requestForegroundPermissionsAsync();
           if (status === "granted") {
-            const loc = await Location.getCurrentPositionAsync({});
-            lat = loc.coords.latitude;
-            lng = loc.coords.longitude;
+            const locPromise = Location.getCurrentPositionAsync({ timeout: 5000 });
+            const timeoutPromise = new Promise((_, reject) =>
+              setTimeout(() => reject(new Error("GPS timeout")), 6000)
+            );
+            try {
+              const loc = await Promise.race([locPromise, timeoutPromise]) as any;
+              lat = loc.coords.latitude;
+              lng = loc.coords.longitude;
+            } catch (locErr) {
+              console.warn("GPS error:", locErr);
+            }
           }
         } catch {}
       }
