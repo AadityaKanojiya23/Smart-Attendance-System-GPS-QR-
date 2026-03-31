@@ -40,21 +40,25 @@ router.post("/", requireAuth, requireRole("student"), (req, res) => {
     return;
   }
 
-  if (latitude == null || longitude == null ||
-      typeof latitude !== "number" || typeof longitude !== "number" ||
-      !isFinite(latitude) || !isFinite(longitude) ||
-      latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
-    res.status(400).json({ error: "Valid location required. Please enable GPS to mark attendance." });
-    return;
-  }
-
-  if (session.latitude != null && session.longitude != null) {
-    const distance = haversineDistance(latitude, longitude, session.latitude, session.longitude);
-    if (distance > SCAN_PROXIMITY_M) {
-      res.status(400).json({
-        error: `You are too far from the class. You are ${Math.round(distance)}m away — must be within ${SCAN_PROXIMITY_M}m.`,
-      });
+  // GPS is optional: only validate and check proximity if coordinates are provided
+  if (latitude != null && longitude != null) {
+    // Validate coordinates if provided
+    if (typeof latitude !== "number" || typeof longitude !== "number" ||
+        !isFinite(latitude) || !isFinite(longitude) ||
+        latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+      res.status(400).json({ error: "Invalid location. Please try again." });
       return;
+    }
+
+    // Check proximity if session has location anchor
+    if (session.latitude != null && session.longitude != null) {
+      const distance = haversineDistance(latitude, longitude, session.latitude, session.longitude);
+      if (distance > SCAN_PROXIMITY_M) {
+        res.status(400).json({
+          error: `You are too far from the class. You are ${Math.round(distance)}m away — must be within ${SCAN_PROXIMITY_M}m.`,
+        });
+        return;
+      }
     }
   }
 

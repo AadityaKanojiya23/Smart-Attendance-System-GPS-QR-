@@ -71,33 +71,29 @@ export default function ScanScreen() {
     try {
       let lat: number | undefined;
       let lng: number | undefined;
+
+      // Try to get GPS location (optional, with short timeout)
       if (Platform.OS !== "web") {
         try {
           const { status } = await Location.requestForegroundPermissionsAsync();
           if (status === "granted") {
-            const locPromise = Location.getCurrentPositionAsync({ timeout: 5000 });
+            const locPromise = Location.getCurrentPositionAsync({ timeout: 3000 });
             const timeoutPromise = new Promise((_, reject) =>
-              setTimeout(() => reject(new Error("GPS timeout")), 6000)
+              setTimeout(() => reject(new Error("GPS timeout")), 3500)
             );
             try {
               const loc = await Promise.race([locPromise, timeoutPromise]) as any;
               lat = loc.coords.latitude;
               lng = loc.coords.longitude;
             } catch (locErr) {
-              console.warn("GPS error:", locErr);
+              // GPS failed/timeout - proceed without GPS (proximity check will be skipped on backend)
+              console.warn("GPS unavailable:", locErr);
             }
           }
         } catch {}
       }
 
-      if (lat == null || lng == null) {
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-        setErrorMsg("Could not get your location. Please enable GPS and try again.");
-        setScanState("error");
-        isProcessing.current = false;
-        return;
-      }
-
+      // Send attendance (GPS is optional, only used for proximity check)
       await apiRequest("POST", "/attendance", { qrToken: data, latitude: lat, longitude: lng });
 
       scannedTokens.current.add(data);
