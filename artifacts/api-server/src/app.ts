@@ -4,7 +4,7 @@ import session from "express-session";
 import pinoHttp from "pino-http";
 import router from "./routes/index.js";
 import { logger } from "./lib/logger.js";
-import { seedStore, loadStore, migrateCEStudents, migrateCETeachers, migrateCEDivisionA } from "./store.js";
+import { seedStore, loadStore, migrateCEStudents, migrateCETeachers, migrateCEDivisionA, migrateCEDivisionATeachers } from "./store.js";
 
 const app: Express = express();
 
@@ -56,8 +56,9 @@ seedStore()
   .then(() => migrateCEStudents())
   .then(() => migrateCETeachers())
   .then(() => migrateCEDivisionA())
+  .then(() => migrateCEDivisionATeachers())
   .then(() => {
-    logger.info("Demo accounts seeded + CE-Y2-B + CE teachers + CE-Y2-A done");
+    logger.info("All migrations done: seed + CE-Y2-B + CE teachers + CE-Y2-A + CE-Y2-A teachers");
   })
   .catch((err) => {
     logger.error({ err }, "Failed to seed/migrate store");

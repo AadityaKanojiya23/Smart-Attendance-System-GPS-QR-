@@ -509,3 +509,78 @@ export async function migrateCEDivisionA(): Promise<void> {
 
   saveStore();
 }
+
+export async function migrateCEDivisionATeachers(): Promise<void> {
+  // Idempotent: skip if Archana Kalia already exists
+  if (store.users.some((u) => u.email === "ce.archana.kalia@kccemsr.edu.in")) return;
+
+  const ceDept = store.departments.find((d) => d.code === "CE");
+  if (!ceDept) return;
+
+  const ceId = ceDept.id;
+  const classNameA = classCode("CE", 2, "A");
+  const passwordHash = await bcrypt.hash("teacher@123", 10);
+
+  // 4 new teachers specific to CE-Y2-A
+  const newTeachers = [
+    { name: "Kalia Archana",  email: "ce.archana.kalia@kccemsr.edu.in",  subjects: ["Web Technology", "WT LAB"] },
+    { name: "Gharde Ashwini", email: "ce.ashwini.gharde@kccemsr.edu.in", subjects: ["DBMS", "DBMS LAB"] },
+    { name: "Bhujbal Suman",  email: "ce.suman.bhujbal@kccemsr.edu.in",  subjects: ["BMD", "BMD LAB"] },
+    { name: "Patil Sandeep",  email: "ce.sandeep.patil@kccemsr.edu.in",  subjects: ["DT", "DT LAB"] },
+  ];
+
+  for (const t of newTeachers) {
+    store.users.push({
+      id: makeId(),
+      name: t.name,
+      email: t.email,
+      role: "teacher",
+      department: "Computer Engineering",
+      departmentId: ceId,
+      year: 2,
+      division: "A",
+      className: classNameA,
+      subjects: t.subjects,
+      assignments: [
+        {
+          className: classNameA,
+          departmentId: ceId,
+          departmentCode: "CE",
+          year: 2,
+          division: "A",
+          subjects: t.subjects,
+        },
+      ],
+      passwordHash,
+    });
+    await new Promise((r) => setTimeout(r, 2));
+  }
+
+  // 3 shared teachers: Rujuta Dhon, Monali Patil, Ravi Prakash — add CE-Y2-A assignment
+  const sharedMap: Array<{ email: string; subjects: string[] }> = [
+    { email: "ce.rujuta.dhon@kccemsr.edu.in",  subjects: ["Operating System", "OS LAB"] },
+    { email: "ce.monali.patil@kccemsr.edu.in",  subjects: ["CT"] },
+    { email: "ce.ravi.prakash@kccemsr.edu.in",  subjects: ["OE"] },
+  ];
+
+  for (const s of sharedMap) {
+    const teacher = store.users.find((u) => u.email === s.email);
+    if (!teacher) continue;
+    if (!teacher.assignments) teacher.assignments = [];
+    const alreadyHasA = teacher.assignments.some(
+      (a) => a.departmentCode === "CE" && a.year === 2 && a.division === "A"
+    );
+    if (!alreadyHasA) {
+      teacher.assignments.push({
+        className: classNameA,
+        departmentId: ceId,
+        departmentCode: "CE",
+        year: 2,
+        division: "A",
+        subjects: s.subjects,
+      });
+    }
+  }
+
+  saveStore();
+}
