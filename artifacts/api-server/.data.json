@@ -1912,6 +1912,180 @@
       ],
       "rollNumber": 64,
       "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+    },
+    {
+      "id": "177688776876357j6lnfh1",
+      "name": "Shweta Gaikwad",
+      "email": "ce.shweta.gaikwad@kccemsr.edu.in",
+      "role": "teacher",
+      "department": "Computer Engineering",
+      "departmentId": "1776883851776wqct9plnj",
+      "year": 2,
+      "division": "B",
+      "className": "CE-Y2-B",
+      "subjects": [
+        "Web Technology",
+        "WT LAB"
+      ],
+      "assignments": [
+        {
+          "className": "CE-Y2-B",
+          "departmentId": "1776883851776wqct9plnj",
+          "departmentCode": "CE",
+          "year": 2,
+          "division": "B",
+          "subjects": [
+            "Web Technology",
+            "WT LAB"
+          ]
+        }
+      ],
+      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+    },
+    {
+      "id": "1776887768764tbugixzu7",
+      "name": "Rujuta Dhon",
+      "email": "ce.rujuta.dhon@kccemsr.edu.in",
+      "role": "teacher",
+      "department": "Computer Engineering",
+      "departmentId": "1776883851776wqct9plnj",
+      "year": 2,
+      "division": "B",
+      "className": "CE-Y2-B",
+      "subjects": [
+        "Operating System",
+        "OS LAB"
+      ],
+      "assignments": [
+        {
+          "className": "CE-Y2-B",
+          "departmentId": "1776883851776wqct9plnj",
+          "departmentCode": "CE",
+          "year": 2,
+          "division": "B",
+          "subjects": [
+            "Operating System",
+            "OS LAB"
+          ]
+        }
+      ],
+      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+    },
+    {
+      "id": "1776887768767jq14617bu",
+      "name": "Ashwini Gaikwad",
+      "email": "ce.ashwini.gaikwad@kccemsr.edu.in",
+      "role": "teacher",
+      "department": "Computer Engineering",
+      "departmentId": "1776883851776wqct9plnj",
+      "year": 2,
+      "division": "B",
+      "className": "CE-Y2-B",
+      "subjects": [
+        "DBMS",
+        "DBMS LAB"
+      ],
+      "assignments": [
+        {
+          "className": "CE-Y2-B",
+          "departmentId": "1776883851776wqct9plnj",
+          "departmentCode": "CE",
+          "year": 2,
+          "division": "B",
+          "subjects": [
+            "DBMS",
+            "DBMS LAB"
+          ]
+        }
+      ],
+      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+    },
+    {
+      "id": "1776887768769dzjiw3yap",
+      "name": "Pranita Sangit",
+      "email": "ce.pranita.sangit@kccemsr.edu.in",
+      "role": "teacher",
+      "department": "Computer Engineering",
+      "departmentId": "1776883851776wqct9plnj",
+      "year": 2,
+      "division": "B",
+      "className": "CE-Y2-B",
+      "subjects": [
+        "BMD",
+        "BMD LAB"
+      ],
+      "assignments": [
+        {
+          "className": "CE-Y2-B",
+          "departmentId": "1776883851776wqct9plnj",
+          "departmentCode": "CE",
+          "year": 2,
+          "division": "B",
+          "subjects": [
+            "BMD",
+            "BMD LAB"
+          ]
+        }
+      ],
+      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+    },
+    {
+      "id": "1776887768771tlk5luped",
+      "name": "Monali Patil",
+      "email": "ce.monali.patil@kccemsr.edu.in",
+      "role": "teacher",
+      "department": "Computer Engineering",
+      "departmentId": "1776883851776wqct9plnj",
+      "year": 2,
+      "division": "B",
+      "className": "CE-Y2-B",
+      "subjects": [
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "assignments": [
+        {
+          "className": "CE-Y2-B",
+          "departmentId": "1776883851776wqct9plnj",
+          "departmentCode": "CE",
+          "year": 2,
+          "division": "B",
+          "subjects": [
+            "CT",
+            "DT",
+            "DT LAB"
+          ]
+        }
+      ],
+      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+    },
+    {
+      "id": "177688776877324yqummpe",
+      "name": "Ravi Prakash",
+      "email": "ce.ravi.prakash@kccemsr.edu.in",
+      "role": "teacher",
+      "department": "Computer Engineering",
+      "departmentId": "1776883851776wqct9plnj",
+      "year": 2,
+      "division": "B",
+      "className": "CE-Y2-B",
+      "subjects": [
+        "OE"
+      ],
+      "assignments": [
+        {
+          "className": "CE-Y2-B",
+          "departmentId": "1776883851776wqct9plnj",
+          "departmentCode": "CE",
+          "year": 2,
+          "division": "B",
+          "subjects": [
+            "OE"
+          ]
+        }
+      ],
+      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
     }
   ],
   "departments": [

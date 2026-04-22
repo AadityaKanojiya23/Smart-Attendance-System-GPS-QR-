@@ -316,3 +316,78 @@ export async function migrateCEStudents(): Promise<void> {
 
   saveStore();
 }
+
+export async function migrateCETeachers(): Promise<void> {
+  // Idempotent: skip if CE teachers already added
+  if (store.users.some((u) => u.email === "ce.shweta.gaikwad@kccemsr.edu.in")) return;
+
+  // Find CE department
+  const ceDept = store.departments.find((d) => d.code === "CE");
+  if (!ceDept) return;
+
+  const passwordHash = await bcrypt.hash("teacher@123", 10);
+  const ceId = ceDept.id;
+  const className = classCode("CE", 2, "B");
+
+  const teachers: Array<{ name: string; email: string; subjects: string[] }> = [
+    {
+      name: "Shweta Gaikwad",
+      email: "ce.shweta.gaikwad@kccemsr.edu.in",
+      subjects: ["Web Technology", "WT LAB"],
+    },
+    {
+      name: "Rujuta Dhon",
+      email: "ce.rujuta.dhon@kccemsr.edu.in",
+      subjects: ["Operating System", "OS LAB"],
+    },
+    {
+      name: "Ashwini Gaikwad",
+      email: "ce.ashwini.gaikwad@kccemsr.edu.in",
+      subjects: ["DBMS", "DBMS LAB"],
+    },
+    {
+      name: "Pranita Sangit",
+      email: "ce.pranita.sangit@kccemsr.edu.in",
+      subjects: ["BMD", "BMD LAB"],
+    },
+    {
+      name: "Monali Patil",
+      email: "ce.monali.patil@kccemsr.edu.in",
+      subjects: ["CT", "DT", "DT LAB"],
+    },
+    {
+      name: "Ravi Prakash",
+      email: "ce.ravi.prakash@kccemsr.edu.in",
+      subjects: ["OE"],
+    },
+  ];
+
+  for (const t of teachers) {
+    store.users.push({
+      id: makeId(),
+      name: t.name,
+      email: t.email,
+      role: "teacher",
+      department: "Computer Engineering",
+      departmentId: ceId,
+      year: 2,
+      division: "B",
+      className,
+      subjects: t.subjects,
+      assignments: [
+        {
+          className,
+          departmentId: ceId,
+          departmentCode: "CE",
+          year: 2,
+          division: "B",
+          subjects: t.subjects,
+        },
+      ],
+      passwordHash,
+    });
+    await new Promise((r) => setTimeout(r, 2));
+  }
+
+  saveStore();
+}
