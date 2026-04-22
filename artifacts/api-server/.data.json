@@ -2220,7 +2220,76 @@
       "durationSecs": 300,
       "blockedStudents": [],
       "cancelledAt": "2026-03-31T09:03:55.771Z"
+    },
+    {
+      "id": "17768881128201o33zwzc2",
+      "teacherId": "177688776876357j6lnfh1",
+      "className": "CE-Y2-B",
+      "latitude": 19.180010063951876,
+      "longitude": 72.98054933658015,
+      "qrToken": "SESSION_177688776876357j6lnfh1_1776888111374_fwnvnk9ia",
+      "expiresAt": "2026-04-22T20:03:51.374Z",
+      "createdAt": "2026-04-22T20:01:52.820Z",
+      "subject": "WT LAB",
+      "lectureStart": "15:30",
+      "lectureEnd": "17:30",
+      "durationSecs": 120,
+      "blockedStudents": [],
+      "cancelledAt": "2026-04-22T20:02:37.991Z"
+    },
+    {
+      "id": "17768882206316ca5ijuon",
+      "teacherId": "177688776876357j6lnfh1",
+      "className": "CE-Y2-B",
+      "latitude": 19.180010063951876,
+      "longitude": 72.98054933658015,
+      "qrToken": "SESSION_177688776876357j6lnfh1_1776888219190_1bj6kthwo",
+      "expiresAt": "2026-04-22T20:05:39.190Z",
+      "createdAt": "2026-04-22T20:03:40.631Z",
+      "subject": "Web Technology",
+      "lectureStart": "01:35",
+      "lectureEnd": "02:35",
+      "durationSecs": 120,
+      "blockedStudents": [],
+      "cancelledAt": "2026-04-22T20:05:15.875Z"
     }
   ],
-  "attendance": []
+  "attendance": [
+    {
+      "id": "17768881526660jd9x14e9",
+      "studentId": "1776883851874cmoktzn0y",
+      "studentName": "Kanojiya Aditya Ramjanam",
+      "sessionId": "17768881128201o33zwzc2",
+      "className": "CE-Y2-B",
+      "markedAt": "2026-04-22T20:02:32.666Z",
+      "subject": "WT LAB",
+      "lectureStart": "15:30",
+      "lectureEnd": "17:30",
+      "teacherName": "Shweta Gaikwad"
+    },
+    {
+      "id": "1776888233069bnuy0mwwp",
+      "studentId": "1776883851896k8p2c9lm8",
+      "studentName": "Kharatmol Saumya Sushil",
+      "sessionId": "17768882206316ca5ijuon",
+      "className": "CE-Y2-B",
+      "markedAt": "2026-04-22T20:03:53.069Z",
+      "subject": "Web Technology",
+      "lectureStart": "01:35",
+      "lectureEnd": "02:35",
+      "teacherName": "Shweta Gaikwad"
+    },
+    {
+      "id": "1776888306870m7mffe19h",
+      "studentId": "177688385188652ymtz3nk",
+      "studentName": "Khade Atharva Aashish",
+      "sessionId": "17768882206316ca5ijuon",
+      "className": "CE-Y2-B",
+      "markedAt": "2026-04-22T20:05:06.870Z",
+      "subject": "Web Technology",
+      "lectureStart": "01:35",
+      "lectureEnd": "02:35",
+      "teacherName": "Shweta Gaikwad"
+    }
+  ]
 }
