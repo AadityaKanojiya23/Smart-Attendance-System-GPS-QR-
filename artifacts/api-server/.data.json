@@ -1,20 +1,20 @@
 {
   "users": [
     {
-      "id": "177494736699932o854wlc",
-      "passwordHash": "$2b$10$.HAmpLvhghaWk0aA2lMG9.HpqGyNlOGxyhueSw3U6y3.sw8lKGbtq",
+      "id": "1776889883583bhrji8um1",
+      "passwordHash": "$2b$10$gV2zeKY5Jxc0uk2tMzQjVupCZnHVEp0nKgtWqrGTFFL6.rE.Md7HO",
       "name": "Admin User",
       "email": "admin@campus.edu",
       "role": "admin"
     },
     {
-      "id": "1774947367095agqfuisrb",
-      "passwordHash": "$2b$10$dKX8EpFOK8x/6KaRgH9RLujQ20IdTUrVcon6Kx.IFq2O/kmZGDfT6",
+      "id": "17768898836724xjczi38y",
+      "passwordHash": "$2b$10$HT3Dk0MN9bnWFdwiM2sqoeo4/XVgr3dQQTfzn16UY2cNguEGgFhNK",
       "name": "Anita Sharma",
       "email": "anita@campus.edu",
       "role": "teacher",
       "department": "Computer Science",
-      "departmentId": "177494736685559qcy07t7",
+      "departmentId": "1776889883440rugnzypdl",
       "year": 1,
       "division": "A",
       "className": "CS-Y1-A",
@@ -27,7 +27,7 @@
       "assignments": [
         {
           "className": "CS-Y1-A",
-          "departmentId": "177494736685559qcy07t7",
+          "departmentId": "1776889883440rugnzypdl",
           "departmentCode": "CS",
           "year": 1,
           "division": "A",
@@ -41,13 +41,13 @@
       ]
     },
     {
-      "id": "1774947367204qs1v5p8k0",
-      "passwordHash": "$2b$10$iMfCyqwNkGnblti77wj.nOkoklzt3Pej0oz8SgH93/hD/UEicW34K",
+      "id": "1776889883768a2t9di7lu",
+      "passwordHash": "$2b$10$c5ju6nLCOp2Ebok92jkCzO9Ur5gW3c4vje.cGeiHB/kdcOUuRBeSq",
       "name": "Rahul Verma",
       "email": "rahul@campus.edu",
       "role": "teacher",
       "department": "Computer Science",
-      "departmentId": "177494736685559qcy07t7",
+      "departmentId": "1776889883440rugnzypdl",
       "year": 1,
       "division": "B",
       "className": "CS-Y1-B",
@@ -59,7 +59,7 @@
       "assignments": [
         {
           "className": "CS-Y1-B",
-          "departmentId": "177494736685559qcy07t7",
+          "departmentId": "1776889883440rugnzypdl",
           "departmentCode": "CS",
           "year": 1,
           "division": "B",
@@ -72,49 +72,49 @@
       ]
     },
     {
-      "id": "1774947367311ychdegsry",
-      "passwordHash": "$2b$10$qaG7xMQyIH27h0D256LX/.zyGJbgzqo1PPIXuaaB0UmQ5VU3GQhjm",
+      "id": "1776889883859zrayert3x",
+      "passwordHash": "$2b$10$D55WfQ/exlfKz22lIW/Z8Ojb0yVsjdNOWB34IIHORxha5pcRqXxOy",
       "name": "Priya Mehta",
       "email": "priya@campus.edu",
       "role": "student",
       "department": "Computer Science",
-      "departmentId": "177494736685559qcy07t7",
+      "departmentId": "1776889883440rugnzypdl",
       "year": 1,
       "division": "A",
       "className": "CS-Y1-A"
     },
     {
-      "id": "1774947367405kvk7r33g1",
-      "passwordHash": "$2b$10$e6RipBa38eFfdXHnpOxtCelYGveYlY4xuALMQlxVEFqoXleGlV60m",
+      "id": "1776889883949aszhds99m",
+      "passwordHash": "$2b$10$Zx2F4n3CTaBXECcWtZMLu.yc4Bi9E1L31CWlZTcAuVEYYignFDur.",
       "name": "Arjun Singh",
       "email": "arjun@campus.edu",
       "role": "student",
       "department": "Computer Science",
-      "departmentId": "177494736685559qcy07t7",
+      "departmentId": "1776889883440rugnzypdl",
       "year": 1,
       "division": "A",
       "className": "CS-Y1-A"
     },
     {
-      "id": "1774947367493lmlkw920a",
-      "passwordHash": "$2b$10$tssiNQ8d7v/s6g/mkkbW6uO7MMPAu.DUGokBi/WvXQ2oMZ3qsU2se",
+      "id": "17768898840402p7v8ehu4",
+      "passwordHash": "$2b$10$tSbKcinmANcU1bawxnlZ0eRLVLzXOsUKHHzWztyUKQF9e/JVxfkK.",
       "name": "Sneha Patil",
       "email": "sneha@campus.edu",
       "role": "student",
       "department": "Computer Science",
-      "departmentId": "177494736685559qcy07t7",
+      "departmentId": "1776889883440rugnzypdl",
       "year": 1,
       "division": "B",
       "className": "CS-Y1-B"
     },
     {
-      "id": "1774947367580bakg5yeyh",
-      "passwordHash": "$2b$10$avWwIJlFnCcG6DA3xd0zsuy780cQtb0mN.YrSF2HjozrIg4FU9RZG",
+      "id": "17768898841280lpheht5d",
+      "passwordHash": "$2b$10$Y39dexEr1i6AbvguWFM3PeKKJX3n9xtxzcVNmAo6Ey023l65dErQW",
       "name": "Vikram Nair",
       "email": "vikram@campus.edu",
       "role": "teacher",
       "department": "Electronics Engineering",
-      "departmentId": "17749473668556p0o2c1pw",
+      "departmentId": "1776889883440q9vgf5o2v",
       "year": 1,
       "division": "A",
       "className": "EE-Y1-A",
@@ -127,7 +127,7 @@
       "assignments": [
         {
           "className": "EE-Y1-A",
-          "departmentId": "17749473668556p0o2c1pw",
+          "departmentId": "1776889883440q9vgf5o2v",
           "departmentCode": "EE",
           "year": 1,
           "division": "A",
@@ -141,25 +141,25 @@
       ]
     },
     {
-      "id": "17749473676684urnuif7h",
-      "passwordHash": "$2b$10$GA8l9M1q4gmHds0NCiMy0.8LSmr1VR.1aRFAhWooquzLbgF6nXi.a",
+      "id": "1776889884220can49tfj8",
+      "passwordHash": "$2b$10$sHDJCiCeWJIIOW5lnoi/Heiyl2UZh1nGP71WrVUf34UsbQlUjCcYy",
       "name": "Riya Joshi",
       "email": "riya@campus.edu",
       "role": "student",
       "department": "Electronics Engineering",
-      "departmentId": "17749473668556p0o2c1pw",
+      "departmentId": "1776889883440q9vgf5o2v",
       "year": 1,
       "division": "A",
       "className": "EE-Y1-A"
     },
     {
-      "id": "1774947367757wq6yx3y0m",
-      "passwordHash": "$2b$10$NH323aUXQYJP4JJyFpBgwemOFJoMkfJNQRT4QDYhbu.AWHznbPrkO",
+      "id": "1776889884310wmvrwlmne",
+      "passwordHash": "$2b$10$8uedIDioDfrxXuevNCSIe.jy7nkz.h/K6I9wfcRQ2uJY3uS49NsLK",
       "name": "Suresh Patil",
       "email": "suresh@campus.edu",
       "role": "teacher",
       "department": "Mechanical Engineering",
-      "departmentId": "17749473668552y7ton0yd",
+      "departmentId": "1776889883440it2jvznp3",
       "year": 1,
       "division": "A",
       "className": "ME-Y1-A",
@@ -172,7 +172,7 @@
       "assignments": [
         {
           "className": "ME-Y1-A",
-          "departmentId": "17749473668552y7ton0yd",
+          "departmentId": "1776889883440it2jvznp3",
           "departmentCode": "ME",
           "year": 1,
           "division": "A",
@@ -186,12 +186,12 @@
       ]
     },
     {
-      "id": "1776883851874cmoktzn0y",
+      "id": "1776889884404wssqjsi8u",
       "name": "Kanojiya Aditya Ramjanam",
       "email": "ce24.aditya.kanojiya@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -210,15 +210,15 @@
         "DT LAB"
       ],
       "rollNumber": 1,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838518766webgf4fw",
+      "id": "1776889884406sff8lfh12",
       "name": "Karkera Saakshi Pavan",
       "email": "ce24.saakshi.karkera@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -237,15 +237,15 @@
         "DT LAB"
       ],
       "rollNumber": 2,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851878xh63ja6yd",
+      "id": "1776889884408mkimkyv3y",
       "name": "Karkera Samiksha Praveenkumar",
       "email": "ce24.samiksha.karkera@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -264,15 +264,15 @@
         "DT LAB"
       ],
       "rollNumber": 3,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851879fdqajjii1",
+      "id": "1776889884410aahvsk5vv",
       "name": "Kasturi Shreya Venkatesh",
       "email": "ce24.shreya.kasturi@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -291,15 +291,15 @@
         "DT LAB"
       ],
       "rollNumber": 4,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838518825ebhdc58r",
+      "id": "1776889884412gev9euiuc",
       "name": "Kathe Ninad Shailesh",
       "email": "ce24.ninad.kathe@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -318,15 +318,15 @@
         "DT LAB"
       ],
       "rollNumber": 5,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851884yud5w0mg1",
+      "id": "1776889884414id5gdfmuy",
       "name": "Kawle Leisha Kiran",
       "email": "ce24.leisha.kawle@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -345,15 +345,15 @@
         "DT LAB"
       ],
       "rollNumber": 6,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "177688385188652ymtz3nk",
+      "id": "1776889884416n6plsafuy",
       "name": "Khade Atharva Aashish",
       "email": "ce24.atharva.khade@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -372,15 +372,15 @@
         "DT LAB"
       ],
       "rollNumber": 7,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851888td7dy6ech",
+      "id": "1776889884419kyego57ge",
       "name": "Khaire Vedant Datta",
       "email": "ce24.vedant.khaire@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -399,15 +399,15 @@
         "DT LAB"
       ],
       "rollNumber": 8,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851890b4iylw29e",
+      "id": "17768898844215grwulxvo",
       "name": "Khan Asif Md Ashfaque",
       "email": "ce24.asif.khan@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -426,15 +426,15 @@
         "DT LAB"
       ],
       "rollNumber": 9,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851892f1caoowlw",
+      "id": "1776889884423fa6yt39ey",
       "name": "Khan Sania Mohd Yusuf",
       "email": "ce24.sania.khan@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -453,15 +453,15 @@
         "DT LAB"
       ],
       "rollNumber": 10,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838518941bngadole",
+      "id": "1776889884425dwzur25te",
       "name": "Kharat Mayuresh Yogesh",
       "email": "ce24.mayuresh.kharat@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -480,15 +480,15 @@
         "DT LAB"
       ],
       "rollNumber": 11,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851896k8p2c9lm8",
+      "id": "1776889884427y3y8btbsr",
       "name": "Kharatmol Saumya Sushil",
       "email": "ce24.saumya.kharatmol@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -507,15 +507,15 @@
         "DT LAB"
       ],
       "rollNumber": 12,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851899upbh5c9ra",
+      "id": "1776889884429ydnvlsyzd",
       "name": "Khatal Akshata Avinash",
       "email": "ce24.akshata.khatal@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -534,15 +534,15 @@
         "DT LAB"
       ],
       "rollNumber": 13,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851901oa4oxopnz",
+      "id": "1776889884431a6fnaexvs",
       "name": "Khavanekar Jayesh Vishnu",
       "email": "ce24.jayesh.khavanekar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -561,15 +561,15 @@
         "DT LAB"
       ],
       "rollNumber": 14,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851903gfdtn789z",
+      "id": "1776889884433amw6oi3j7",
       "name": "Khedekar Shruti Balu",
       "email": "ce24.shruti.khedekar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -588,15 +588,15 @@
         "DT LAB"
       ],
       "rollNumber": 15,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519052qczj9u3a",
+      "id": "1776889884435kr7p4wuw1",
       "name": "Kolambekar Yash Nilesh",
       "email": "ce24.yash.kolambekar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -615,15 +615,15 @@
         "DT LAB"
       ],
       "rollNumber": 16,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519076oyrhdkt3",
+      "id": "1776889884438vz093tgfm",
       "name": "Kotian Srishti Harish",
       "email": "ce24.srishti.kotian@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -642,15 +642,15 @@
         "DT LAB"
       ],
       "rollNumber": 17,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519098xvlwfiqz",
+      "id": "1776889884440s3mph0a0n",
       "name": "Parab Krupa Arvind",
       "email": "ce24.krupa.parab@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -669,15 +669,15 @@
         "DT LAB"
       ],
       "rollNumber": 18,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851911dd3s3u5ti",
+      "id": "1776889884442yrsuyjivn",
       "name": "Kudalkar Aryan Rajendra",
       "email": "ce24.aryan.kudalkar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -696,15 +696,15 @@
         "DT LAB"
       ],
       "rollNumber": 19,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519134d475tc5m",
+      "id": "17768898844440hf73uni1",
       "name": "Kundgar Sairaj Sandip",
       "email": "ce24.sairaj.kundgar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -723,15 +723,15 @@
         "DT LAB"
       ],
       "rollNumber": 20,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851915aertf95q0",
+      "id": "1776889884446ddcsce5xk",
       "name": "Labana Meharsingh Harneksingh",
       "email": "ce24.meharsingh.labana@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -750,15 +750,15 @@
         "DT LAB"
       ],
       "rollNumber": 21,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519173y0l1nvzz",
+      "id": "1776889884448ifyfhxv0r",
       "name": "Lokhande Durva Sunil",
       "email": "ce24.durva.lokhande@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -777,15 +777,15 @@
         "DT LAB"
       ],
       "rollNumber": 22,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519206x133f9lc",
+      "id": "1776889884450ipa5mhyij",
       "name": "Lonkar Atharva Ganesh",
       "email": "ce24.atharva.lonkar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -804,15 +804,15 @@
         "DT LAB"
       ],
       "rollNumber": 23,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851922o0ixeowl2",
+      "id": "17768898844525b7ebf0q6",
       "name": "Makannawar Yesshasvi Bahubali",
       "email": "ce24.yesshasvi.makannawar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -831,15 +831,15 @@
         "DT LAB"
       ],
       "rollNumber": 24,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851925zu0hxftbr",
+      "id": "17768898844542piovwa6k",
       "name": "Makhare Mahesh Raju",
       "email": "ce24.mahesh.makhare@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -858,15 +858,15 @@
         "DT LAB"
       ],
       "rollNumber": 25,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851927k13aerszc",
+      "id": "1776889884456a8cuc3nmd",
       "name": "Mane Arya Arjun",
       "email": "ce24.arya.mane@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -885,15 +885,15 @@
         "DT LAB"
       ],
       "rollNumber": 26,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519297r3l0ular",
+      "id": "1776889884459kdiacjgh4",
       "name": "Manjrekar Aniruddha Dinesh",
       "email": "ce24.aniruddha.manjrekar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -912,15 +912,15 @@
         "DT LAB"
       ],
       "rollNumber": 27,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851931xjkwtnru7",
+      "id": "1776889884461ahc5a22vk",
       "name": "Manjrekar Madhura Mahesh",
       "email": "ce24.madhura.manjrekar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -939,15 +939,15 @@
         "DT LAB"
       ],
       "rollNumber": 28,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851933bqn2p0f5e",
+      "id": "1776889884463uyxkqeu5l",
       "name": "Mastkar Vibha Shankarlal",
       "email": "ce24.vibha.mastkar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -966,15 +966,15 @@
         "DT LAB"
       ],
       "rollNumber": 29,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851936vsci779od",
+      "id": "1776889884465bfseh9s8l",
       "name": "Mhaske Himanshu Nitin",
       "email": "ce24.himanshu.mhaske@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -993,15 +993,15 @@
         "DT LAB"
       ],
       "rollNumber": 30,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851938zbbh6ihw6",
+      "id": "1776889884467rxp344ull",
       "name": "Mishra Aditya Sujeet",
       "email": "ce24.aditya.mishra@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1020,15 +1020,15 @@
         "DT LAB"
       ],
       "rollNumber": 31,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519409l0xen76e",
+      "id": "1776889884469cfbyu9n33",
       "name": "Mohammad Akil Ahemad Kazi",
       "email": "ce24.akil.mohammad@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1047,15 +1047,15 @@
         "DT LAB"
       ],
       "rollNumber": 32,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851943gmd2suxmf",
+      "id": "17768898844714jmd49wyz",
       "name": "Mohanty Ritin Sushant",
       "email": "ce24.ritin.mohanty@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1074,15 +1074,15 @@
         "DT LAB"
       ],
       "rollNumber": 33,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851945fbikfurhk",
+      "id": "17768898844730l3i4vol5",
       "name": "Mir Anees Nagesh",
       "email": "ce24.anees.mir@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1101,15 +1101,15 @@
         "DT LAB"
       ],
       "rollNumber": 34,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "177688385194721fe5aikq",
+      "id": "1776889884475rgtwdrfaj",
       "name": "Mori Dhruv Dinesh",
       "email": "ce24.dhruv.mori@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1128,15 +1128,15 @@
         "DT LAB"
       ],
       "rollNumber": 35,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851949a50me0h8r",
+      "id": "1776889884477peaexldh5",
       "name": "More Mrunal Sachin",
       "email": "ce24.mrunal.more@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1155,15 +1155,15 @@
         "DT LAB"
       ],
       "rollNumber": 36,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851951x1kh5svc4",
+      "id": "17768898844804z6rsgi0k",
       "name": "Mourya Shivani Ghanshyam",
       "email": "ce24.shivani.mourya@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1182,15 +1182,15 @@
         "DT LAB"
       ],
       "rollNumber": 37,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851953cmpk9bi65",
+      "id": "1776889884482xhf1adufj",
       "name": "Mundhara Krishna Govind",
       "email": "ce24.krishna.mundhara@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1209,15 +1209,15 @@
         "DT LAB"
       ],
       "rollNumber": 38,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851955w3l80y41c",
+      "id": "1776889884484xgooy5xvo",
       "name": "Mungekar Bhavik Mahesh",
       "email": "ce24.bhavik.mungekar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1236,15 +1236,15 @@
         "DT LAB"
       ],
       "rollNumber": 39,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851957o3hs23glt",
+      "id": "1776889884486pmxk0nayb",
       "name": "Nair Jiya Hari",
       "email": "ce24.jiya.nair@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1263,15 +1263,15 @@
         "DT LAB"
       ],
       "rollNumber": 40,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851959vwvwamkq9",
+      "id": "1776889884488ksum2gv6k",
       "name": "Narvekar Vaishnavi Vasudev",
       "email": "ce24.vaishnavi.narvekar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1290,15 +1290,15 @@
         "DT LAB"
       ],
       "rollNumber": 41,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "177688385196114m9toy6u",
+      "id": "1776889884490uyrqyhqdf",
       "name": "Nikam Siddhesh Nilesh",
       "email": "ce24.siddhesh.nikam@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1317,15 +1317,15 @@
         "DT LAB"
       ],
       "rollNumber": 42,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519648b1uan0un",
+      "id": "1776889884492pgi0o5c39",
       "name": "Paithankar Devang Lumavati",
       "email": "ce24.devang.paithankar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1344,15 +1344,15 @@
         "DT LAB"
       ],
       "rollNumber": 43,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851966uu9oajkky",
+      "id": "1776889884494vv7im7cg9",
       "name": "Pal Deepika Ramkumar",
       "email": "ce24.deepika.pal@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1371,15 +1371,15 @@
         "DT LAB"
       ],
       "rollNumber": 44,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851968uf5vh3gi0",
+      "id": "1776889884496veos2dns0",
       "name": "Pal Pratibha Brijendrakumar",
       "email": "ce24.pratibha.pal@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1398,15 +1398,15 @@
         "DT LAB"
       ],
       "rollNumber": 45,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851970gosjvza3s",
+      "id": "1776889884498okg7jhhmm",
       "name": "Palav Aayush Kanchan",
       "email": "ce24.aayush.palav@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1425,15 +1425,15 @@
         "DT LAB"
       ],
       "rollNumber": 46,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851972zbthpyryk",
+      "id": "17768898845012iua9ddrt",
       "name": "Paradkar Rohan Nilesh",
       "email": "ce24.rohan.paradkar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1452,15 +1452,15 @@
         "DT LAB"
       ],
       "rollNumber": 47,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519747athpw0vw",
+      "id": "17768898845033tl91qctm",
       "name": "Shirke Parth Ajit",
       "email": "ce24.parth.shirke@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1479,15 +1479,15 @@
         "DT LAB"
       ],
       "rollNumber": 48,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851976fapwxingw",
+      "id": "1776889884505lti4b19zq",
       "name": "Patil Aradhya Kiran",
       "email": "ce24.aradhya.patil@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1506,15 +1506,15 @@
         "DT LAB"
       ],
       "rollNumber": 49,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "17768838519787zxd5h1qd",
+      "id": "177688988450752zk08em5",
       "name": "Patil Kasturi Sandeep",
       "email": "ce24.kasturi.patil@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1533,15 +1533,15 @@
         "DT LAB"
       ],
       "rollNumber": 50,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851980pu9i661nu",
+      "id": "1776889884509f172ul44t",
       "name": "Patil Rahul Arun",
       "email": "ce24.rahul.patil@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1560,15 +1560,15 @@
         "DT LAB"
       ],
       "rollNumber": 51,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851982wfsf9urkm",
+      "id": "1776889884511zoneqzict",
       "name": "Patkar Raaj Satish",
       "email": "ce24.raaj.patkar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1587,15 +1587,15 @@
         "DT LAB"
       ],
       "rollNumber": 52,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851985cy7ch2mzq",
+      "id": "1776889884513ey6ra5snp",
       "name": "Pawar Daivik Hemant",
       "email": "ce24.daivik.pawar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1614,15 +1614,15 @@
         "DT LAB"
       ],
       "rollNumber": 53,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851987kusiovhyx",
+      "id": "1776889884515a0fdly6m5",
       "name": "Pawar Mahendra Suresh",
       "email": "ce24.mahendra.pawar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1641,15 +1641,15 @@
         "DT LAB"
       ],
       "rollNumber": 54,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851989y340jrv6s",
+      "id": "1776889884517aydcqlbox",
       "name": "Pawar Onkar Keshawrao",
       "email": "ce24.onkar.pawar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1668,15 +1668,15 @@
         "DT LAB"
       ],
       "rollNumber": 55,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851991ewdh1ngie",
+      "id": "1776889884519fk0xhfalp",
       "name": "Peddharaju Ramesh Veerla",
       "email": "ce24.ramesh.peddharaju@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1695,15 +1695,15 @@
         "DT LAB"
       ],
       "rollNumber": 56,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851993pkricd21e",
+      "id": "177688988452233m1zlxag",
       "name": "Phadtare Harsh Sandesh",
       "email": "ce24.harsh.phadtare@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1722,15 +1722,15 @@
         "DT LAB"
       ],
       "rollNumber": 57,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851995ortwwdb0q",
+      "id": "17768898845241ijhtb82v",
       "name": "Kumbhar Sarthak Vinod",
       "email": "ce24.sarthak.kumbhar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1749,15 +1749,15 @@
         "DT LAB"
       ],
       "rollNumber": 58,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851997dpebw4w4n",
+      "id": "1776889884526hxbz6g0g4",
       "name": "Gowda Nishant Manjunath",
       "email": "ce24.nishant.gowda@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1776,15 +1776,15 @@
         "DT LAB"
       ],
       "rollNumber": 59,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883851999vadcuz0dh",
+      "id": "1776889884528jj8xyh58z",
       "name": "Parulekar Vaishnavi",
       "email": "ce24.vaishnavi.parulekar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1803,15 +1803,15 @@
         "DT LAB"
       ],
       "rollNumber": 60,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "177688385200109vjsadma",
+      "id": "1776889884530dcum7fvzb",
       "name": "Dalvi Abhishek",
       "email": "ce24.abhishek.dalvi@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1830,15 +1830,15 @@
         "DT LAB"
       ],
       "rollNumber": 61,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883852003mlqzzb5gl",
+      "id": "17768898845321vn8ukvb6",
       "name": "Chaurasia Aditya",
       "email": "ce24.aditya.chaurasia@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1857,15 +1857,15 @@
         "DT LAB"
       ],
       "rollNumber": 62,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883852006oc64cqw7t",
+      "id": "1776889884534mqar4awnh",
       "name": "Harmalkar Om",
       "email": "ce24.om.harmalkar@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1884,15 +1884,15 @@
         "DT LAB"
       ],
       "rollNumber": 63,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "1776883852008bc7b5h29f",
+      "id": "17768898845367axbnem7f",
       "name": "Pande Om",
       "email": "ce24.om.pande@kccemsr.edu.in",
       "role": "student",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1911,15 +1911,15 @@
         "DT LAB"
       ],
       "rollNumber": 64,
-      "passwordHash": "$2b$10$rLKq6vxwNqbJTDd.rpVCheDjrR66ZZVv3R9YheKCIGOoS1hWLwVCK"
+      "passwordHash": "$2b$10$Y7e6DWiU19hmxOGI6zhR4uSsMBAu.SqkFPrFY2YmKJ6MVUMDG6wwO"
     },
     {
-      "id": "177688776876357j6lnfh1",
+      "id": "17768898846182ojr890bj",
       "name": "Shweta Gaikwad",
       "email": "ce.shweta.gaikwad@kccemsr.edu.in",
       "role": "teacher",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1930,7 +1930,7 @@
       "assignments": [
         {
           "className": "CE-Y2-B",
-          "departmentId": "1776883851776wqct9plnj",
+          "departmentId": "1776889884320cna3od1wd",
           "departmentCode": "CE",
           "year": 2,
           "division": "B",
@@ -1940,15 +1940,15 @@
           ]
         }
       ],
-      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+      "passwordHash": "$2b$10$83U7wUg5HRdmVYOSQh1eQOuFqopNk53iAgv62RtJHmtHCuZJ2yDz2"
     },
     {
-      "id": "1776887768764tbugixzu7",
+      "id": "1776889884621dwwruh36j",
       "name": "Rujuta Dhon",
       "email": "ce.rujuta.dhon@kccemsr.edu.in",
       "role": "teacher",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1959,7 +1959,7 @@
       "assignments": [
         {
           "className": "CE-Y2-B",
-          "departmentId": "1776883851776wqct9plnj",
+          "departmentId": "1776889884320cna3od1wd",
           "departmentCode": "CE",
           "year": 2,
           "division": "B",
@@ -1969,15 +1969,15 @@
           ]
         }
       ],
-      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+      "passwordHash": "$2b$10$83U7wUg5HRdmVYOSQh1eQOuFqopNk53iAgv62RtJHmtHCuZJ2yDz2"
     },
     {
-      "id": "1776887768767jq14617bu",
+      "id": "1776889884623xcq3nmooq",
       "name": "Ashwini Gaikwad",
       "email": "ce.ashwini.gaikwad@kccemsr.edu.in",
       "role": "teacher",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -1988,7 +1988,7 @@
       "assignments": [
         {
           "className": "CE-Y2-B",
-          "departmentId": "1776883851776wqct9plnj",
+          "departmentId": "1776889884320cna3od1wd",
           "departmentCode": "CE",
           "year": 2,
           "division": "B",
@@ -1998,15 +1998,15 @@
           ]
         }
       ],
-      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+      "passwordHash": "$2b$10$83U7wUg5HRdmVYOSQh1eQOuFqopNk53iAgv62RtJHmtHCuZJ2yDz2"
     },
     {
-      "id": "1776887768769dzjiw3yap",
+      "id": "1776889884625ibhoeo10z",
       "name": "Pranita Sangit",
       "email": "ce.pranita.sangit@kccemsr.edu.in",
       "role": "teacher",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -2017,7 +2017,7 @@
       "assignments": [
         {
           "className": "CE-Y2-B",
-          "departmentId": "1776883851776wqct9plnj",
+          "departmentId": "1776889884320cna3od1wd",
           "departmentCode": "CE",
           "year": 2,
           "division": "B",
@@ -2027,15 +2027,15 @@
           ]
         }
       ],
-      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+      "passwordHash": "$2b$10$83U7wUg5HRdmVYOSQh1eQOuFqopNk53iAgv62RtJHmtHCuZJ2yDz2"
     },
     {
-      "id": "1776887768771tlk5luped",
+      "id": "1776889884627kcm1a2mga",
       "name": "Monali Patil",
       "email": "ce.monali.patil@kccemsr.edu.in",
       "role": "teacher",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -2047,7 +2047,7 @@
       "assignments": [
         {
           "className": "CE-Y2-B",
-          "departmentId": "1776883851776wqct9plnj",
+          "departmentId": "1776889884320cna3od1wd",
           "departmentCode": "CE",
           "year": 2,
           "division": "B",
@@ -2058,15 +2058,15 @@
           ]
         }
       ],
-      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+      "passwordHash": "$2b$10$83U7wUg5HRdmVYOSQh1eQOuFqopNk53iAgv62RtJHmtHCuZJ2yDz2"
     },
     {
-      "id": "177688776877324yqummpe",
+      "id": "1776889884629ihljmyqc1",
       "name": "Ravi Prakash",
       "email": "ce.ravi.prakash@kccemsr.edu.in",
       "role": "teacher",
       "department": "Computer Engineering",
-      "departmentId": "1776883851776wqct9plnj",
+      "departmentId": "1776889884320cna3od1wd",
       "year": 2,
       "division": "B",
       "className": "CE-Y2-B",
@@ -2076,7 +2076,7 @@
       "assignments": [
         {
           "className": "CE-Y2-B",
-          "departmentId": "1776883851776wqct9plnj",
+          "departmentId": "1776889884320cna3od1wd",
           "departmentCode": "CE",
           "year": 2,
           "division": "B",
@@ -2085,211 +2085,1807 @@
           ]
         }
       ],
-      "passwordHash": "$2b$10$SoewmxKjKGl6lTbgYpgBaeuEbgJvGguUz3tMyAt241giWlOKDmK06"
+      "passwordHash": "$2b$10$83U7wUg5HRdmVYOSQh1eQOuFqopNk53iAgv62RtJHmtHCuZJ2yDz2"
+    },
+    {
+      "id": "1776889884713m5rv5l8xh",
+      "name": "Anchan Riya Atul",
+      "email": "ce24.riya.anchan@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 1,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884715ui3clxo2p",
+      "name": "Kulkarni Anurag Vaibhav",
+      "email": "ce24.anurag.kulkarni@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 2,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884717s5gw4ks5u",
+      "name": "Gujarathi Anushka Rupesh",
+      "email": "ce24.anushka.gujarathi@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 3,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884719p8mavs2xm",
+      "name": "Arora Bhavjeet Singh",
+      "email": "ce24.bhavjeet.arora@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 4,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884721b9w7cal4y",
+      "name": "Barge Yash Pandurang",
+      "email": "ce24.yash.barge@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 5,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884723047yciima",
+      "name": "Bharti Gaurav Kumar",
+      "email": "ce24.gaurav.bharti@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 6,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884725gm9r51e0l",
+      "name": "Bhatt Prakash",
+      "email": "ce24.prakash.bhatt@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 7,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884727wm935g9it",
+      "name": "Bhatti Rabjeet Singh",
+      "email": "ce24.rabjeet.bhatti@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 8,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884730w3ihxtks9",
+      "name": "Bhere Sudhanshu Swapnil",
+      "email": "ce24.sudhanshu.bhere@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 9,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898847323lmrwp5lm",
+      "name": "Bhor Manas Santosh",
+      "email": "ce24.manas.bhor@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 10,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898847346mztpkt2o",
+      "name": "Bhosale Siddhi Hanmant",
+      "email": "ce24.siddhi.bhosale@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 11,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884736iw0ry0um0",
+      "name": "Biradar Shubham Prabhakar",
+      "email": "ce24.shubham.biradar@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 12,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884738h7g31090e",
+      "name": "Chaudhari Anushree Chandrashekhar",
+      "email": "ce24.anushree.chaudhari@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 13,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884740l5q8iuu5a",
+      "name": "Chaudhari Atharva Vishal",
+      "email": "ce24.atharva.chaudhari@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 14,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884742j8mtbke05",
+      "name": "Chavan Tushar",
+      "email": "ce24.tushar.chavan@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 17,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884744dvvx71gh2",
+      "name": "Choudhary Jodharam",
+      "email": "ce24.jodharam.choudhary@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 18,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898847468g3w39y1t",
+      "name": "Choudhury Adyasa",
+      "email": "ce24.adyasa.choudhury@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 19,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884749s7i5ibd42",
+      "name": "Chutake Swarup Mangesh",
+      "email": "ce24.swarup.chutake@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 20,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884751z5vcyykii",
+      "name": "Dagade Kaveri Khandu",
+      "email": "ce24.kaveri.dagade@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 21,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884753kdauewkcm",
+      "name": "Damal Rani Lakshmidhar",
+      "email": "ce24.rani.damal@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 22,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884755ep21jenj0",
+      "name": "Dehot Kabir Singh",
+      "email": "ce24.kabir.dehot@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 23,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884757myio0lr5e",
+      "name": "Desai Janhavi Santosh",
+      "email": "ce24.janhavi.desai@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 24,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898847593sx1as8b9",
+      "name": "Devkate Sakshi Mahesh",
+      "email": "ce24.sakshi.devkate@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 25,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "177688988476172jwe7p9d",
+      "name": "Dhankute Neha Narayan",
+      "email": "ce24.neha.dhankute@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 27,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884763g0epf6ru1",
+      "name": "Dhembare Pratik Ganpat",
+      "email": "ce24.pratik.dhembare@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 28,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884765do7hwgtk8",
+      "name": "Rathod Dhruvi Dharmeshkumar",
+      "email": "ce24.dhruvi.rathod@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 29,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884768p4rbmzs00",
+      "name": "Dubey Aditya Pradeep",
+      "email": "ce24.aditya.dubey@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 30,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "177688988477062li4gw5x",
+      "name": "Dubey Kritarth Chandraprakash",
+      "email": "ce24.kritarth.dubey@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 31,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884772mw8q9jed8",
+      "name": "Dusane Punit",
+      "email": "ce24.punit.dusane@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 32,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884774rbqj0jt10",
+      "name": "Gaikwad Sarthak",
+      "email": "ce24.sarthak.gaikwad@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 33,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884776tpv5lcqur",
+      "name": "Gaikwad Vinit Ravindra",
+      "email": "ce24.vinit.gaikwad@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 34,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884778xev7nu9nx",
+      "name": "Gautam Aayush Rakesh",
+      "email": "ce24.aayush.gautam@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 36,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884780fzqtg0gsh",
+      "name": "Ghadge Shruti",
+      "email": "ce24.shruti.ghadge@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 37,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898847827bcvc9clg",
+      "name": "Ghanekar Adwait Abhijit",
+      "email": "ce24.adwait.ghanekar@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 38,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884784tipcljypp",
+      "name": "Ghone Vihang Santosh",
+      "email": "ce24.vihang.ghone@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 39,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898847867yrdxt8hb",
+      "name": "Ghude Prathmesh Janardan",
+      "email": "ce24.prathmesh.ghude@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 40,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884789atwlgpmpv",
+      "name": "Gole Mansi Mangesh",
+      "email": "ce24.mansi.gole@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 41,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898847911t6ermqi6",
+      "name": "Gore Parth Bhagwan",
+      "email": "ce24.parth.gore@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 42,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884793iqe34ph88",
+      "name": "Govilkar Prathamesh Sachin",
+      "email": "ce24.prathamesh.govilkar@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 43,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884795c4oshtg7h",
+      "name": "Gujuri Kishan Sanyasi",
+      "email": "ce24.kishan.gujuri@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 44,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884797jaw70mbb4",
+      "name": "Gundeti Rohith Ganesh",
+      "email": "ce24.rohith.gundeti@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 45,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884799nev7qk0k3",
+      "name": "Gupta Karan Arun",
+      "email": "ce24.karan.gupta@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 46,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "177688988480136t69lhne",
+      "name": "Gupta Shubham Shashi",
+      "email": "ce24.shubham.gupta@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 47,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "177688988480343te7bnpz",
+      "name": "Haliat Manbir Singh",
+      "email": "ce24.manbir.haliat@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 48,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898848057m10sx41e",
+      "name": "Hutait Aditya Asim",
+      "email": "ce24.aditya.hutait@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 49,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884807tp16tvj4u",
+      "name": "Lanjekar Isha Vijay",
+      "email": "ce24.isha.lanjekar@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 50,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884810rk6645q6r",
+      "name": "Jadhav Ayushi Ashok",
+      "email": "ce24.ayushi.jadhav@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 51,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884812c3qpzptmg",
+      "name": "Jadhav Laksh Sandeep",
+      "email": "ce24.laksh.jadhav@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 52,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884814ya1oir4e3",
+      "name": "Jadhav Shridhar",
+      "email": "ce24.shridhar.jadhav@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 53,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884816zc46ynnd9",
+      "name": "Jadhav Tanvi Prashant",
+      "email": "ce24.tanvi.jadhav@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 54,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898848180kmbjtqbt",
+      "name": "Patil Jagrut Rajeev",
+      "email": "ce24.jagrut.patil@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 55,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884820255nrqv5l",
+      "name": "Jena Smruti S",
+      "email": "ce24.smruti.jena@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 56,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898848225ug0fukud",
+      "name": "Jha Divya Sanjay",
+      "email": "ce24.divya.jha@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 57,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898848240ga9fm3a7",
+      "name": "Jha Pooja Ajit",
+      "email": "ce24.pooja.jha@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 58,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884826gxo6n0gun",
+      "name": "Kanekar Mourvika Mahendra",
+      "email": "ce24.mourvika.kanekar@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 59,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884829x2ov6gbnb",
+      "name": "Singh Harsh",
+      "email": "ce24.harsh.singh@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 60,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884831wpx2ozkmk",
+      "name": "Disale Pranali",
+      "email": "ce24.pranali.disale@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 61,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "177688988483336p69xema",
+      "name": "Sonawane Maithili",
+      "email": "ce24.maithili.sonawane@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 62,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884835jfuyana42",
+      "name": "Chorghe Anushree",
+      "email": "ce24.anushree.chorghe@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 63,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "17768898848375ykezcdtq",
+      "name": "Ludbe Sanskruti",
+      "email": "ce24.sanskruti.ludbe@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 64,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884839hoti135o9",
+      "name": "Bhekara Ashwath",
+      "email": "ce24.ashwath.bhekara@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 65,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
+    },
+    {
+      "id": "1776889884841g1uvp7tr7",
+      "name": "Pawar Shirish",
+      "email": "ce24.shirish.pawar@kccemsr.edu.in",
+      "role": "student",
+      "department": "Computer Engineering",
+      "departmentId": "1776889884320cna3od1wd",
+      "year": 2,
+      "division": "A",
+      "className": "CE-Y2-A",
+      "subjects": [
+        "Web Technology",
+        "Operating System",
+        "DBMS",
+        "BMD",
+        "OE",
+        "WT LAB",
+        "OS LAB",
+        "DBMS LAB",
+        "BMD LAB",
+        "CT",
+        "DT",
+        "DT LAB"
+      ],
+      "rollNumber": 66,
+      "passwordHash": "$2b$10$0L6Hs040/ffaDcYpAHRKQO1/yDUqwfJvZs.IKYyIdHxeJJdFA8pcq"
     }
   ],
   "departments": [
     {
-      "id": "177494736685559qcy07t7",
+      "id": "1776889883440rugnzypdl",
       "name": "Computer Science",
       "code": "CS",
-      "createdAt": "2026-03-31T08:56:06.855Z"
+      "createdAt": "2026-04-22T20:31:23.440Z"
     },
     {
-      "id": "17749473668556p0o2c1pw",
+      "id": "1776889883440q9vgf5o2v",
       "name": "Electronics Engineering",
       "code": "EE",
-      "createdAt": "2026-03-31T08:56:06.856Z"
+      "createdAt": "2026-04-22T20:31:23.440Z"
     },
     {
-      "id": "17749473668552y7ton0yd",
+      "id": "1776889883440it2jvznp3",
       "name": "Mechanical Engineering",
       "code": "ME",
-      "createdAt": "2026-03-31T08:56:06.856Z"
+      "createdAt": "2026-04-22T20:31:23.440Z"
     },
     {
-      "id": "1776883851776wqct9plnj",
+      "id": "1776889884320cna3od1wd",
       "name": "Computer Engineering",
       "code": "CE",
-      "createdAt": "2026-04-22T18:50:51.782Z"
+      "createdAt": "2026-04-22T20:31:24.325Z"
     }
   ],
   "classes": [
     {
-      "id": "1774947366856lby5v8plk",
-      "createdAt": "2026-03-31T08:56:06.856Z",
-      "departmentId": "177494736685559qcy07t7",
+      "id": "17768898834403xuekdf7u",
+      "createdAt": "2026-04-22T20:31:23.440Z",
+      "departmentId": "1776889883440rugnzypdl",
       "departmentCode": "CS",
       "year": 1,
       "division": "A"
     },
     {
-      "id": "1774947366862izmi9zx8p",
-      "createdAt": "2026-03-31T08:56:06.862Z",
-      "departmentId": "177494736685559qcy07t7",
+      "id": "1776889883446y2qqukoxg",
+      "createdAt": "2026-04-22T20:31:23.446Z",
+      "departmentId": "1776889883440rugnzypdl",
       "departmentCode": "CS",
       "year": 1,
       "division": "B"
     },
     {
-      "id": "177494736686752qdy3g6p",
-      "createdAt": "2026-03-31T08:56:06.867Z",
-      "departmentId": "177494736685559qcy07t7",
+      "id": "17768898834510lervnmoo",
+      "createdAt": "2026-04-22T20:31:23.451Z",
+      "departmentId": "1776889883440rugnzypdl",
       "departmentCode": "CS",
       "year": 2,
       "division": "A"
     },
     {
-      "id": "1774947366872ax05925bx",
-      "createdAt": "2026-03-31T08:56:06.872Z",
-      "departmentId": "177494736685559qcy07t7",
+      "id": "17768898834567hnobh2y7",
+      "createdAt": "2026-04-22T20:31:23.456Z",
+      "departmentId": "1776889883440rugnzypdl",
       "departmentCode": "CS",
       "year": 2,
       "division": "B"
     },
     {
-      "id": "17749473668776oc5ypf4n",
-      "createdAt": "2026-03-31T08:56:06.877Z",
-      "departmentId": "177494736685559qcy07t7",
+      "id": "1776889883461z28ytky99",
+      "createdAt": "2026-04-22T20:31:23.461Z",
+      "departmentId": "1776889883440rugnzypdl",
       "departmentCode": "CS",
       "year": 3,
       "division": "A"
     },
     {
-      "id": "1774947366882bdqm60831",
-      "createdAt": "2026-03-31T08:56:06.882Z",
-      "departmentId": "177494736685559qcy07t7",
+      "id": "17768898834668jn12nq4f",
+      "createdAt": "2026-04-22T20:31:23.466Z",
+      "departmentId": "1776889883440rugnzypdl",
       "departmentCode": "CS",
       "year": 4,
       "division": "A"
     },
     {
-      "id": "1774947366887ebkvnpax7",
-      "createdAt": "2026-03-31T08:56:06.887Z",
-      "departmentId": "17749473668556p0o2c1pw",
+      "id": "17768898834723eu8qctpb",
+      "createdAt": "2026-04-22T20:31:23.472Z",
+      "departmentId": "1776889883440q9vgf5o2v",
       "departmentCode": "EE",
       "year": 1,
       "division": "A"
     },
     {
-      "id": "1774947366892i4mtik4jq",
-      "createdAt": "2026-03-31T08:56:06.892Z",
-      "departmentId": "17749473668556p0o2c1pw",
+      "id": "1776889883477ih7swaz64",
+      "createdAt": "2026-04-22T20:31:23.477Z",
+      "departmentId": "1776889883440q9vgf5o2v",
       "departmentCode": "EE",
       "year": 2,
       "division": "A"
     },
     {
-      "id": "177494736689790vpm72bt",
-      "createdAt": "2026-03-31T08:56:06.897Z",
-      "departmentId": "17749473668552y7ton0yd",
+      "id": "17768898834820ocox6lyo",
+      "createdAt": "2026-04-22T20:31:23.482Z",
+      "departmentId": "1776889883440it2jvznp3",
       "departmentCode": "ME",
       "year": 1,
       "division": "A"
     },
     {
-      "id": "1774947366903jy4rz3uva",
-      "createdAt": "2026-03-31T08:56:06.903Z",
-      "departmentId": "17749473668552y7ton0yd",
+      "id": "1776889883487689sk4l90",
+      "createdAt": "2026-04-22T20:31:23.487Z",
+      "departmentId": "1776889883440it2jvznp3",
       "departmentCode": "ME",
       "year": 2,
       "division": "A"
     },
     {
-      "id": "1776883851782qhjy00t76",
-      "departmentId": "1776883851776wqct9plnj",
+      "id": "177688988432510s6pjfsl",
+      "departmentId": "1776889884320cna3od1wd",
       "departmentCode": "CE",
       "year": 2,
       "division": "B",
-      "createdAt": "2026-04-22T18:50:51.782Z"
+      "createdAt": "2026-04-22T20:31:24.325Z"
+    },
+    {
+      "id": "17768898846328wa0sm38i",
+      "departmentId": "1776889884320cna3od1wd",
+      "departmentCode": "CE",
+      "year": 2,
+      "division": "A",
+      "createdAt": "2026-04-22T20:31:24.632Z"
     }
   ],
-  "sessions": [
-    {
-      "id": "17749477733841yhbzb7nu",
-      "teacherId": "1774947367095agqfuisrb",
-      "className": "CS-Y1-A",
-      "latitude": 19.180010063951876,
-      "longitude": 72.98054933658015,
-      "qrToken": "SESSION_1774947367095agqfuisrb_1774947772899_tfg2xnbif",
-      "expiresAt": "2026-03-31T09:07:52.899Z",
-      "createdAt": "2026-03-31T09:02:53.384Z",
-      "subject": "C Programming",
-      "lectureStart": "14:30",
-      "lectureEnd": "15:30",
-      "durationSecs": 300,
-      "blockedStudents": [],
-      "cancelledAt": "2026-03-31T09:03:55.771Z"
-    },
-    {
-      "id": "17768881128201o33zwzc2",
-      "teacherId": "177688776876357j6lnfh1",
-      "className": "CE-Y2-B",
-      "latitude": 19.180010063951876,
-      "longitude": 72.98054933658015,
-      "qrToken": "SESSION_177688776876357j6lnfh1_1776888111374_fwnvnk9ia",
-      "expiresAt": "2026-04-22T20:03:51.374Z",
-      "createdAt": "2026-04-22T20:01:52.820Z",
-      "subject": "WT LAB",
-      "lectureStart": "15:30",
-      "lectureEnd": "17:30",
-      "durationSecs": 120,
-      "blockedStudents": [],
-      "cancelledAt": "2026-04-22T20:02:37.991Z"
-    },
-    {
-      "id": "17768882206316ca5ijuon",
-      "teacherId": "177688776876357j6lnfh1",
-      "className": "CE-Y2-B",
-      "latitude": 19.180010063951876,
-      "longitude": 72.98054933658015,
-      "qrToken": "SESSION_177688776876357j6lnfh1_1776888219190_1bj6kthwo",
-      "expiresAt": "2026-04-22T20:05:39.190Z",
-      "createdAt": "2026-04-22T20:03:40.631Z",
-      "subject": "Web Technology",
-      "lectureStart": "01:35",
-      "lectureEnd": "02:35",
-      "durationSecs": 120,
-      "blockedStudents": [],
-      "cancelledAt": "2026-04-22T20:05:15.875Z"
-    }
-  ],
-  "attendance": [
-    {
-      "id": "17768881526660jd9x14e9",
-      "studentId": "1776883851874cmoktzn0y",
-      "studentName": "Kanojiya Aditya Ramjanam",
-      "sessionId": "17768881128201o33zwzc2",
-      "className": "CE-Y2-B",
-      "markedAt": "2026-04-22T20:02:32.666Z",
-      "subject": "WT LAB",
-      "lectureStart": "15:30",
-      "lectureEnd": "17:30",
-      "teacherName": "Shweta Gaikwad"
-    },
-    {
-      "id": "1776888233069bnuy0mwwp",
-      "studentId": "1776883851896k8p2c9lm8",
-      "studentName": "Kharatmol Saumya Sushil",
-      "sessionId": "17768882206316ca5ijuon",
-      "className": "CE-Y2-B",
-      "markedAt": "2026-04-22T20:03:53.069Z",
-      "subject": "Web Technology",
-      "lectureStart": "01:35",
-      "lectureEnd": "02:35",
-      "teacherName": "Shweta Gaikwad"
-    },
-    {
-      "id": "1776888306870m7mffe19h",
-      "studentId": "177688385188652ymtz3nk",
-      "studentName": "Khade Atharva Aashish",
-      "sessionId": "17768882206316ca5ijuon",
-      "className": "CE-Y2-B",
-      "markedAt": "2026-04-22T20:05:06.870Z",
-      "subject": "Web Technology",
-      "lectureStart": "01:35",
-      "lectureEnd": "02:35",
-      "teacherName": "Shweta Gaikwad"
-    }
-  ]
+  "sessions": [],
+  "attendance": []
 }

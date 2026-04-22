@@ -391,3 +391,121 @@ export async function migrateCETeachers(): Promise<void> {
 
   saveStore();
 }
+
+export async function migrateCEDivisionA(): Promise<void> {
+  // Idempotent: skip if CE-Y2-A class already exists
+  if (store.classes.some((c) => c.departmentCode === "CE" && c.year === 2 && c.division === "A")) return;
+
+  const ceDept = store.departments.find((d) => d.code === "CE");
+  if (!ceDept) return;
+
+  const ceId = ceDept.id;
+
+  store.classes.push({
+    id: makeId(),
+    departmentId: ceId,
+    departmentCode: "CE",
+    year: 2,
+    division: "A",
+    createdAt: new Date().toISOString(),
+  });
+
+  const className = classCode("CE", 2, "A");
+  const subjects = [
+    "Web Technology", "Operating System", "DBMS", "BMD", "OE",
+    "WT LAB", "OS LAB", "DBMS LAB", "BMD LAB", "CT", "DT", "DT LAB",
+  ];
+
+  const passwordHash = await bcrypt.hash("student@123", 10);
+
+  // Rolls 15, 16, 26, 35 are vacant — represented as null
+  const studentList: Array<{ roll: number; name: string; email: string } | null> = [
+    { roll: 1,  name: "Anchan Riya Atul",                   email: "ce24.riya.anchan@kccemsr.edu.in" },
+    { roll: 2,  name: "Kulkarni Anurag Vaibhav",            email: "ce24.anurag.kulkarni@kccemsr.edu.in" },
+    { roll: 3,  name: "Gujarathi Anushka Rupesh",           email: "ce24.anushka.gujarathi@kccemsr.edu.in" },
+    { roll: 4,  name: "Arora Bhavjeet Singh",               email: "ce24.bhavjeet.arora@kccemsr.edu.in" },
+    { roll: 5,  name: "Barge Yash Pandurang",               email: "ce24.yash.barge@kccemsr.edu.in" },
+    { roll: 6,  name: "Bharti Gaurav Kumar",                email: "ce24.gaurav.bharti@kccemsr.edu.in" },
+    { roll: 7,  name: "Bhatt Prakash",                      email: "ce24.prakash.bhatt@kccemsr.edu.in" },
+    { roll: 8,  name: "Bhatti Rabjeet Singh",               email: "ce24.rabjeet.bhatti@kccemsr.edu.in" },
+    { roll: 9,  name: "Bhere Sudhanshu Swapnil",            email: "ce24.sudhanshu.bhere@kccemsr.edu.in" },
+    { roll: 10, name: "Bhor Manas Santosh",                 email: "ce24.manas.bhor@kccemsr.edu.in" },
+    { roll: 11, name: "Bhosale Siddhi Hanmant",             email: "ce24.siddhi.bhosale@kccemsr.edu.in" },
+    { roll: 12, name: "Biradar Shubham Prabhakar",          email: "ce24.shubham.biradar@kccemsr.edu.in" },
+    { roll: 13, name: "Chaudhari Anushree Chandrashekhar",  email: "ce24.anushree.chaudhari@kccemsr.edu.in" },
+    { roll: 14, name: "Chaudhari Atharva Vishal",           email: "ce24.atharva.chaudhari@kccemsr.edu.in" },
+    null, // roll 15 — vacant
+    null, // roll 16 — vacant
+    { roll: 17, name: "Chavan Tushar",                      email: "ce24.tushar.chavan@kccemsr.edu.in" },
+    { roll: 18, name: "Choudhary Jodharam",                 email: "ce24.jodharam.choudhary@kccemsr.edu.in" },
+    { roll: 19, name: "Choudhury Adyasa",                   email: "ce24.adyasa.choudhury@kccemsr.edu.in" },
+    { roll: 20, name: "Chutake Swarup Mangesh",             email: "ce24.swarup.chutake@kccemsr.edu.in" },
+    { roll: 21, name: "Dagade Kaveri Khandu",               email: "ce24.kaveri.dagade@kccemsr.edu.in" },
+    { roll: 22, name: "Damal Rani Lakshmidhar",             email: "ce24.rani.damal@kccemsr.edu.in" },
+    { roll: 23, name: "Dehot Kabir Singh",                  email: "ce24.kabir.dehot@kccemsr.edu.in" },
+    { roll: 24, name: "Desai Janhavi Santosh",              email: "ce24.janhavi.desai@kccemsr.edu.in" },
+    { roll: 25, name: "Devkate Sakshi Mahesh",              email: "ce24.sakshi.devkate@kccemsr.edu.in" },
+    null, // roll 26 — vacant
+    { roll: 27, name: "Dhankute Neha Narayan",              email: "ce24.neha.dhankute@kccemsr.edu.in" },
+    { roll: 28, name: "Dhembare Pratik Ganpat",             email: "ce24.pratik.dhembare@kccemsr.edu.in" },
+    { roll: 29, name: "Rathod Dhruvi Dharmeshkumar",        email: "ce24.dhruvi.rathod@kccemsr.edu.in" },
+    { roll: 30, name: "Dubey Aditya Pradeep",               email: "ce24.aditya.dubey@kccemsr.edu.in" },
+    { roll: 31, name: "Dubey Kritarth Chandraprakash",      email: "ce24.kritarth.dubey@kccemsr.edu.in" },
+    { roll: 32, name: "Dusane Punit",                       email: "ce24.punit.dusane@kccemsr.edu.in" },
+    { roll: 33, name: "Gaikwad Sarthak",                    email: "ce24.sarthak.gaikwad@kccemsr.edu.in" },
+    { roll: 34, name: "Gaikwad Vinit Ravindra",             email: "ce24.vinit.gaikwad@kccemsr.edu.in" },
+    null, // roll 35 — vacant
+    { roll: 36, name: "Gautam Aayush Rakesh",               email: "ce24.aayush.gautam@kccemsr.edu.in" },
+    { roll: 37, name: "Ghadge Shruti",                      email: "ce24.shruti.ghadge@kccemsr.edu.in" },
+    { roll: 38, name: "Ghanekar Adwait Abhijit",            email: "ce24.adwait.ghanekar@kccemsr.edu.in" },
+    { roll: 39, name: "Ghone Vihang Santosh",               email: "ce24.vihang.ghone@kccemsr.edu.in" },
+    { roll: 40, name: "Ghude Prathmesh Janardan",           email: "ce24.prathmesh.ghude@kccemsr.edu.in" },
+    { roll: 41, name: "Gole Mansi Mangesh",                 email: "ce24.mansi.gole@kccemsr.edu.in" },
+    { roll: 42, name: "Gore Parth Bhagwan",                 email: "ce24.parth.gore@kccemsr.edu.in" },
+    { roll: 43, name: "Govilkar Prathamesh Sachin",         email: "ce24.prathamesh.govilkar@kccemsr.edu.in" },
+    { roll: 44, name: "Gujuri Kishan Sanyasi",              email: "ce24.kishan.gujuri@kccemsr.edu.in" },
+    { roll: 45, name: "Gundeti Rohith Ganesh",              email: "ce24.rohith.gundeti@kccemsr.edu.in" },
+    { roll: 46, name: "Gupta Karan Arun",                   email: "ce24.karan.gupta@kccemsr.edu.in" },
+    { roll: 47, name: "Gupta Shubham Shashi",               email: "ce24.shubham.gupta@kccemsr.edu.in" },
+    { roll: 48, name: "Haliat Manbir Singh",                email: "ce24.manbir.haliat@kccemsr.edu.in" },
+    { roll: 49, name: "Hutait Aditya Asim",                 email: "ce24.aditya.hutait@kccemsr.edu.in" },
+    { roll: 50, name: "Lanjekar Isha Vijay",                email: "ce24.isha.lanjekar@kccemsr.edu.in" },
+    { roll: 51, name: "Jadhav Ayushi Ashok",                email: "ce24.ayushi.jadhav@kccemsr.edu.in" },
+    { roll: 52, name: "Jadhav Laksh Sandeep",               email: "ce24.laksh.jadhav@kccemsr.edu.in" },
+    { roll: 53, name: "Jadhav Shridhar",                    email: "ce24.shridhar.jadhav@kccemsr.edu.in" },
+    { roll: 54, name: "Jadhav Tanvi Prashant",              email: "ce24.tanvi.jadhav@kccemsr.edu.in" },
+    { roll: 55, name: "Patil Jagrut Rajeev",                email: "ce24.jagrut.patil@kccemsr.edu.in" },
+    { roll: 56, name: "Jena Smruti S",                      email: "ce24.smruti.jena@kccemsr.edu.in" },
+    { roll: 57, name: "Jha Divya Sanjay",                   email: "ce24.divya.jha@kccemsr.edu.in" },
+    { roll: 58, name: "Jha Pooja Ajit",                     email: "ce24.pooja.jha@kccemsr.edu.in" },
+    { roll: 59, name: "Kanekar Mourvika Mahendra",          email: "ce24.mourvika.kanekar@kccemsr.edu.in" },
+    { roll: 60, name: "Singh Harsh",                        email: "ce24.harsh.singh@kccemsr.edu.in" },
+    { roll: 61, name: "Disale Pranali",                     email: "ce24.pranali.disale@kccemsr.edu.in" },
+    { roll: 62, name: "Sonawane Maithili",                  email: "ce24.maithili.sonawane@kccemsr.edu.in" },
+    { roll: 63, name: "Chorghe Anushree",                   email: "ce24.anushree.chorghe@kccemsr.edu.in" },
+    { roll: 64, name: "Ludbe Sanskruti",                    email: "ce24.sanskruti.ludbe@kccemsr.edu.in" },
+    { roll: 65, name: "Bhekara Ashwath",                    email: "ce24.ashwath.bhekara@kccemsr.edu.in" },
+    { roll: 66, name: "Pawar Shirish",                      email: "ce24.shirish.pawar@kccemsr.edu.in" },
+  ];
+
+  for (const s of studentList) {
+    if (!s) continue; // skip vacant rolls
+    store.users.push({
+      id: makeId(),
+      name: s.name,
+      email: s.email,
+      role: "student",
+      department: "Computer Engineering",
+      departmentId: ceId,
+      year: 2,
+      division: "A",
+      className,
+      subjects,
+      rollNumber: s.roll,
+      passwordHash,
+    });
+    await new Promise((r) => setTimeout(r, 2));
+  }
+
+  saveStore();
+}
