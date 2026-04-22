@@ -25,6 +25,7 @@ export interface StoredUser {
   className?: string;
   subjects?: string[];
   assignments?: TeacherAssignment[];
+  rollNumber?: number;
   passwordHash: string;
 }
 
@@ -181,5 +182,137 @@ export async function seedStore() {
   }
 
   // Save seeded data to disk
+  saveStore();
+}
+
+export async function migrateCEStudents(): Promise<void> {
+  // Idempotent: skip if CE dept already added
+  if (store.departments.some((d) => d.code === "CE")) return;
+
+  const ceId = makeId();
+  await new Promise((r) => setTimeout(r, 5));
+
+  store.departments.push({
+    id: ceId,
+    name: "Computer Engineering",
+    code: "CE",
+    createdAt: new Date().toISOString(),
+  });
+
+  // Add CE Year-2 Division-B class
+  store.classes.push({
+    id: makeId(),
+    departmentId: ceId,
+    departmentCode: "CE",
+    year: 2,
+    division: "B",
+    createdAt: new Date().toISOString(),
+  });
+
+  const className = classCode("CE", 2, "B");
+  const subjects = [
+    "Web Technology",
+    "Operating System",
+    "DBMS",
+    "BMD",
+    "OE",
+    "WT LAB",
+    "OS LAB",
+    "DBMS LAB",
+    "BMD LAB",
+    "CT",
+    "DT",
+    "DT LAB",
+  ];
+
+  // Hash once and reuse (same password for all students)
+  const passwordHash = await bcrypt.hash("student@123", 10);
+
+  const studentList: Array<{ name: string; email: string }> = [
+    { name: "Kanojiya Aditya Ramjanam",       email: "ce24.aditya.kanojiya@kccemsr.edu.in" },
+    { name: "Karkera Saakshi Pavan",           email: "ce24.saakshi.karkera@kccemsr.edu.in" },
+    { name: "Karkera Samiksha Praveenkumar",   email: "ce24.samiksha.karkera@kccemsr.edu.in" },
+    { name: "Kasturi Shreya Venkatesh",        email: "ce24.shreya.kasturi@kccemsr.edu.in" },
+    { name: "Kathe Ninad Shailesh",            email: "ce24.ninad.kathe@kccemsr.edu.in" },
+    { name: "Kawle Leisha Kiran",              email: "ce24.leisha.kawle@kccemsr.edu.in" },
+    { name: "Khade Atharva Aashish",           email: "ce24.atharva.khade@kccemsr.edu.in" },
+    { name: "Khaire Vedant Datta",             email: "ce24.vedant.khaire@kccemsr.edu.in" },
+    { name: "Khan Asif Md Ashfaque",           email: "ce24.asif.khan@kccemsr.edu.in" },
+    { name: "Khan Sania Mohd Yusuf",           email: "ce24.sania.khan@kccemsr.edu.in" },
+    { name: "Kharat Mayuresh Yogesh",          email: "ce24.mayuresh.kharat@kccemsr.edu.in" },
+    { name: "Kharatmol Saumya Sushil",         email: "ce24.saumya.kharatmol@kccemsr.edu.in" },
+    { name: "Khatal Akshata Avinash",          email: "ce24.akshata.khatal@kccemsr.edu.in" },
+    { name: "Khavanekar Jayesh Vishnu",        email: "ce24.jayesh.khavanekar@kccemsr.edu.in" },
+    { name: "Khedekar Shruti Balu",            email: "ce24.shruti.khedekar@kccemsr.edu.in" },
+    { name: "Kolambekar Yash Nilesh",          email: "ce24.yash.kolambekar@kccemsr.edu.in" },
+    { name: "Kotian Srishti Harish",           email: "ce24.srishti.kotian@kccemsr.edu.in" },
+    { name: "Parab Krupa Arvind",              email: "ce24.krupa.parab@kccemsr.edu.in" },
+    { name: "Kudalkar Aryan Rajendra",         email: "ce24.aryan.kudalkar@kccemsr.edu.in" },
+    { name: "Kundgar Sairaj Sandip",           email: "ce24.sairaj.kundgar@kccemsr.edu.in" },
+    { name: "Labana Meharsingh Harneksingh",   email: "ce24.meharsingh.labana@kccemsr.edu.in" },
+    { name: "Lokhande Durva Sunil",            email: "ce24.durva.lokhande@kccemsr.edu.in" },
+    { name: "Lonkar Atharva Ganesh",           email: "ce24.atharva.lonkar@kccemsr.edu.in" },
+    { name: "Makannawar Yesshasvi Bahubali",   email: "ce24.yesshasvi.makannawar@kccemsr.edu.in" },
+    { name: "Makhare Mahesh Raju",             email: "ce24.mahesh.makhare@kccemsr.edu.in" },
+    { name: "Mane Arya Arjun",                 email: "ce24.arya.mane@kccemsr.edu.in" },
+    { name: "Manjrekar Aniruddha Dinesh",      email: "ce24.aniruddha.manjrekar@kccemsr.edu.in" },
+    { name: "Manjrekar Madhura Mahesh",        email: "ce24.madhura.manjrekar@kccemsr.edu.in" },
+    { name: "Mastkar Vibha Shankarlal",        email: "ce24.vibha.mastkar@kccemsr.edu.in" },
+    { name: "Mhaske Himanshu Nitin",           email: "ce24.himanshu.mhaske@kccemsr.edu.in" },
+    { name: "Mishra Aditya Sujeet",            email: "ce24.aditya.mishra@kccemsr.edu.in" },
+    { name: "Mohammad Akil Ahemad Kazi",       email: "ce24.akil.mohammad@kccemsr.edu.in" },
+    { name: "Mohanty Ritin Sushant",           email: "ce24.ritin.mohanty@kccemsr.edu.in" },
+    { name: "Mir Anees Nagesh",                email: "ce24.anees.mir@kccemsr.edu.in" },
+    { name: "Mori Dhruv Dinesh",               email: "ce24.dhruv.mori@kccemsr.edu.in" },
+    { name: "More Mrunal Sachin",              email: "ce24.mrunal.more@kccemsr.edu.in" },
+    { name: "Mourya Shivani Ghanshyam",        email: "ce24.shivani.mourya@kccemsr.edu.in" },
+    { name: "Mundhara Krishna Govind",         email: "ce24.krishna.mundhara@kccemsr.edu.in" },
+    { name: "Mungekar Bhavik Mahesh",          email: "ce24.bhavik.mungekar@kccemsr.edu.in" },
+    { name: "Nair Jiya Hari",                  email: "ce24.jiya.nair@kccemsr.edu.in" },
+    { name: "Narvekar Vaishnavi Vasudev",      email: "ce24.vaishnavi.narvekar@kccemsr.edu.in" },
+    { name: "Nikam Siddhesh Nilesh",           email: "ce24.siddhesh.nikam@kccemsr.edu.in" },
+    { name: "Paithankar Devang Lumavati",      email: "ce24.devang.paithankar@kccemsr.edu.in" },
+    { name: "Pal Deepika Ramkumar",            email: "ce24.deepika.pal@kccemsr.edu.in" },
+    { name: "Pal Pratibha Brijendrakumar",     email: "ce24.pratibha.pal@kccemsr.edu.in" },
+    { name: "Palav Aayush Kanchan",            email: "ce24.aayush.palav@kccemsr.edu.in" },
+    { name: "Paradkar Rohan Nilesh",           email: "ce24.rohan.paradkar@kccemsr.edu.in" },
+    { name: "Shirke Parth Ajit",               email: "ce24.parth.shirke@kccemsr.edu.in" },
+    { name: "Patil Aradhya Kiran",             email: "ce24.aradhya.patil@kccemsr.edu.in" },
+    { name: "Patil Kasturi Sandeep",           email: "ce24.kasturi.patil@kccemsr.edu.in" },
+    { name: "Patil Rahul Arun",                email: "ce24.rahul.patil@kccemsr.edu.in" },
+    { name: "Patkar Raaj Satish",              email: "ce24.raaj.patkar@kccemsr.edu.in" },
+    { name: "Pawar Daivik Hemant",             email: "ce24.daivik.pawar@kccemsr.edu.in" },
+    { name: "Pawar Mahendra Suresh",           email: "ce24.mahendra.pawar@kccemsr.edu.in" },
+    { name: "Pawar Onkar Keshawrao",           email: "ce24.onkar.pawar@kccemsr.edu.in" },
+    { name: "Peddharaju Ramesh Veerla",        email: "ce24.ramesh.peddharaju@kccemsr.edu.in" },
+    { name: "Phadtare Harsh Sandesh",          email: "ce24.harsh.phadtare@kccemsr.edu.in" },
+    { name: "Kumbhar Sarthak Vinod",           email: "ce24.sarthak.kumbhar@kccemsr.edu.in" },
+    { name: "Gowda Nishant Manjunath",         email: "ce24.nishant.gowda@kccemsr.edu.in" },
+    { name: "Parulekar Vaishnavi",             email: "ce24.vaishnavi.parulekar@kccemsr.edu.in" },
+    { name: "Dalvi Abhishek",                  email: "ce24.abhishek.dalvi@kccemsr.edu.in" },
+    { name: "Chaurasia Aditya",                email: "ce24.aditya.chaurasia@kccemsr.edu.in" },
+    { name: "Harmalkar Om",                    email: "ce24.om.harmalkar@kccemsr.edu.in" },
+    { name: "Pande Om",                        email: "ce24.om.pande@kccemsr.edu.in" },
+  ];
+
+  for (let i = 0; i < studentList.length; i++) {
+    const s = studentList[i];
+    store.users.push({
+      id: makeId(),
+      name: s.name,
+      email: s.email,
+      role: "student",
+      department: "Computer Engineering",
+      departmentId: ceId,
+      year: 2,
+      division: "B",
+      className,
+      subjects,
+      rollNumber: i + 1,
+      passwordHash,
+    });
+    await new Promise((r) => setTimeout(r, 2));
+  }
+
   saveStore();
 }
