@@ -18,8 +18,11 @@ export function setBaseUrl(url: string) {
 export async function loadSavedBaseUrl(): Promise<string> {
   try {
     const saved = await AsyncStorage.getItem("@custom_api_url");
-    if (saved) {
+    if (saved && !saved.includes("192.168.") && !saved.includes("localhost") && !saved.includes("127.0.0.1")) {
       baseUrl = saved.replace(/\/$/, "");
+    } else {
+      baseUrl = "https://smart-attendance-api-5ap4.onrender.com";
+      await AsyncStorage.setItem("@custom_api_url", baseUrl);
     }
   } catch { }
   return baseUrl;

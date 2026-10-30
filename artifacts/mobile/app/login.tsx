@@ -30,7 +30,7 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [serverUrlInput, setServerUrlInput] = useState(getBaseUrl() || "http://192.168.1.36:5000");
+  const [serverUrlInput, setServerUrlInput] = useState(getBaseUrl() || "https://smart-attendance-api-5ap4.onrender.com");
   const [showServerSettings, setShowServerSettings] = useState(false);
   const [serverMsg, setServerMsg] = useState("");
 
@@ -196,7 +196,7 @@ export default function LoginScreen() {
           >
             <Ionicons name="hardware-chip-outline" size={16} color={Colors.textMuted} />
             <Text style={styles.serverToggleText}>
-              Server: {getBaseUrl() || "http://192.168.1.36:5000"}
+              Server: {getBaseUrl() || "https://smart-attendance-api-5ap4.onrender.com"}
             </Text>
             <Ionicons
               name={showServerSettings ? "chevron-up" : "chevron-down"}
@@ -209,7 +209,7 @@ export default function LoginScreen() {
             <View style={styles.serverCard}>
               <Text style={styles.serverCardTitle}>Backend Server Address</Text>
               <Text style={styles.serverCardSubtitle}>
-                Connected to local Wi-Fi server (http://192.168.1.36:5000). Update if PC IP changes:
+                Connected to Cloud Server (Render). Update if custom server:
               </Text>
               <View style={styles.inputWrap}>
                 <Ionicons name="link-outline" size={18} color={Colors.textMuted} style={styles.inputIcon} />
@@ -217,7 +217,7 @@ export default function LoginScreen() {
                   style={styles.input}
                   value={serverUrlInput}
                   onChangeText={setServerUrlInput}
-                  placeholder="http://192.168.1.36:5000"
+                  placeholder="https://smart-attendance-api-5ap4.onrender.com"
                   placeholderTextColor={Colors.textMuted}
                   autoCapitalize="none"
                   autoCorrect={false}

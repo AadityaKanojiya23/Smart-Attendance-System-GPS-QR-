@@ -16,19 +16,8 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { queryClient, setBaseUrl, loadSavedBaseUrl } from "@/lib/query-client";
 
-if (process.env.EXPO_PUBLIC_API_URL) {
-  setBaseUrl(process.env.EXPO_PUBLIC_API_URL);
-} else if (process.env.EXPO_PUBLIC_DOMAIN) {
-  const domain = process.env.EXPO_PUBLIC_DOMAIN;
-  if (domain.startsWith("http://") || domain.startsWith("https://")) {
-    setBaseUrl(domain);
-  } else {
-    const protocol = (domain.includes("localhost") || domain.includes("127.0.0.1")) ? "http" : "https";
-    setBaseUrl(`${protocol}://${domain}`);
-  }
-} else {
-  setBaseUrl("http://192.168.1.36:5000");
-}
+const CLOUD_API_URL = process.env.EXPO_PUBLIC_API_URL || "https://smart-attendance-api-5ap4.onrender.com";
+setBaseUrl(CLOUD_API_URL);
 loadSavedBaseUrl();
 
 SplashScreen.preventAutoHideAsync();
