@@ -11,8 +11,8 @@ export function setBaseUrl(url: string) {
   if (!url) return;
   baseUrl = url.replace(/\/$/, "");
   try {
-    AsyncStorage.setItem("@custom_api_url", baseUrl).catch(() => {});
-  } catch {}
+    AsyncStorage.setItem("@custom_api_url", baseUrl).catch(() => { });
+  } catch { }
 }
 
 export async function loadSavedBaseUrl(): Promise<string> {
@@ -21,7 +21,7 @@ export async function loadSavedBaseUrl(): Promise<string> {
     if (saved) {
       baseUrl = saved.replace(/\/$/, "");
     }
-  } catch {}
+  } catch { }
   return baseUrl;
 }
 
@@ -56,7 +56,7 @@ export async function apiRequest<T>(
     try {
       const data = await res.json();
       if (data?.error) errorMsg = data.error;
-    } catch {}
+    } catch { }
     throw new Error(errorMsg);
   }
 
@@ -70,7 +70,7 @@ export async function defaultFetcher<T>(url: string): Promise<T> {
     try {
       const data = await res.json();
       if (data?.error) errorMsg = data.error;
-    } catch {}
+    } catch { }
     throw new Error(errorMsg);
   }
   return res.json();
