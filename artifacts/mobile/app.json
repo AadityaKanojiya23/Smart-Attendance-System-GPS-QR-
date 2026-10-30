@@ -31,7 +31,8 @@
         }
       ],
       "expo-font",
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-splash-screen"
     ],
     "experiments": {
       "typedRoutes": true
