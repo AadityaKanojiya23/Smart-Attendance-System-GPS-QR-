@@ -236,7 +236,7 @@ export default function TeacherSessionScreen() {
         durationSecs: sessionDurationSecs,
       });
 
-      setCurrentSessionId(created?.id ?? null);
+      setCurrentSessionId((created as any)?.id ?? null);
       setQrToken(token);
       setTimeLeft(sessionDurationSecs);
       setState("active");

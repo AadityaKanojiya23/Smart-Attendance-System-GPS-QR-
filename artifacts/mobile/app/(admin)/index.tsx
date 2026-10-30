@@ -240,7 +240,7 @@ export default function AdminDashboard() {
                             <>
                               <Text style={styles.sectionLabel}>Subjects Taught</Text>
                               <View style={styles.tagsWrap}>
-                                {stats.subjects.map((subj, i) => (
+                                {stats.subjects.map((subj: string, i: number) => (
                                   <View key={i} style={styles.subjectTag}>
                                     <Text style={styles.subjectTagText}>{subj}</Text>
                                   </View>
@@ -273,7 +273,7 @@ export default function AdminDashboard() {
                             <>
                               <Text style={styles.sectionLabel}>Subjects Enrolled</Text>
                               <View style={styles.tagsWrap}>
-                                {stats.subjects.map((subj, i) => (
+                                {stats.subjects.map((subj: string, i: number) => (
                                   <View key={i} style={styles.subjectTag}>
                                     <Text style={styles.subjectTagText}>{subj}</Text>
                                   </View>

@@ -97,9 +97,9 @@ export default function GpsGateScreen() {
       router.replace("/login");
       return;
     }
-    if (user.role === "admin") router.replace("/(admin)/");
-    else if (user.role === "teacher") router.replace("/(teacher)/");
-    else router.replace("/(student)/");
+    if (user.role === "admin") router.replace("/(admin)/" as any);
+    else if (user.role === "teacher") router.replace("/(teacher)/" as any);
+    else router.replace("/(student)/" as any);
   }
 
   function skipGps() {

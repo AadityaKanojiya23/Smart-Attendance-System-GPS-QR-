@@ -34,8 +34,16 @@
       "expo-web-browser"
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
-    }
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": "https://replit.com/"
+      },
+      "eas": {
+        "projectId": "ba760cf4-3e76-45f7-bb2e-2b779116ead0"
+      }
+    },
+    "owner": "aaditya149271"
   }
 }

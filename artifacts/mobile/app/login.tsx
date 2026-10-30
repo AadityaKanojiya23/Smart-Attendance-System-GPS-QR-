@@ -17,6 +17,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "@/contexts/AuthContext";
 import { Colors } from "@/constants/colors";
 
+import { getBaseUrl, setBaseUrl } from "@/lib/query-client";
+
 export default function LoginScreen() {
   const { login } = useAuth();
   const insets = useSafeAreaInsets();
@@ -28,6 +30,9 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [serverUrlInput, setServerUrlInput] = useState(getBaseUrl() || "http://192.168.1.36:5000");
+  const [showServerSettings, setShowServerSettings] = useState(false);
+  const [serverMsg, setServerMsg] = useState("");
 
   async function handleLogin() {
     if (!email.trim() || !password.trim()) {
@@ -39,14 +44,27 @@ export default function LoginScreen() {
     try {
       await login(email.trim(), password);
       const user = await getCurrentUser();
-      if (user?.role === "admin") router.replace("/(admin)/");
-      else if (user?.role === "teacher") router.replace("/(teacher)/");
-      else router.replace("/(student)/");
+      if (user?.role === "admin") router.replace("/(admin)/" as any);
+      else if (user?.role === "teacher") router.replace("/(teacher)/" as any);
+      else router.replace("/(student)/" as any);
     } catch (e: any) {
-      setError(e?.message || "Login failed. Check credentials.");
+      const msg = e?.message || "";
+      if (msg.includes("Network request failed") || msg.includes("Failed to fetch")) {
+        setError(`Cannot reach backend at ${getBaseUrl()}.\nMake sure your phone is connected to the same Wi-Fi as your PC, or expand "Server Settings" below to update the IP.`);
+      } else {
+        setError(msg || "Login failed. Check credentials.");
+      }
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleSaveServerUrl() {
+    if (!serverUrlInput.trim()) return;
+    setBaseUrl(serverUrlInput.trim());
+    setServerMsg("Server URL updated!");
+    setError("");
+    setTimeout(() => setServerMsg(""), 3000);
   }
 
   async function getCurrentUser() {
@@ -170,6 +188,48 @@ export default function LoginScreen() {
               </TouchableOpacity>
             ))}
           </View>
+
+          <TouchableOpacity
+            style={styles.serverToggleBtn}
+            onPress={() => setShowServerSettings((v) => !v)}
+            activeOpacity={0.7}
+          >
+            <Ionicons name="hardware-chip-outline" size={16} color={Colors.textMuted} />
+            <Text style={styles.serverToggleText}>
+              Server: {getBaseUrl() || "http://192.168.1.36:5000"}
+            </Text>
+            <Ionicons
+              name={showServerSettings ? "chevron-up" : "chevron-down"}
+              size={16}
+              color={Colors.textMuted}
+            />
+          </TouchableOpacity>
+
+          {showServerSettings ? (
+            <View style={styles.serverCard}>
+              <Text style={styles.serverCardTitle}>Backend Server Address</Text>
+              <Text style={styles.serverCardSubtitle}>
+                Connected to local Wi-Fi server (http://192.168.1.36:5000). Update if PC IP changes:
+              </Text>
+              <View style={styles.inputWrap}>
+                <Ionicons name="link-outline" size={18} color={Colors.textMuted} style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  value={serverUrlInput}
+                  onChangeText={setServerUrlInput}
+                  placeholder="http://192.168.1.36:5000"
+                  placeholderTextColor={Colors.textMuted}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                />
+              </View>
+              {serverMsg ? <Text style={styles.serverMsgText}>{serverMsg}</Text> : null}
+              <TouchableOpacity style={styles.saveServerBtn} onPress={handleSaveServerUrl}>
+                <Ionicons name="checkmark-circle-outline" size={18} color={Colors.white} />
+                <Text style={styles.saveServerBtnText}>Save & Update Server</Text>
+              </TouchableOpacity>
+            </View>
+          ) : null}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -310,5 +370,59 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.textMuted,
     marginTop: 1,
+  },
+  serverToggleBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    marginTop: 20,
+    paddingVertical: 10,
+  },
+  serverToggleText: {
+    fontFamily: "Inter_500Medium",
+    fontSize: 12,
+    color: Colors.textMuted,
+  },
+  serverCard: {
+    backgroundColor: Colors.card,
+    borderRadius: 14,
+    padding: 16,
+    marginTop: 8,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  serverCardTitle: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 13,
+    color: Colors.text,
+    marginBottom: 4,
+  },
+  serverCardSubtitle: {
+    fontFamily: "Inter_400Regular",
+    fontSize: 12,
+    color: Colors.textSecondary,
+    marginBottom: 12,
+  },
+  serverMsgText: {
+    fontFamily: "Inter_500Medium",
+    fontSize: 12,
+    color: "#10B981",
+    marginTop: 8,
+  },
+  saveServerBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    backgroundColor: Colors.accent,
+    borderRadius: 10,
+    paddingVertical: 10,
+    marginTop: 12,
+  },
+  saveServerBtnText: {
+    fontFamily: "Inter_600SemiBold",
+    fontSize: 13,
+    color: Colors.white,
   },
 });

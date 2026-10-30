@@ -77,7 +77,7 @@ export default function ScanScreen() {
         try {
           const { status } = await Location.requestForegroundPermissionsAsync();
           if (status === "granted") {
-            const locPromise = Location.getCurrentPositionAsync({ timeout: 3000 });
+            const locPromise = Location.getCurrentPositionAsync({});
             const timeoutPromise = new Promise((_, reject) =>
               setTimeout(() => reject(new Error("GPS timeout")), 3500)
             );

@@ -4033,6 +4033,111 @@
       "createdAt": "2026-04-22T20:37:04.171Z"
     }
   ],
-  "sessions": [],
-  "attendance": []
+  "sessions": [
+    {
+      "id": "17768919270901gk72kys3",
+      "teacherId": "1776890224159npl33gmhq",
+      "className": "CE-Y2-A",
+      "latitude": 19.0966909,
+      "longitude": 72.8924072,
+      "qrToken": "SESSION_1776890224159npl33gmhq_1776891917096_xkxk4uwvc",
+      "expiresAt": "2026-04-22T21:10:17.096Z",
+      "createdAt": "2026-04-22T21:05:27.090Z",
+      "subject": "Operating System",
+      "lectureStart": "02:35",
+      "lectureEnd": "03:35",
+      "durationSecs": 300,
+      "blockedStudents": [],
+      "cancelledAt": "2026-04-22T21:05:38.814Z"
+    },
+    {
+      "id": "1776891956389kfe5suwhq",
+      "teacherId": "1776890224159npl33gmhq",
+      "className": "CE-Y2-B",
+      "latitude": 19.0966909,
+      "longitude": 72.8924072,
+      "qrToken": "SESSION_1776890224159npl33gmhq_1776891947100_g3r15don9",
+      "expiresAt": "2026-04-22T21:10:47.100Z",
+      "createdAt": "2026-04-22T21:05:56.389Z",
+      "subject": "Operating System",
+      "lectureStart": "02:35",
+      "lectureEnd": "03:35",
+      "durationSecs": 300,
+      "blockedStudents": [],
+      "cancelledAt": "2026-04-22T21:06:15.093Z"
+    },
+    {
+      "id": "1776927051686z277ivr5s",
+      "teacherId": "1776890224159npl33gmhq",
+      "className": "CE-Y2-A",
+      "latitude": 19.179927,
+      "longitude": 72.9802496,
+      "qrToken": "SESSION_1776890224159npl33gmhq_1776927051007_jbbnppt8x",
+      "expiresAt": "2026-04-23T06:55:51.007Z",
+      "createdAt": "2026-04-23T06:50:51.686Z",
+      "subject": "OS LAB",
+      "lectureStart": "12:20",
+      "lectureEnd": "13:20",
+      "durationSecs": 300,
+      "blockedStudents": [],
+      "cancelledAt": "2026-04-23T06:51:07.080Z"
+    },
+    {
+      "id": "1776927081648epaitzogi",
+      "teacherId": "1776890224159npl33gmhq",
+      "className": "CE-Y2-B",
+      "latitude": 19.179927,
+      "longitude": 72.9802496,
+      "qrToken": "SESSION_1776890224159npl33gmhq_1776927080978_rcid8lnow",
+      "expiresAt": "2026-04-23T06:56:20.978Z",
+      "createdAt": "2026-04-23T06:51:21.648Z",
+      "subject": "Operating System",
+      "lectureStart": "12:20",
+      "lectureEnd": "13:20",
+      "durationSecs": 300,
+      "blockedStudents": [],
+      "cancelledAt": "2026-04-23T06:53:16.459Z"
+    },
+    {
+      "id": "17769368296044bmvh0g1u",
+      "teacherId": "1776890224159npl33gmhq",
+      "className": "CE-Y2-A",
+      "latitude": 19.1798833,
+      "longitude": 72.980185,
+      "qrToken": "SESSION_1776890224159npl33gmhq_1776936829010_j6k8qqb6j",
+      "expiresAt": "2026-04-23T09:43:49.010Z",
+      "createdAt": "2026-04-23T09:33:49.604Z",
+      "subject": "Operating System",
+      "lectureStart": "14:00",
+      "lectureEnd": "15:00",
+      "durationSecs": 600,
+      "blockedStudents": []
+    }
+  ],
+  "attendance": [
+    {
+      "id": "1776891960347b8imv01q1",
+      "studentId": "1776890223944rvmji76it",
+      "studentName": "Kanojiya Aditya Ramjanam",
+      "sessionId": "1776891956389kfe5suwhq",
+      "className": "CE-Y2-B",
+      "markedAt": "2026-04-22T21:06:00.347Z",
+      "subject": "Operating System",
+      "lectureStart": "02:35",
+      "lectureEnd": "03:35",
+      "teacherName": "Rujuta Dhon"
+    },
+    {
+      "id": "1776927087052f2356hrp0",
+      "studentId": "177689022395700q4w4tv3",
+      "studentName": "Khade Atharva Aashish",
+      "sessionId": "1776927081648epaitzogi",
+      "className": "CE-Y2-B",
+      "markedAt": "2026-04-23T06:51:27.052Z",
+      "subject": "Operating System",
+      "lectureStart": "12:20",
+      "lectureEnd": "13:20",
+      "teacherName": "Rujuta Dhon"
+    }
+  ]
 }

@@ -1,9 +1,28 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient } from "@tanstack/react-query";
 
-let baseUrl = "";
+let baseUrl = "http://192.168.1.36:5000";
+
+export function getBaseUrl(): string {
+  return baseUrl;
+}
 
 export function setBaseUrl(url: string) {
+  if (!url) return;
   baseUrl = url.replace(/\/$/, "");
+  try {
+    AsyncStorage.setItem("@custom_api_url", baseUrl).catch(() => {});
+  } catch {}
+}
+
+export async function loadSavedBaseUrl(): Promise<string> {
+  try {
+    const saved = await AsyncStorage.getItem("@custom_api_url");
+    if (saved) {
+      baseUrl = saved.replace(/\/$/, "");
+    }
+  } catch {}
+  return baseUrl;
 }
 
 export function getApiUrl(path: string): string {

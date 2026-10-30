@@ -14,11 +14,22 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { queryClient, setBaseUrl } from "@/lib/query-client";
+import { queryClient, setBaseUrl, loadSavedBaseUrl } from "@/lib/query-client";
 
-if (process.env.EXPO_PUBLIC_DOMAIN) {
-  setBaseUrl(`https://${process.env.EXPO_PUBLIC_DOMAIN}`);
+if (process.env.EXPO_PUBLIC_API_URL) {
+  setBaseUrl(process.env.EXPO_PUBLIC_API_URL);
+} else if (process.env.EXPO_PUBLIC_DOMAIN) {
+  const domain = process.env.EXPO_PUBLIC_DOMAIN;
+  if (domain.startsWith("http://") || domain.startsWith("https://")) {
+    setBaseUrl(domain);
+  } else {
+    const protocol = (domain.includes("localhost") || domain.includes("127.0.0.1")) ? "http" : "https";
+    setBaseUrl(`${protocol}://${domain}`);
+  }
+} else {
+  setBaseUrl("http://192.168.1.36:5000");
 }
+loadSavedBaseUrl();
 
 SplashScreen.preventAutoHideAsync();
 
