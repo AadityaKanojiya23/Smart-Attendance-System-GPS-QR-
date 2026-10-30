@@ -10,7 +10,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "http://192.168.1.36:5000"
+        "EXPO_PUBLIC_API_URL": "https://smart-attendance-api-5ap4.onrender.com"
       }
     }
   }

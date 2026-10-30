@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient } from "@tanstack/react-query";
 
-let baseUrl = "http://192.168.1.36:5000";
+let baseUrl = process.env.EXPO_PUBLIC_API_URL || "https://smart-attendance-api-5ap4.onrender.com";
 
 export function getBaseUrl(): string {
   return baseUrl;
