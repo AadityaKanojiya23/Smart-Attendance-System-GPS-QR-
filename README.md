@@ -43,28 +43,34 @@ After downloading, open the APK on Android and follow the installation prompts. 
 
 ## End-to-end attendance flow
 
-```mermaid
-sequenceDiagram
-    actor Teacher
-    participant Mobile as Expo mobile app
-    participant API as Express API
-    participant Store as JSON data store
-    actor Student
-
-    Teacher->>Mobile: Select class, subject, lecture time and QR duration
-    Mobile->>Mobile: Create unique QR token and expiry; obtain location if available
-    Mobile->>API: POST /api/sessions (authenticated teacher session)
-    API->>Store: Validate and persist the session
-    API-->>Mobile: Return the created session
-    Mobile-->>Teacher: Display QR code and countdown
-    Student->>Mobile: Scan QR with camera
-    Mobile->>Mobile: Request location when available
-    Mobile->>API: POST /api/attendance (QR token and optional coordinates)
-    API->>Store: Validate session, expiry, class, subject, block and duplicate rules
-    API->>API: If coordinates are supplied, check distance to session location
-    API->>Store: Append attendance record and persist JSON
-    API-->>Mobile: Return success or a validation error
-    Mobile-->>Student: Show result and refresh attendance data
+```text
+TEACHER                  MOBILE APP                    EXPRESS API               JSON STORE
+   |                          |                              |                         |
+   | Select class, subject,   |                              |                         |
+   | lecture time and QR time |                              |                         |
+   |------------------------->|                              |                         |
+   |                          | Create unique QR token,      |                         |
+   |                          | expiry and get GPS if able   |                         |
+   |                          |                              |                         |
+   |                          | POST /api/sessions          |                         |
+   |                          |----------------------------->| Validate teacher role   |
+   |                          |                              | Save session----------->|
+   |                          |<-----------------------------|<------------------------|
+   | Display QR and countdown |                              |                         |
+   |<-------------------------|                              |                         |
+   |                          |                              |                         |
+STUDENT                      |                              |                         |
+   | Scan teacher QR          |                              |                         |
+   |------------------------->| Read token; get GPS if able |                         |
+   |                          | POST /api/attendance         |                         |
+   |                          |----------------------------->| Check token and expiry  |
+   |                          |                              | Check class, subject,   |
+   |                          |                              | duplicate and block    |
+   |                          |                              | Check GPS if provided  |
+   |                          |                              | Save attendance------->|
+   |                          |<-----------------------------|<------------------------|
+   | See success or error     | Refresh attendance queries |                         |
+   |<-------------------------|                              |                         |
 ```
 
 ### Attendance validation rules
@@ -75,17 +81,25 @@ The app's launch screen also checks whether a device is within the configured **
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    U[Admin / Teacher / Student] --> M[Expo React Native mobile app]
-    M -->|HTTPS JSON requests, session cookie| A[Express 5 API]
-    A --> R[Role and business-rule middleware]
-    R --> S[In-memory store]
-    S -->|load and write| J[.data.json file]
-    M --> Q[React Query cache]
-    M --> C[AuthContext]
-    O[OpenAPI and generated workspace packages] -. shared contract assets .-> A
-    D[Drizzle / PostgreSQL workspace scaffold] -. not connected to live store .-> A
+```text
+Admin / Teacher / Student
+             |
+             v
+Expo React Native app
+  |-- AuthContext: current signed-in user
+  |-- React Query: API data cache and refresh
+  |-- Expo Router: role-based screens
+  |
+  | JSON requests + session cookie (/api)
+  v
+Express 5 API
+  |-- Authentication and role middleware
+  |-- Route handlers and attendance rules
+  v
+In-memory application store <---- load at startup / write changes ----> .data.json
+
+OpenAPI, generated API packages, and Drizzle/PostgreSQL package are workspace
+scaffolding; the current Express routes use the JSON store above.
 ```
 
 The mobile app and API are separate applications in one pnpm monorepo. The app sends JSON requests to the API under `/api`. Express session middleware authenticates requests, while route middleware restricts operations by role. The API reads and updates a process-wide in-memory store and serializes changes to `.data.json`.
